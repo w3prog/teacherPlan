@@ -1,0 +1,20 @@
+{% url 'teacherPlan:index' as index_url %}
+{% url 'teacherPlan:newPlan' as new_plan_url %}
+{% url 'teacherPlan:planlist' as plan_list_url %}
+{% url 'teacherPlan:simpleReport' as simple_report_url %}
+
+<li {% if request.get_full_path == index_url %}class="active"{% endif %}>
+    <a href="{% url 'teacherPlan:index' %}">Главная</a>
+</li>
+
+<li {% if request.get_full_path == new_plan_url %}class="active"{% endif %}>
+    <a href="{% url 'teacherPlan:newPlan' %}">Создать новый план</a>
+</li>
+
+<li {% if request.get_full_path == plan_list_url %}class="active"{% endif %}>
+    <a href="{% url 'teacherPlan:planlist' %}">Список планов</a>
+</li>
+
+<li {% if request.get_full_path == simple_report_url %}class="active"{% endif %}>
+    <a href="{% url 'teacherPlan:simpleReport' %}">Список планов</a>
+</li>

@@ -1,0 +1,7 @@
+.idea/
+main/
+manage.py
+db.sqlite3
+teacherPlan/migrations
+files
+bower_components

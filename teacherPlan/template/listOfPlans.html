@@ -1,0 +1,27 @@
+{% extends 'pages/mainTemplate.html' %}
+{% block title %}Список индивидуальных планов Иванова Ивана Ивановича{% endblock %}
+{% block pagename %}Список индивидуальных планов Иванова Ивана Ивановича{% endblock %}
+{% block content %}
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Год</th>
+          <th>Ссылка на план</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2014</td>
+          <td><a href="{% url 'teacherPlan:plan' %}">Перейти</a></td>
+        </tr>
+        <tr>
+          <td>2015</td>
+          <td><a href="{% url 'teacherPlan:plan' %}">Перейти</a></td>
+        </tr>
+        <tr>
+          <td>2016</td>
+          <td><a href="{% url 'teacherPlan:plan' %}">Перейти</a></td>
+        </tr>
+      </tbody>
+    </table>
+{% endblock %}

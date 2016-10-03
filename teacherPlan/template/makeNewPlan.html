@@ -1,0 +1,23 @@
+{% extends 'pages/mainTemplate.html' %}
+{% block title %}Список индивидуальных планов{% endblock %}
+{% block pagename %}Список индивидуальных планов{% endblock %}
+{% block content %}
+    
+    <form role="form">
+      <div class="controls new-plan">
+          <input class="form-control" placeholder="Факультет" type="text">
+          <input class="form-control" placeholder="Кафедра" type="text">
+          <input class="form-control" placeholder="Должность" type="text">
+          <input class="form-control" placeholder="Фамилия" type="text">
+          <input class="form-control" placeholder="Имя" type="text">
+          <input class="form-control" placeholder="Отчетство" type="text">
+          <input class="form-control" placeholder="Год рождения" type="text">
+          <input class="form-control" placeholder="Дата текущего избрания или зачисления на преподавательскую должность" type="text">
+          <input class="form-control" placeholder="Ученая степень и год присуждения" type="text">
+          <input class="form-control" placeholder="Ученое звание и год присуждения" type="text">
+          <input class="form-control" placeholder="Дата переизбрания(окончание трудового договора)" type="text">
+          <input type="submit" value="Создать">
+      </div>
+    </form>
+    
+{% endblock %}

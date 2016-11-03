@@ -1,0 +1,17 @@
+{% extends 'pages/mainTemplate.html' %}
+{% block title %}Вход на сайт{% endblock %}
+{% block pagename %}Вход на сайт{% endblock %}
+{% block content %}
+    <form role="form" method="post" action="/login">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="loginField">Логин</label>
+            <input type="text" class="form-control" id="loginField" name="loginField" placeholder="Введите логин">
+        </div>
+        <div class="form-group">
+            <label for="loginField">Пароль</label>
+            <input type="password" class="form-control" id="passwordField" name="passwordField" placeholder="Введите пароль">
+        </div>
+        <button type="submit" class="btn btn-primary">Войти</button>
+    </form>
+{% endblock %}

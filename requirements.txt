@@ -1,0 +1,4 @@
+-e git+https://github.com/django-nonrel/django@nonrel-1.5
+-e git+https://github.com/django-nonrel/djangotoolbox
+-e git+https://github.com/django-nonrel/mongodb-engine
+-e git+hhttps://github.com/w3prog/moevmCommon

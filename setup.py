@@ -7,8 +7,8 @@ README = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
-    name='django-scientificWork',
-    version='0.1',
+    name='django-teacherPlan',
+    version='0.01',
     packages=['teacherPlan'],
     include_package_data=True,
     license='MIT License',

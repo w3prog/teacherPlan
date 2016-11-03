@@ -1,5 +1,6 @@
+# -*- coding: utf-8 -*-
 from django.contrib.auth import logout
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
 from django.views.generic.edit import FormView
@@ -24,16 +25,22 @@ def loginTeacher(request):
                 login(request, user)
                 return HttpResponseRedirect('/')
             else:
-                return HttpResponse("Your  account is disabled.")
+                return HttpResponseRedirect('/loginwitherror')
         else:
-            print "Invalid login details: {0}, {1}".format(username, password)
-            return HttpResponse("Invalid login details supplied.")
+            print "Некорректные данные: Логин {0}, Пароль {1}".format(username, password)
+            return HttpResponseRedirect('/loginwitherror')
     return render(request, 'login.html')
+
+
+def errorLoginTeacher(request):
+    return render(request, 'login.html',{'error_message': 'Ошибка авторизации'})
+
 
 @login_required(login_url="/login")
 def logoutTeacher(request):
     logout(request)
     return HttpResponseRedirect('/login')
+
 
 @login_required(login_url="/login")
 def makeNewPlan(request):

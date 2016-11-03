@@ -11,6 +11,7 @@ urlpatterns = patterns(
    '',
    url(r'^$', index, name='tpindex'),
    url(r'^login$', loginTeacher, name='tplogin', ),
+   url(r'^loginwitherror$', errorLoginTeacher, name='tploginwitherror', ),
    url(r'^logout$', logoutTeacher, name='tplogout', ),
    url(r'^listOfPlans$', listOfPlans, name='tpplanlist', ),
    url(r'^makeNewPlan$', makeNewPlan, name='tpnewPlan', ),

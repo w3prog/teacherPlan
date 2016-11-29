@@ -52,17 +52,17 @@ def conclusion_to_pdf():
     styles.add(ParagraphStyle(name='mini_data',fontName='TimesItalic', fontSize=9, alignment=TA_CENTER))
     style_1 = styles['h_first']
     style_12 = styles['h_first2']
-    style_2 = styles['h_second']
-    style_3 = styles['h_third']
+    #style_2 = styles['h_second']
+    #style_3 = styles['h_third']
     style_4 = styles['mini_data']
 
-    canvas.line(480,747,580,747)
-    canvas.line(480,747,580,747)
-    canvas.line(480,747,580,747)
-    canvas.line(480,747,580,747)
-    canvas.line(480,747,580,747)
-    canvas.line(480,747,580,747)
-    I = Image('replogo.gif')
+    # canvas.line(480,747,580,747)
+    # canvas.line(480,747,580,747)
+    # canvas.line(480,747,580,747)
+    # canvas.line(480,747,580,747)
+    # canvas.line(480,747,580,747)
+    # canvas.line(480,747,580,747)
+    I = Image('im.png')
     I.drawHeight = 1.25*inch*I.drawHeight / I.drawWidth
     I.drawWidth = 1.25*inch
 
@@ -74,9 +74,9 @@ def conclusion_to_pdf():
     ])
     story = []
     story.append(Paragraph("МИНОБРНАУКИ РОССИИ", style_1))
-    story.append(Paragraph("САНКТ-ПЕТЕРБУРГСКИЙ /"
+    story.append(Paragraph("""САНКТ-ПЕТЕРБУРГСКИЙ
                            "ГОСУДАРСТВЕННЫЙ ЭЛЕКТРОТЕХНИЧЕСКИЙ УНИВЕРСИТЕТ/ "
-                           "«ЛЭТИ» им.В.И.Ульянова (Ленина)", style_12))
+                           "«ЛЭТИ» им.В.И.Ульянова (Ленина)""", style_12))
 
     story.append(Paragraph("/"
                            "/"
@@ -118,7 +118,7 @@ def conclusion_to_pdf():
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     styles.add(ParagraphStyle(name='h_third',fontName='TimesNewRoman', fontSize=14, alignment=TA_CENTER,))
-    styles.add(ParagraphStyle(name='h_first2', fontName='TimesBold', fontSize=12, alignment=TA_CENTER, ))
+    #styles.add(ParagraphStyle(name='h_first2', fontName='TimesBold', fontSize=12, alignment=TA_CENTER, ))
 
     style_3 = styles['h_third']
     style_12 = styles['h_first2']
@@ -206,8 +206,8 @@ def conclusion_to_pdf():
 
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-    styles.add(ParagraphStyle(name='h_third', fontName='TimesNewRoman', fontSize=14, alignment=TA_CENTER, ))
-    styles.add(ParagraphStyle(name='h_first2', fontName='TimesBold', fontSize=12, alignment=TA_CENTER, ))
+    #styles.add(ParagraphStyle(name='h_third', fontName='TimesNewRoman', fontSize=14, alignment=TA_CENTER, ))
+    #styles.add(ParagraphStyle(name='h_first2', fontName='TimesBold', fontSize=12, alignment=TA_CENTER, ))
 
     style_3 = styles['h_third']
     style_12 = styles['h_first2']
@@ -274,7 +274,11 @@ def conclusion_to_pdf():
     # Get the value of the BytesIO buffer and write it to the response.
     pdf = buffer.getvalue()
     buffer.close()
+    with open('text.pdf','w') as file:
+        file.write(pdf)
+
 
     # response.write(pdf)
     # return response
+
 conclusion_to_pdf()

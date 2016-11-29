@@ -41,19 +41,19 @@ def conclusion_to_pdf():
     buffer = BytesIO()
 
     # Create the PDF object, using the BytesIO object as its "file."
-    p = canvas.Canvas(buffer)
-    p.drawString(40,49,"12314")
-#
+    # p = canvas.Canvas(buffer)
+    # p.drawString(40,49,"12314")
+    doc = SimpleDocTemplate(buffer,pagesize = A4)
 #     p.drawString(1,1,"34")
-#
-#     styles = getSampleStyleSheet()
-#     styles.add(ParagraphStyle(name='h_first', fontName='TimesNewRoman', fontSize=12, alignment=TA_CENTER, leftIndent=2.32*inch))
-#     styles.add(ParagraphStyle(name='h_first2', fontName='TimesBold', fontSize=12, alignment=TA_CENTER, leftIndent=2.32*inch))
-#     styles.add(ParagraphStyle(name='h_second',fontName='TimesBold', fontSize=16, alignment=TA_CENTER))
+
+    styles = getSampleStyleSheet()
+    styles.add(ParagraphStyle(name='h_first', fontName='TimesNewRoman', fontSize=12, alignment=TA_CENTER, leftIndent=2.32*inch))
+    styles.add(ParagraphStyle(name='h_first2', fontName='TimesBold', fontSize=12, alignment=TA_CENTER, leftIndent=2.32*inch))
+    styles.add(ParagraphStyle(name='h_second',fontName='TimesBold', fontSize=16, alignment=TA_CENTER))
 #
 #     styles.add(ParagraphStyle(name='mini_data',fontName='TimesItalic', fontSize=9, alignment=TA_CENTER))
-#     style_1 = styles['h_first']
-#     style_12 = styles['h_first2']
+    style_1 = styles['h_first']
+    style_12 = styles['h_first2']
 #     #style_2 = styles['h_second']
 #     #style_3 = styles['h_third']
 #     style_4 = styles['mini_data']
@@ -74,19 +74,19 @@ def conclusion_to_pdf():
 #         ('GRID', (0, 0), (-1, -1), 0.25, colors.black),
 #         ('BACKGROUND', (0, 0), (15, -2), colors.lightgrey),
 #     ])
-#     story = []
-#     story.append(Paragraph("МИНОБРНАУКИ РОССИИ", style_1))
-#     story.append(Paragraph("""САНКТ-ПЕТЕРБУРГСКИЙ
-#                            "ГОСУДАРСТВЕННЫЙ ЭЛЕКТРОТЕХНИЧЕСКИЙ УНИВЕРСИТЕТ/ "
-#                            "«ЛЭТИ» им.В.И.Ульянова (Ленина)""", style_12))
-#
-#     story.append(Paragraph("/"
-#                            "/"
-#                            "/"
-#                            "ИНДИВИДУАЛЬНЫЙ  ПЛАН ПРЕПОДАВАТЕЛЯ/"
-#                            "", style_1))
-#
-#
+    story = []
+    story.append(Paragraph("МИНОБРНАУКИ РОССИИ", style_1))
+    story.append(Paragraph("""САНКТ-ПЕТЕРБУРГСКИЙ
+                           "ГОСУДАРСТВЕННЫЙ ЭЛЕКТРОТЕХНИЧЕСКИЙ УНИВЕРСИТЕТ/ "
+                           "«ЛЭТИ» им.В.И.Ульянова (Ленина)""", style_12))
+
+    story.append(Paragraph("/"
+                           "/"
+                           "/"
+                           "ИНДИВИДУАЛЬНЫЙ  ПЛАН ПРЕПОДАВАТЕЛЯ/"
+                           "", style_1))
+
+
 #     personal_data = [
 #         ['Факультет', '---'],
 #         ['Кафедра', '---'],
@@ -271,10 +271,7 @@ def conclusion_to_pdf():
 #
 #     # Close the PDF object cleanly.
 #     p.showPage()
-    p.save()
-
-    p.save()
-
+    doc.build(story)
     # Get the value of the BytesIO buffer and write it to the response.
     pdf = buffer.getvalue()
     with open('text.pdf', 'w') as file:

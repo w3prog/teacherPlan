@@ -4,10 +4,10 @@
 from django.db import models
 from djangotoolbox.fields import EmbeddedModelField, ListField
 
-from moevmCommon.models.userProfile import UserProfile
+#from moevmCommon.models.userProfile import UserProfile
 
 class teacherPlan(models.Model):
-  teacher = models.OneToOneField(UserProfile)
+#  teacher = models.OneToOneField(UserProfile)
   date = models.DateField(null=True)
 
   research = ListField(EmbeddedModelField('Publication'))

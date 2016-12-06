@@ -68,12 +68,12 @@ def conclusion_to_pdf():
 #     I.drawHeight = 1.25*inch*I.drawHeight / I.drawWidth
 #     I.drawWidth = 1.25*inch
 #
-#     normal_table_style = TableStyle([
-#         ('FONT', (0, 0), (-1, -1), 'TimesNewRoman', 9),
-#         ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
-#         ('GRID', (0, 0), (-1, -1), 0.25, colors.black),
-#         ('BACKGROUND', (0, 0), (15, -2), colors.lightgrey),
-#     ])
+    normal_table_style = TableStyle([
+        ('FONT', (0, 0), (-1, -1), 'TimesNewRoman', 9),
+        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+        ('GRID', (0, 0), (-1, -1), 0.25, colors.black),
+        ('BACKGROUND', (0, 0), (15, -2), colors.lightgrey),
+    ])
     story = []
     story.append(Paragraph("МИНОБРНАУКИ РОССИИ", style_1))
     story.append(Paragraph("""САНКТ-ПЕТЕРБУРГСКИЙ
@@ -87,19 +87,19 @@ def conclusion_to_pdf():
                            "", style_1))
 
 
-#     personal_data = [
-#         ['Факультет', '---'],
-#         ['Кафедра', '---'],
-#         ['Должность', '---'],
+#    personal_data = [
+#     ['Факультет', '---'],
+#     ['Кафедра', '---'],
+#     ['Должность', '---'],
 #
-#         #  ['Дата текущего избрания', '---'],
-#         # ['Ученая степень и год присуждения', '---'],
-#         # ['Ученое звание и год присвоения', '---'],
-#         # ['Дата окончания трудового договора', '---'],
-#     ]
-#     p_d=Table(personal_data)
-#     p_d.setStyle(normal_table_style)
-#
+#     #  ['Дата текущего избрания', '---'],
+#     # ['Ученая степень и год присуждения', '---'],
+#     # ['Ученое звание и год присвоения', '---'],
+#     # ['Дата окончания трудового договора', '---'],
+# ]
+# p_d = Table(personal_data)
+# p_d.setStyle(normal_table_style)
+
 #     story.append(Paragraph("Фамилия", style_4))
 #     story.append(Paragraph("Имя                                                                                        Отчество", style_4))
 #     story.append(Paragraph("Год рождения", style_4))

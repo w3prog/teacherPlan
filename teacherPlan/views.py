@@ -46,7 +46,7 @@ def logoutTeacher(request):
 
 @login_required(login_url="/login")
 def makeNewPlan(request):
-    return render(request,'makeNewPlan.html')
+    return render(request, 'make_plan.html')
 
 
 @login_required(login_url="/login")
@@ -56,11 +56,11 @@ def plan(request):
 
 @login_required(login_url="/login")
 def listOfPlans(request):
-    return render(request,'listOfPlans.html')
+    return render(request, 'plan_list.html')
 
 @login_required(login_url="/login")
 def listOfPlans(request):
-    return render(request,'listOfPlans.html')
+    return render(request, 'plan_list.html')
 
 @login_required(login_url="/login")
 def makePDF(request,id=1):

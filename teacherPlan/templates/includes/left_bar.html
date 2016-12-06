@@ -7,14 +7,15 @@
     <a href="{% url 'tpindex' %}">Главная</a>
 </li>
 
-<li {% if request.get_full_path == tpplan %}class="active"{% endif %}>
-    <a href="{% url 'tpnewPlan' %}">Текущий план</a>
+<li {% if request.get_full_path == currentPlan %}class="active"{% endif %}>
+    <a href="{% url 'currentPlan' %}">Текущий план</a>
 </li>
 
 <li {% if request.get_full_path == plan_list_url %}class="active"{% endif %}>
     <a href="{% url 'tpplanlist' %}">Список планов</a>
 </li>
-
+{% if user.is_superuser %}
 <li {% if request.get_full_path == simple_report_url %}class="active"{% endif %}>
-    <a href="{% url 'tpsimpleReport' %}">Список планов</a>
+    <a href="{% url 'tpsimpleReport' %}">Итоговый отчет</a>
 </li>
+{% endif %}

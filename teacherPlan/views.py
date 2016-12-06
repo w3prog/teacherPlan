@@ -14,7 +14,6 @@ from .pdf.pdf_generate import conclusion_to_pdf
 def index(request):
     return render(request,'index.html')
 
-
 def loginTeacher(request):
     if request.method == 'POST':
         username = request.POST['loginField']
@@ -33,32 +32,37 @@ def loginTeacher(request):
             return HttpResponseRedirect('/loginwitherror')
     return render(request, 'login.html')
 
-
 def errorLoginTeacher(request):
     return render(request, 'login.html',{'error_message': 'Ошибка авторизации'})
-
 
 @login_required(login_url="/login")
 def logoutTeacher(request):
     logout(request)
     return HttpResponseRedirect('/login')
 
-
 @login_required(login_url="/login")
 def makeNewPlan(request):
+    # todo реализовать логику
     return render(request, 'make_plan.html')
 
+@login_required(login_url="/login")
+def plan(request,id=1):
+    # todo реализовать логику
+    return render(request,'plan.html')
 
 @login_required(login_url="/login")
-def plan(request):
+def currentPlan(request):
+    #todo реализовать логику
     return render(request,'plan.html')
 
 @login_required(login_url="/login")
 def listOfPlans(request):
+    # todo реализовать логику
     return render(request, 'plan_list.html')
 
 @login_required(login_url="/login")
 def listOfPlans(request):
+    # todo реализовать логику
     return render(request, 'plan_list.html')
 
 @login_required(login_url="/login")
@@ -69,38 +73,45 @@ def makePDF(request,id=1):
 
     return conclusion_to_pdf(response,id)
 
-
 #forms
 @login_required(login_url="/login")
 def difWorkList(request, id=1):
+    # todo реализовать логику
     return render(request, 'forms/dif_work_list.html')
 
 @login_required(login_url="/login")
 def disciplineList(request, id=1):
+    # todo реализовать логику
     return render(request, 'forms/discipline_list.html')
 
 @login_required(login_url="/login")
 def participationList(request, id=1):
+    # todo реализовать логику
     return render(request, 'forms/participation_list.html')
 
 @login_required(login_url="/login")
 def publicationList(request, id=1):
+    # todo реализовать логику
     return render(request, 'forms/publication_list.html')
 
 @login_required(login_url="/login")
 def qualificationList(request, id=1):
+    # todo реализовать логику
     return render(request, 'forms/qualification_list.html')
 
 @login_required(login_url="/login")
 def remarkList(request, id=1):
+    # todo реализовать логику
     return render(request, 'forms/remark_list.html')
 
 @login_required(login_url="/login")
 def scWorkList(request, id=1):
+    # todo реализовать логику
     return render(request, 'forms/sc_work_list.html')
 
 @login_required(login_url="/login")
 def studybookList(request, id=1):
+    #todo реализовать логику
     return render(request, 'forms/studybook_list.html')
 
 # for managers

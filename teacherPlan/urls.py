@@ -10,13 +10,17 @@ from views import *
 urlpatterns = patterns(
    '',
    url(r'^$', index, name='tpindex'),
+
+   #auth
    url(r'^login$', loginTeacher, name='tplogin', ),
    url(r'^loginwitherror$', errorLoginTeacher, name='tploginwitherror', ),
    url(r'^logout$', logoutTeacher, name='tplogout', ),
+
+   #plans
    url(r'^listOfPlans$', listOfPlans, name='tpplanlist', ),
    url(r'^makeNewPlan$', makeNewPlan, name='tpnewPlan', ),
-   url(r'^plan$', plan, name='tpplan', ),
-
+   url(r'^plan/(?P<id>[0-9]+)$', plan, name='tpplan', ),
+   url(r'^currentPlan/', currentPlan, name='currentPlan', ),
 
    #forms
    url(r'^pdf/(?P<id>[0-9]+)', makePDF, name='pdf'),

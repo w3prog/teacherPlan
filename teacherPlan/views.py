@@ -8,6 +8,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth
 
+from .pdf.pdf_generate import conclusion_to_pdf
+
 @login_required(login_url="/login")
 def index(request):
     return render(request,'index.html')
@@ -55,6 +57,18 @@ def plan(request):
 @login_required(login_url="/login")
 def listOfPlans(request):
     return render(request,'listOfPlans.html')
+
+@login_required(login_url="/login")
+def listOfPlans(request):
+    return render(request,'listOfPlans.html')
+
+@login_required(login_url="/login")
+def makePDF(request,id=1):
+    response = HttpResponse(content_type='application/pdf')
+    somefilename = "somefilename" #TODO сделать нормальное имя для файла
+    response['Content-Disposition'] = 'attachment; filename="' + somefilename + '.pdf"'
+
+    return conclusion_to_pdf(response)
 
 # for managers
 

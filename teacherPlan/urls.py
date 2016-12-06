@@ -16,5 +16,8 @@ urlpatterns = patterns(
    url(r'^listOfPlans$', listOfPlans, name='tpplanlist', ),
    url(r'^makeNewPlan$', makeNewPlan, name='tpnewPlan', ),
    url(r'^plan$', plan, name='tpplan', ),
-   url(r'^managerReport$', managerReport, name='tpsimpleReport')
+
+   url(r'^pdf/(?P<id>[0-9]{4})', makePDF, name='pdf'),
+   #for managers
+   url(r'^managerReport$', managerReport, name='tpsimpleReport'),
 )

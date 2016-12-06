@@ -28,23 +28,11 @@ PAGE_SIZE = A4
 #MyFontObject = ttfonts.TTFont('Arial', ‘arial.ttf’)
 #pdfmetrics.registerFont(MyFontObject)
 
-def conclusion_to_pdf():
-#def some_view(request):
-    # Create the HttpResponse object with the appropriate PDF headers.
-    # response = HttpResponse(content_type='application/pdf')
-    # response['Content-Disposition'] = 'attachment; filename="ureport.pdf"'
+def conclusion_to_pdf(response):
 
     pdfmetrics.registerFont(TTFont('TimesNewRoman', 'TimesNewRoman.ttf'))
     pdfmetrics.registerFont(TTFont('TimesBold', 'TimesBold.ttf'))
     pdfmetrics.registerFont(TTFont('TimesItalic', 'TimesItalic.ttf'))
-
-    buffer = BytesIO()
-
-    # Create the PDF object, using the BytesIO object as its "file."
-    # p = canvas.Canvas(buffer)
-    # p.drawString(40,49,"12314")
-    doc = SimpleDocTemplate(buffer,pagesize = A4)
-#     p.drawString(1,1,"34")
 
     styles = getSampleStyleSheet()
     styles.add(ParagraphStyle(name='h_first', fontName='TimesNewRoman', fontSize=12, alignment=TA_CENTER, leftIndent=2.32*inch))
@@ -259,28 +247,11 @@ def conclusion_to_pdf():
 #
 #
 #     story.append(Paragraph("8. Замечания по работе преподавателя", style_3))
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#     # Close the PDF object cleanly.
-#     p.showPage()
+
+    doc = SimpleDocTemplate(response, pagesize=A4)
+
     doc.build(story)
-    # Get the value of the BytesIO buffer and write it to the response.
-    pdf = buffer.getvalue()
-    with open('text.pdf', 'w') as file:
-        file.write(pdf)
-    buffer.close()
+    return response
 
-
-
-    # response.write(pdf)
-    # return response
-
-conclusion_to_pdf()
+if __name__ == '__main__':
+    conclusion_to_pdf('mydoc.pdf')

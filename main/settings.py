@@ -26,8 +26,8 @@ INSTALLED_APPS = [
     'djangotoolbox',
     'django_mongodb_engine',
     'teacherPlan',
-    #'moevmCommon',
-   # 'faker',
+    'moevmCommon',
+    'faker',
 ]
 
 MIDDLEWARE_CLASSES = (

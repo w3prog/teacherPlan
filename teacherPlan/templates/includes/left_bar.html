@@ -7,8 +7,8 @@
     <a href="{% url 'tpindex' %}">Главная</a>
 </li>
 
-<li {% if request.get_full_path == new_plan_url %}class="active"{% endif %}>
-    <a href="{% url 'tpnewPlan' %}">Создать новый план</a>
+<li {% if request.get_full_path == tpplan %}class="active"{% endif %}>
+    <a href="{% url 'tpnewPlan' %}">Текущий план</a>
 </li>
 
 <li {% if request.get_full_path == plan_list_url %}class="active"{% endif %}>

@@ -28,7 +28,7 @@ PAGE_SIZE = A4
 #MyFontObject = ttfonts.TTFont('Arial', ‘arial.ttf’)
 #pdfmetrics.registerFont(MyFontObject)
 
-def conclusion_to_pdf(response):
+def conclusion_to_pdf(response,id=1):
 
     pdfmetrics.registerFont(TTFont('TimesNewRoman', 'TimesNewRoman.ttf'))
     pdfmetrics.registerFont(TTFont('TimesBold', 'TimesBold.ttf'))

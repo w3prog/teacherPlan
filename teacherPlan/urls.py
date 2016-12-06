@@ -17,7 +17,18 @@ urlpatterns = patterns(
    url(r'^makeNewPlan$', makeNewPlan, name='tpnewPlan', ),
    url(r'^plan$', plan, name='tpplan', ),
 
-   url(r'^pdf/(?P<id>[0-9]{4})', makePDF, name='pdf'),
+
+   #forms
+   url(r'^pdf/(?P<id>[0-9]+)', makePDF, name='pdf'),
+   url(r'^difWorkList/(?P<id>[0-9]+)', difWorkList, name='difWorkList'),
+   url(r'^disciplineList/(?P<id>[0-9]+)', disciplineList, name='disciplineList'),
+   url(r'^participationList/(?P<id>[0-9]+)', participationList, name='participationList'),
+   url(r'^publicationList/(?P<id>[0-9]+)', publicationList, name='publicationList'),
+   url(r'^qualificationList/(?P<id>[0-9]+)', qualificationList, name='qualificationList'),
+   url(r'^remarkList/(?P<id>[0-9]+)', remarkList, name='remarkList'),
+   url(r'^scWorkList/(?P<id>[0-9]+)', scWorkList, name='scWorkList'),
+   url(r'^studybookList/(?P<id>[0-9]+)', studybookList, name='studybookList'),
+
    #for managers
    url(r'^managerReport$', managerReport, name='tpsimpleReport'),
 )

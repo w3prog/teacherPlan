@@ -53,7 +53,6 @@ def makeNewPlan(request):
 def plan(request):
     return render(request,'plan.html')
 
-
 @login_required(login_url="/login")
 def listOfPlans(request):
     return render(request, 'plan_list.html')
@@ -68,7 +67,41 @@ def makePDF(request,id=1):
     somefilename = "somefilename" #TODO сделать нормальное имя для файла
     response['Content-Disposition'] = 'attachment; filename="' + somefilename + '.pdf"'
 
-    return conclusion_to_pdf(response)
+    return conclusion_to_pdf(response,id)
+
+
+#forms
+@login_required(login_url="/login")
+def difWorkList(request, id=1):
+    return render(request, 'forms/dif_work_list.html')
+
+@login_required(login_url="/login")
+def disciplineList(request, id=1):
+    return render(request, 'forms/discipline_list.html')
+
+@login_required(login_url="/login")
+def participationList(request, id=1):
+    return render(request, 'forms/participation_list.html')
+
+@login_required(login_url="/login")
+def publicationList(request, id=1):
+    return render(request, 'forms/publication_list.html')
+
+@login_required(login_url="/login")
+def qualificationList(request, id=1):
+    return render(request, 'forms/qualification_list.html')
+
+@login_required(login_url="/login")
+def remarkList(request, id=1):
+    return render(request, 'forms/remark_list.html')
+
+@login_required(login_url="/login")
+def scWorkList(request, id=1):
+    return render(request, 'forms/sc_work_list.html')
+
+@login_required(login_url="/login")
+def studybookList(request, id=1):
+    return render(request, 'forms/studybook_list.html')
 
 # for managers
 

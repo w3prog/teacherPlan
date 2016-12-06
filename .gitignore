@@ -90,8 +90,6 @@ ENV/
 
 
 .idea/
-main/
-manage.py
 teacherPlan/migrations
 files
 bower_components

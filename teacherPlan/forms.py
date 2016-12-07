@@ -60,12 +60,12 @@ class ConfForm(forms.ModelForm):
 
 class RegisterTeacherForm(forms.Form):
   username = forms.CharField(
-    label='login',
+    label='Логин',
     max_length=100,
     required=True,
   )
-  email = forms.CharField(
-    label="email",
+  email = forms.EmailField(
+    label="Email",
     max_length=100,
     required = True,
   )

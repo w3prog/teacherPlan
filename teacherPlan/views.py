@@ -47,26 +47,30 @@ def logoutTeacher(request):
 
 def registerTeacher(request):
     if request.method == 'POST':
+        form = RegisterTeacherForm(request.POST)
+        if form.is_valid():
+            UserProfile.objects.create_teacher(
+                username=request.POST['username'],
+                email=request.POST['email'],
+                password=request.POST['password'],
+                first_name=request.POST['first_name'],
+                last_name=request.POST['last_name'],
+                birth_date=request.POST['birth_date'],
+                patronymic=request.POST['patronymic'],
+                election_date=request.POST['election_date'],
+                position=request.POST['position'],
+                contract_date=request.POST['contract_date'],
+                academic_degree=request.POST['academic_degree'],
+                year_of_academic_degree=request.POST['year_of_academic_degree'],
+                academic_status=request.POST['academic_status'],
+                year_of_academic_status=request.POST['year_of_academic_status'],
+                academic_state=request.POST['academic_state'],
+                github_id=request.POST['github_id'],
+                stepic_id=request.POST['stepic_id'],
+            )
+            return HttpResponseRedirect('/registerTeacher')
+        return HttpResponseRedirect('/registerTeacher')
 
-        UserProfile.objects.create_teacher(
-            username=None,
-            email=None,
-            password=None,
-            first_name=None,
-            last_name=None,
-            birth_date=None,
-            patronymic=None,
-            election_date=None,
-            position=None,
-            contract_date=None,
-            academic_degree=None,
-            year_of_academic_degree=None,
-            academic_status=None,
-            year_of_academic_status=None,
-            academic_state=None,
-            github_id=None,
-            stepic_id=None,
-        )
     else:
         return render(request, 'register_teacher.html',{'form':RegisterTeacherForm})
 

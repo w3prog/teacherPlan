@@ -2,6 +2,7 @@
 {% block title %}Регистрация преподавателя{% endblock %}
 {% block pagename %}Регистрация преподавателя{% endblock %}
 {% block content %}
+    {{ message }}
     <form action="/registerTeacher" method="post">
         {% csrf_token %}
         {{ form.as_p }}

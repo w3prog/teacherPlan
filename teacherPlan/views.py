@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import auth
 
 from moevmCommon.models.userProfile import UserProfile
-from teacherPlan.forms import ScientificEventForm, AnotherWorkForm, QualificationForm, RemarkForm
+from teacherPlan.forms import ScientificEventForm, AnotherWorkForm, QualificationForm, RemarkForm, RegisterTeacherForm
 from .pdf.pdf_generate import conclusion_to_pdf
 from moevmCommon.decorators import login_teacher_required
 
@@ -19,6 +19,7 @@ def index(request):
     return render(request,'index.html')
 
 def loginTeacher(request):
+
     if request.method == 'POST':
         username = request.POST['loginField']
         password = request.POST['passwordField']
@@ -67,7 +68,7 @@ def registerTeacher(request):
             stepic_id=None,
         )
     else:
-        return render(request, 'register_teacher.html')
+        return render(request, 'register_teacher.html',{'form':RegisterTeacherForm})
 
 
 

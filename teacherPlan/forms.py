@@ -12,20 +12,21 @@ from moevmCommon.models.userProfile import UserProfile,ACADEMIC_DEGREE_CHOICES,\
 from teacherPlan.models import AnotherWork, Remark, Qualification, Conf
 
 
-class NirForm(forms.ModelForm):
-    class Meta:
-        model=nir
-        fields=('workName','startDate','finishDate','role','organisation')
+# class NirForm(forms.ModelForm):
+#     class Meta:
+#         model=nir
+#         fields=('workName','startDate','finishDate','role','organisation'
+#         )
 
 # class PublicationForm(forms.ModelForm):
 #    class Meta:
 #        model=publication
 #        #fields=('name_mw', 'edition', 'volume', 'requisite', 'mw_date', 'realization')
 
-class AcademicDisciplineForm(forms.ModelForm):
-    class Meta:
-        model=AcademicDisciplineOfTeacher
-        fields=('name','period','partaker','organization')
+# class AcademicDisciplineForm(forms.ModelForm):
+#     class Meta:
+#         model=AcademicDisciplineOfTeacher
+#         fields=('name','period','partaker','organization')
 
 class ScientificEventForm(forms.ModelForm):
      class Meta:
@@ -95,7 +96,7 @@ class RegisterTeacherForm(forms.Form):
     label="Дата текущего избрания или зачисления на преподавательскую должность",
   )
   position = forms.CharField(
-    "Должность",
+    label="Должность",
     max_length=40,
     required=True,
   )
@@ -103,7 +104,7 @@ class RegisterTeacherForm(forms.Form):
     label="Срок окончания трудового договора"
   )
   academic_degree = forms.ChoiceField(
-    max_length=2,
+    label="Учебная степень",
     choices=ACADEMIC_DEGREE_CHOICES,
     required=True,
   )
@@ -111,7 +112,7 @@ class RegisterTeacherForm(forms.Form):
     label="Год присвоения ученой степени"
   )
   academic_status = forms.ChoiceField(
-    max_length=2,
+    label="Учебное звание",
     choices=ACADEMIC_STATUS_CHOICES,
     required=True,
   )
@@ -119,7 +120,7 @@ class RegisterTeacherForm(forms.Form):
     label="Год получения учебного звания"
   )
   academic_state = forms.ChoiceField(
-    max_length=2,
+    label="Академическое положение",
     choices=ACADEMIC_STATE_CHOICES
   )
   github_id = forms.CharField(

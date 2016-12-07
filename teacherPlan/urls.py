@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 from django.conf.urls import patterns, url
 from django.conf.urls import url, include
 from django.contrib.contenttypes import views as contenttype_views

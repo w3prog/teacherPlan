@@ -1,12 +1,11 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-# Create your models here.
 from django.db import models
 from djangotoolbox.fields import EmbeddedModelField, ListField
 
 #from moevmCommon.models.userProfile import UserProfile
 
-class teacherPlan(models.Model):
+class TeacherPlan(models.Model):
 #  teacher = models.OneToOneField(UserProfile)
   date = models.DateField(null=True)
 
@@ -53,7 +52,7 @@ class Publication(models.Model):
   name_publisher = models.CharField(max_length=200, verbose_name="Наименование издательства")
 
 
-class AnotherW(models.Model):
+class AnotherWork(models.Model):
   work_date = models.DateTimeField(verbose_name="Период")
   v_work = models.CharField(max_length=200, verbose_name="Вид работы")
 
@@ -79,9 +78,9 @@ class Study(models.Model):
   organization = models.CharField(max_length=200, verbose_name="Организация или предприятие")
 
 
-  #
-  # class Conf(models.Model):
-  #     conf_date = models.DateTimeField(verbose_name="Дата")
-  #     name_conf = models.CharField(max_length=200, verbose_name="Наименование конференции")
-  #     level_conf=models.CharField(max_length=200, verbose_name="Уровень конференции")
-  #     name_rep = models.CharField(max_length=200, verbose_name="Наименование доклада")
+
+class Conf(models.Model):
+    conf_date = models.DateTimeField(verbose_name="Дата")
+    name_conf = models.CharField(max_length=200, verbose_name="Наименование конференции")
+    level_conf=models.CharField(max_length=200, verbose_name="Уровень конференции")
+    name_rep = models.CharField(max_length=200, verbose_name="Наименование доклада")

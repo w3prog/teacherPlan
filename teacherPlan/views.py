@@ -1,3 +1,4 @@
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
 from django.contrib.auth import logout
 from django.shortcuts import render,redirect
@@ -8,6 +9,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth
 
+from teacherPlan.forms import ScientificEventForm, AnotherWorkForm, QualificationForm, RemarkForm
 from .pdf.pdf_generate import conclusion_to_pdf
 
 @login_required(login_url="/login")
@@ -77,42 +79,43 @@ def makePDF(request,id=1):
 @login_required(login_url="/login")
 def difWorkList(request, id=1):
     # todo реализовать логику
-    return render(request, 'forms/dif_work_list.html')
+    return render(request, 'forms/dif_work_list.html',{'form':AnotherWorkForm})
 
 @login_required(login_url="/login")
 def disciplineList(request, id=1):
     # todo реализовать логику
-    return render(request, 'forms/discipline_list.html')
+    return render(request, 'forms/discipline_list.html',{'form':QualificationForm})
 
 @login_required(login_url="/login")
 def participationList(request, id=1):
     # todo реализовать логику
-    return render(request, 'forms/participation_list.html')
+    return render(request, 'forms/participation_list.html',{'form':QualificationForm})
 
 @login_required(login_url="/login")
 def publicationList(request, id=1):
     # todo реализовать логику
-    return render(request, 'forms/publication_list.html')
+    publications=1
+    return render(request, 'forms/publication_list.html', {'form': ScientificEventForm})
 
 @login_required(login_url="/login")
 def qualificationList(request, id=1):
     # todo реализовать логику
-    return render(request, 'forms/qualification_list.html')
+    return render(request, 'forms/qualification_list.html',{'form':QualificationForm})
 
 @login_required(login_url="/login")
 def remarkList(request, id=1):
     # todo реализовать логику
-    return render(request, 'forms/remark_list.html')
+    return render(request, 'forms/remark_list.html',{'form':RemarkForm})
 
 @login_required(login_url="/login")
 def scWorkList(request, id=1):
     # todo реализовать логику
-    return render(request, 'forms/sc_work_list.html')
+    return render(request, 'forms/sc_work_list.html',{'form':QualificationForm})
 
 @login_required(login_url="/login")
 def studybookList(request, id=1):
     #todo реализовать логику
-    return render(request, 'forms/studybook_list.html')
+    return render(request, 'forms/studybook_list.html',{'form':QualificationForm})
 
 # for managers
 

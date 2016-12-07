@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import auth
 
 from moevmCommon.models.userProfile import UserProfile
-from teacherPlan.forms import ScientificEventForm, AnotherWorkForm, QualificationForm, RemarkForm, RegisterTeacherForm
+from teacherPlan.forms import *
 from .pdf.pdf_generate import conclusion_to_pdf
 from moevmCommon.decorators import login_teacher_required
 
@@ -109,50 +109,46 @@ def makePDF(request,id=1):
 
     return conclusion_to_pdf(response,id)
 
-#forms
+##SECTION TP forms
 @login_teacher_required(login_url="/login")
-def difWorkList(request, id=1):
-    # todo реализовать логику
-    return render(request, 'forms/dif_work_list.html',{'form':AnotherWorkForm})
-
+def studybookList(request, id=1):
+    #todo реализовать логику
+    return render(request, 'forms/1_studybook_list.html', {'form':StudyBookForm})
 @login_teacher_required(login_url="/login")
 def disciplineList(request, id=1):
     # todo реализовать логику
-    return render(request, 'forms/discipline_list.html',{'form':QualificationForm})
-
+    return render(request, 'forms/2_discipline_list.html', {'form':AcademicDisciplineForm})
+@login_teacher_required(login_url="/login")
+def scWorkList(request, id=1):
+    # todo реализовать логику
+    return render(request, 'forms/3_sc_work_list.html', {'form':ScWorkForm})
 @login_teacher_required(login_url="/login")
 def participationList(request, id=1):
     # todo реализовать логику
-    return render(request, 'forms/participation_list.html',{'form':QualificationForm})
-
+    return render(request, 'forms/4_participation_list.html', {'form':ParticipationForm})
 @login_teacher_required(login_url="/login")
 def publicationList(request, id=1):
     # todo реализовать логику
     publications=1
-    return render(request, 'forms/publication_list.html', {'form': ScientificEventForm})
-
+    return render(request, 'forms/5_publication_list.html', {'form': PublicationForm})
 @login_teacher_required(login_url="/login")
 def qualificationList(request, id=1):
     # todo реализовать логику
-    return render(request, 'forms/qualification_list.html',{'form':QualificationForm})
-
+    return render(request, 'forms/6_qualification_list.html', {'form':QualificationForm})
+@login_teacher_required(login_url="/login")
+def difWorkList(request, id=1):
+    # todo реализовать логику
+    return render(request, 'forms/7_dif_work_list.html', {'form':AnotherWorkForm})
 @login_teacher_required(login_url="/login")
 def remarkList(request, id=1):
     # todo реализовать логику
-    return render(request, 'forms/remark_list.html',{'form':RemarkForm})
+    return render(request, 'forms/8_remark_list.html', {'form':RemarkForm})
 
-@login_teacher_required(login_url="/login")
-def scWorkList(request, id=1):
-    # todo реализовать логику
-    return render(request, 'forms/sc_work_list.html',{'form':QualificationForm})
+## END SECTION TP forms
 
-@login_teacher_required(login_url="/login")
-def studybookList(request, id=1):
-    #todo реализовать логику
-    return render(request, 'forms/studybook_list.html',{'form':QualificationForm})
+
 
 # for managers
-
 def managerReport(request):
     if request.user.is_superuser:
         return render(request,'manager/report.html')

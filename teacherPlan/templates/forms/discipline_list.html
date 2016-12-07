@@ -3,7 +3,7 @@
 {% block pagename %}Постановка и модернизация дисциплин{% endblock %}
 {% block content %}
 
-    <table id="table">
+    <table class="table table-bordered">
         <tr>
             <th>Наименование дисциплины</th>
             <th>Вид занятий</th>
@@ -17,8 +17,10 @@
         </tr>
     </table>
 
-    <form action="/add_discipline">
-
+    <form action="/add_discipline" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Добавить">
     </form>
 
 {% endblock %}

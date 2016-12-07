@@ -3,7 +3,7 @@
 {% block pagename %}Повышение  квалификации{% endblock %}
 {% block content %}
 
-    <table id="table">
+    <table class="table table-bordered">
         <tr>
             <th>Период</th>
             <th>Форма повышения квалификации</th>
@@ -15,8 +15,10 @@
         </tr>
     </table>
 
-    <form action="/add_qualification">
-
+    <form action="/add_qualification" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Добавить">
     </form>
 
 {% endblock %}

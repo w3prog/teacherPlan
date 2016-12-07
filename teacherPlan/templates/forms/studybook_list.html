@@ -3,7 +3,7 @@
 {% block pagename %}Подготовка учебников, учебных пособий и методических указаний, включая электронные издания {% endblock %}
 {% block content %}
 
-    <table id="table">
+    <table class="table table-bordered">
         <tr>
             <th>Наименование</th>
             <th>Вид издания</th>
@@ -20,10 +20,11 @@
             <td></td>
         </tr>
     </table>
-    AcademicDiscipline
 
-    <form action="/add_studybook">
-
+    <form action="/add_studybook" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Добавить">
     </form>
 
 {% endblock %}

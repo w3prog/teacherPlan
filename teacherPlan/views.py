@@ -9,10 +9,12 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth
 
+from moevmCommon.models.userProfile import UserProfile
 from teacherPlan.forms import ScientificEventForm, AnotherWorkForm, QualificationForm, RemarkForm
 from .pdf.pdf_generate import conclusion_to_pdf
+from moevmCommon.decorators import login_teacher_required
 
-@login_required(login_url="/login")
+@login_teacher_required(login_url="/login")
 def index(request):
     return render(request,'index.html')
 
@@ -37,37 +39,64 @@ def loginTeacher(request):
 def errorLoginTeacher(request):
     return render(request, 'login.html',{'error_message': 'Ошибка авторизации'})
 
-@login_required(login_url="/login")
+@login_teacher_required(login_url="/login")
 def logoutTeacher(request):
     logout(request)
     return HttpResponseRedirect('/login')
 
-@login_required(login_url="/login")
+def registerTeacher(request):
+    if request.method == 'POST':
+
+        UserProfile.objects.create_teacher(
+            username=None,
+            email=None,
+            password=None,
+            first_name=None,
+            last_name=None,
+            birth_date=None,
+            patronymic=None,
+            election_date=None,
+            position=None,
+            contract_date=None,
+            academic_degree=None,
+            year_of_academic_degree=None,
+            academic_status=None,
+            year_of_academic_status=None,
+            academic_state=None,
+            github_id=None,
+            stepic_id=None,
+        )
+    else:
+        return render(request, 'register_teacher.html')
+
+
+
+@login_teacher_required(login_url="/login")
 def makeNewPlan(request):
     # todo реализовать логику
     return render(request, 'make_plan.html')
 
-@login_required(login_url="/login")
+@login_teacher_required(login_url="/login")
 def plan(request,id=1):
     # todo реализовать логику
     return render(request,'plan.html')
 
-@login_required(login_url="/login")
+@login_teacher_required(login_url="/login")
 def currentPlan(request):
     #todo реализовать логику
     return render(request,'plan.html')
 
-@login_required(login_url="/login")
+@login_teacher_required(login_url="/login")
 def listOfPlans(request):
     # todo реализовать логику
     return render(request, 'plan_list.html')
 
-@login_required(login_url="/login")
+@login_teacher_required(login_url="/login")
 def listOfPlans(request):
     # todo реализовать логику
     return render(request, 'plan_list.html')
 
-@login_required(login_url="/login")
+@login_teacher_required(login_url="/login")
 def makePDF(request,id=1):
     response = HttpResponse(content_type='application/pdf')
     somefilename = "somefilename" #TODO сделать нормальное имя для файла
@@ -76,43 +105,43 @@ def makePDF(request,id=1):
     return conclusion_to_pdf(response,id)
 
 #forms
-@login_required(login_url="/login")
+@login_teacher_required(login_url="/login")
 def difWorkList(request, id=1):
     # todo реализовать логику
     return render(request, 'forms/dif_work_list.html',{'form':AnotherWorkForm})
 
-@login_required(login_url="/login")
+@login_teacher_required(login_url="/login")
 def disciplineList(request, id=1):
     # todo реализовать логику
     return render(request, 'forms/discipline_list.html',{'form':QualificationForm})
 
-@login_required(login_url="/login")
+@login_teacher_required(login_url="/login")
 def participationList(request, id=1):
     # todo реализовать логику
     return render(request, 'forms/participation_list.html',{'form':QualificationForm})
 
-@login_required(login_url="/login")
+@login_teacher_required(login_url="/login")
 def publicationList(request, id=1):
     # todo реализовать логику
     publications=1
     return render(request, 'forms/publication_list.html', {'form': ScientificEventForm})
 
-@login_required(login_url="/login")
+@login_teacher_required(login_url="/login")
 def qualificationList(request, id=1):
     # todo реализовать логику
     return render(request, 'forms/qualification_list.html',{'form':QualificationForm})
 
-@login_required(login_url="/login")
+@login_teacher_required(login_url="/login")
 def remarkList(request, id=1):
     # todo реализовать логику
     return render(request, 'forms/remark_list.html',{'form':RemarkForm})
 
-@login_required(login_url="/login")
+@login_teacher_required(login_url="/login")
 def scWorkList(request, id=1):
     # todo реализовать логику
     return render(request, 'forms/sc_work_list.html',{'form':QualificationForm})
 
-@login_required(login_url="/login")
+@login_teacher_required(login_url="/login")
 def studybookList(request, id=1):
     #todo реализовать логику
     return render(request, 'forms/studybook_list.html',{'form':QualificationForm})

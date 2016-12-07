@@ -23,6 +23,7 @@ urlpatterns = patterns(
    url(r'^makeNewPlan$', makeNewPlan, name='tpnewPlan', ),
    url(r'^plan/(?P<id>[0-9]+)$', plan, name='tpplan', ),
    url(r'^currentPlan/', currentPlan, name='currentPlan', ),
+   url(r'^registerTeacher/', registerTeacher,name='registerTeacher' ),
 
    #forms
    url(r'^pdf/(?P<id>[0-9]+)', makePDF, name='pdf'),

@@ -4,60 +4,60 @@ from django import forms
 from moevmCommon.models import *
 from moevmCommon.models import nir
 from moevmCommon.models import publication
-from moevmCommon.models import publication
 from moevmCommon.models.academicDiscipline import AcademicDiscipline, AcademicDisciplineOfTeacher
 from moevmCommon.models.scientificEvent import ScientificEvent
 from moevmCommon.models.userProfile import UserProfile,ACADEMIC_DEGREE_CHOICES,\
   ACADEMIC_STATE_CHOICES,ACADEMIC_STATUS_CHOICES
-from teacherPlan.models import AnotherWork, Remark, Qualification, Conf
+from teacherPlan.models import AnotherWork, Remark, Qualification
 
+#SECTION form for teacherPlan
+class StudyBookForm(forms.Form):
+  #todo проверить совпадение размерностей
+  name_mw = forms.CharField(max_length=200, label="Наименование")
+  edition = forms.CharField(max_length=200, label="Вид издания")
+  volume = forms.CharField(max_length=200, label="Объем")
+  requisite = forms.CharField(max_length=200, label="Вид грифа")
+  mw_date = forms.DateField(label="Срок сдачи рукописи")
 
-# class NirForm(forms.ModelForm):
-#     class Meta:
-#         model=nir
-#         fields=('workName','startDate','finishDate','role','organisation'
-#         )
+class AcademicDisciplineForm(forms.Form):
+  name_disc = forms.CharField(max_length=200, label="Наименование дисциплины")
+  occ = forms.CharField(max_length=200, label="Вид занятия")
+  change = forms.CharField(max_length=200, label="Характер изменения")
 
-# class PublicationForm(forms.ModelForm):
-#    class Meta:
-#        model=publication
-#        #fields=('name_mw', 'edition', 'volume', 'requisite', 'mw_date', 'realization')
+class ScWorkForm(forms.Form):
+  name_work = forms.CharField(max_length=200, label="Наименование работы")
+  period = forms.CharField(max_length=200, label="Период")
+  partaker = forms.CharField(max_length=200, label="В качестве кого участвовал")
+  organization = forms.CharField(max_length=200, label="Организация или предприятие")
 
-# class AcademicDisciplineForm(forms.ModelForm):
-#     class Meta:
-#         model=AcademicDisciplineOfTeacher
-#         fields=('name','period','partaker','organization')
+class ParticipationForm(forms.Form):
+  conf_date = forms.DateField(label="Дата")
+  name_conf = forms.CharField(max_length=200, label="Наименование конференции")
+  level_conf = forms.CharField(max_length=200, label="Уровень конференции")
+  name_rep = forms.CharField(max_length=200, label="Наименование доклада")
 
-class ScientificEventForm(forms.ModelForm):
-     class Meta:
-        model = ScientificEvent
-        #fields = ('name_disc', 'occ', 'change', 'realization')
-
-# class PublicationForm(forms.ModelForm):
-#      class Meta:
-#         model = publication
-#         #fields = ('name_work', 'publications', 'volume', 'name_publisher')
-
-class AnotherWorkForm(forms.ModelForm):
-     class Meta:
-        model = AnotherWork
-        fields = ('work_date', 'v_work')
-
-class RemarkForm(forms.ModelForm):
-     class Meta:
-        model = Remark
-        fields = ('rem_date', 'rem', 'position', 'sign', 'sign_t')
+class PublicationForm(forms.Form):
+  name_work = forms.CharField(max_length=200, label="Наименование работ")
+  publications = forms.CharField(max_length=200, label="Список публикаций")
+  volume = forms.IntegerField(max_length=200, label="Объем")
+  name_publisher = forms.CharField(max_length=200, label="Наименование издательства")
 
 class QualificationForm(forms.ModelForm):
-     class Meta:
-        model = Qualification
-        fields = ('ql_date', 'for_ql', 'doc')
+  class Meta:
+    model = Qualification
+    fields = ('ql_date', 'for_ql', 'doc')
 
-class ConfForm(forms.ModelForm):
-    class Meta:
-        model=Conf
-        #fields=('conf_date','name_conf','level_conf','name_rep')
+class AnotherWorkForm(forms.ModelForm):
+  class Meta:
+    model = AnotherWork
+    fields = ('work_date', 'v_work')
 
+class RemarkForm(forms.ModelForm):
+  class Meta:
+    model = Remark
+    fields = ('rem_date', 'rem', 'position')
+
+# END SECTION
 class RegisterTeacherForm(forms.Form):
   username = forms.CharField(
     label='Логин',

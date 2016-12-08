@@ -39,7 +39,7 @@ class ParticipationForm(forms.Form):
 class PublicationForm(forms.Form):
   name_work = forms.CharField(max_length=200, label="Наименование работ")
   publications = forms.CharField(max_length=200, label="Список публикаций")
-  volume = forms.IntegerField(max_length=200, label="Объем")
+  volume = forms.IntegerField(label="Объем")
   name_publisher = forms.CharField(max_length=200, label="Наименование издательства")
 
 class QualificationForm(forms.ModelForm):

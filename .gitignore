@@ -91,8 +91,3 @@ ENV/
 
 .idea/
 teacherPlan/migrations
-files
-bower_components
-moevmCommon
-teacherPlan/static/img/
-teacherPlan/static/js/

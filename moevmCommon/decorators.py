@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth.decorators import user_passes_test
 
-from moevmCommon.models.userProfile import UserProfile
+from moevmCommon.models import UserProfile
 
 REDIRECT_FIELD_NAME = 'next'
 

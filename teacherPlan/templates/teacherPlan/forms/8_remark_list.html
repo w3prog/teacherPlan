@@ -1,0 +1,27 @@
+{% extends 'pages/../pages/template.html' %}
+{% block title %}Замечания по работе преподавателя{% endblock %}
+{% block pagename %}Замечания по работе преподавателя{% endblock %}
+{% block content %}
+
+    <table class="table table-bordered">
+        <tr>
+            <th>Дата</th>
+            <th>Характер замечания</th>
+            <th>Должность лица, вносящего замечание</th>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+
+    <form action="/add_dif_work" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Добавить">
+    </form>
+
+{% endblock %}
+
+
+

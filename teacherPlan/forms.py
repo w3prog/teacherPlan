@@ -2,13 +2,11 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from moevmCommon.models import *
-from moevmCommon.models import nir
-from moevmCommon.models import publication
-from moevmCommon.models.academicDiscipline import AcademicDiscipline, AcademicDisciplineOfTeacher
-from moevmCommon.models.scientificEvent import ScientificEvent
-from moevmCommon.models.userProfile import UserProfile,ACADEMIC_DEGREE_CHOICES,\
+from moevmCommon.models import AcademicDiscipline, AcademicDisciplineOfTeacher
+from moevmCommon.models import ScientificEvent
+from moevmCommon.models import UserProfile,ACADEMIC_DEGREE_CHOICES,\
   ACADEMIC_STATE_CHOICES,ACADEMIC_STATUS_CHOICES
-from teacherPlan.models import AnotherWork, Remark, Qualification
+from moevmCommon.models import AnotherWork, Remark, Qualification
 
 #SECTION form for teacherPlan
 class StudyBookForm(forms.Form):

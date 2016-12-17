@@ -9,14 +9,14 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth
 
-from moevmCommon.models.userProfile import UserProfile
+from moevmCommon.models import UserProfile
 from teacherPlan.forms import *
 from .pdf.pdf_generate import conclusion_to_pdf
 from moevmCommon.decorators import login_teacher_required
 
-@login_teacher_required(login_url="/login")
+#@login_teacher_required(login_url="/login")
 def index(request):
-    return render(request,'index.html')
+    return render(request, 'teacherPlan/index.html')
 
 def loginTeacher(request):
 
@@ -35,12 +35,12 @@ def loginTeacher(request):
         else:
             print "Некорректные данные: Логин {0}, Пароль {1}".format(username, password)
             return HttpResponseRedirect('/loginwitherror')
-    return render(request, 'login.html')
+    return render(request, 'teacherPlan/login.html')
 
 def errorLoginTeacher(request):
-    return render(request, 'login.html',{'error_message': 'Ошибка авторизации'})
+    return render(request, 'teacherPlan/login.html', {'error_message': 'Ошибка авторизации'})
 
-@login_teacher_required(login_url="/login")
+#@login_teacher_required(login_url="/login")
 def logoutTeacher(request):
     logout(request)
     return HttpResponseRedirect('/login')
@@ -72,36 +72,36 @@ def registerTeacher(request):
         return HttpResponseRedirect('/registerTeacher')
 
     else:
-        return render(request, 'register_teacher.html',{'form':RegisterTeacherForm})
+        return render(request, 'teacherPlan/register_teacher.html', {'form':RegisterTeacherForm})
 
 
 
-@login_teacher_required(login_url="/login")
+#@login_teacher_required(login_url="/login")
 def makeNewPlan(request):
     # todo реализовать логику
-    return render(request, 'make_plan.html')
+    return render(request, 'teacherPlan/make_plan.html')
 
-@login_teacher_required(login_url="/login")
+#@login_teacher_required(login_url="/login")
 def plan(request,id=1):
     # todo реализовать логику
-    return render(request,'plan.html')
+    return render(request, 'teacherPlan/plan.html')
 
-@login_teacher_required(login_url="/login")
+#@login_teacher_required(login_url="/login")
 def currentPlan(request):
     #todo реализовать логику
-    return render(request,'plan.html')
+    return render(request, 'teacherPlan/plan.html')
 
-@login_teacher_required(login_url="/login")
+#@login_teacher_required(login_url="/login")
 def listOfPlans(request):
     # todo реализовать логику
-    return render(request, 'plan_list.html')
+    return render(request, 'teacherPlan/plan_list.html')
 
-@login_teacher_required(login_url="/login")
+#@login_teacher_required(login_url="/login")
 def listOfPlans(request):
     # todo реализовать логику
-    return render(request, 'plan_list.html')
+    return render(request, 'teacherPlan/plan_list.html')
 
-@login_teacher_required(login_url="/login")
+#@login_teacher_required(login_url="/login")
 def makePDF(request,id=1):
     response = HttpResponse(content_type='application/pdf')
     somefilename = "somefilename" #TODO сделать нормальное имя для файла
@@ -110,39 +110,39 @@ def makePDF(request,id=1):
     return conclusion_to_pdf(response,id)
 
 ##SECTION TP forms
-@login_teacher_required(login_url="/login")
+#@login_teacher_required(login_url="/login")
 def studybookList(request, id=1):
     #todo реализовать логику
-    return render(request, 'forms/1_studybook_list.html', {'form':StudyBookForm})
-@login_teacher_required(login_url="/login")
+    return render(request, 'teacherPlan/forms/1_studybook_list.html', {'form':StudyBookForm})
+#@login_teacher_required(login_url="/login")
 def disciplineList(request, id=1):
     # todo реализовать логику
-    return render(request, 'forms/2_discipline_list.html', {'form':AcademicDisciplineForm})
-@login_teacher_required(login_url="/login")
+    return render(request, 'teacherPlan/forms/2_discipline_list.html', {'form':AcademicDisciplineForm})
+#@login_teacher_required(login_url="/login")
 def scWorkList(request, id=1):
     # todo реализовать логику
-    return render(request, 'forms/3_sc_work_list.html', {'form':ScWorkForm})
-@login_teacher_required(login_url="/login")
+    return render(request, 'teacherPlan/forms/3_sc_work_list.html', {'form':ScWorkForm})
+#@login_teacher_required(login_url="/login")
 def participationList(request, id=1):
     # todo реализовать логику
-    return render(request, 'forms/4_participation_list.html', {'form':ParticipationForm})
-@login_teacher_required(login_url="/login")
+    return render(request, 'teacherPlan/forms/4_participation_list.html', {'form':ParticipationForm})
+#@login_teacher_required(login_url="/login")
 def publicationList(request, id=1):
     # todo реализовать логику
     publications=1
-    return render(request, 'forms/5_publication_list.html', {'form': PublicationForm})
-@login_teacher_required(login_url="/login")
+    return render(request, 'teacherPlan/forms/5_publication_list.html', {'form': PublicationForm})
+#@login_teacher_required(login_url="/login")
 def qualificationList(request, id=1):
     # todo реализовать логику
-    return render(request, 'forms/6_qualification_list.html', {'form':QualificationForm})
-@login_teacher_required(login_url="/login")
+    return render(request, 'teacherPlan/forms/6_qualification_list.html', {'form':QualificationForm})
+#@login_teacher_required(login_url="/login")
 def difWorkList(request, id=1):
     # todo реализовать логику
-    return render(request, 'forms/7_dif_work_list.html', {'form':AnotherWorkForm})
-@login_teacher_required(login_url="/login")
+    return render(request, 'teacherPlan/forms/7_dif_work_list.html', {'form':AnotherWorkForm})
+#@login_teacher_required(login_url="/login")
 def remarkList(request, id=1):
     # todo реализовать логику
-    return render(request, 'forms/8_remark_list.html', {'form':RemarkForm})
+    return render(request, 'teacherPlan/forms/8_remark_list.html', {'form':RemarkForm})
 
 ## END SECTION TP forms
 
@@ -151,6 +151,6 @@ def remarkList(request, id=1):
 # for managers
 def managerReport(request):
     if request.user.is_superuser:
-        return render(request,'manager/report.html')
+        return render(request, 'teacherPlan/manager/report.html')
     else:
         return HttpResponseRedirect("/login")

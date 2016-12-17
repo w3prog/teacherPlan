@@ -20,5 +20,5 @@ from django.conf.urls import include
 admin.autodiscover()
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^', include('teacherPlan.urls')),
+    url(r'^teacherPlan/', include('teacherPlan.urls')),
 ]

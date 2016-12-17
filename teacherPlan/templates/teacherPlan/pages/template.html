@@ -24,13 +24,16 @@
           </button>
           <a class="navbar-brand" href="{% url 'tpindex' %}">Индивидуальный план преподавателя</a>
         </div>
-          {% if user.is_authenticated %}
-            <div class="navbar-collapse collapse">
+          <div class="navbar-collapse collapse">
               <ul class="nav navbar-nav navbar-right">
-                <li><a class="btn" href="{% url 'tplogout' %}">Выйти</a></li>
+                  {% if not user.is_authenticated %}
+                    <li><a class="btn" href="{{ login_url }}">Авторизация</a></li>
+                  {% else %}
+                    <li><a class="btn">Добро пожаловать, {{ user.username }}!</a></li>
+                    <li><a class="btn" href="{{ logout_url }}">Выход</a></li>
+                  {% endif %}
               </ul>
             </div>
-          {% endif %}
       </div>
     </div>
 

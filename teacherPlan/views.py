@@ -93,20 +93,19 @@ def currentPlan(request):
     plan=None
     if month < 8:
         plan = TeacherPlan.objects.exclude(person_profile = user_profile, start_year = (year - 1))
+        if not plan:
+            plan = TeacherPlan.objects.create(person_profile = user_profile, start_year = (year - 1))
     else :
         plan = TeacherPlan.objects.exclude(person_profile = user_profile, start_year = year)
-    print plan
+        if not plan :
+            plan = TeacherPlan.objects.create(person_profile=user_profile, start_year=(year))
     return render(request, 'teacherPlan/plan.html',{'plan':plan,'user_profile':user_profile})
 
 @login_teacher_required(login_url="/teacherPlan/login")
 def listOfPlans(request):
-    # todo реализовать логику
-    return render(request, 'teacherPlan/plan_list.html')
-
-@login_teacher_required(login_url="/teacherPlan/login")
-def listOfPlans(request):
-    # todo реализовать логику
-    return render(request, 'teacherPlan/plan_list.html')
+    up = UserProfile.get_profile_by_user(request.user)
+    list = TeacherPlan.objects.all().filter(person_profile=up)
+    return render(request, 'teacherPlan/plan_list.html',{'list':list})
 
 @login_teacher_required(login_url="/teacherPlan/login")
 def makePDF(request,id=1):

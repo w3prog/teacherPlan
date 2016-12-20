@@ -1,13 +1,15 @@
 {% extends 'teacherPlan/pages/template.html' %}
-{% block title %}Список индивидуальных планов Иванова Ивана Ивановича{% endblock %}
-{% block pagename %}Список индивидуальных планов Иванова Ивана Ивановича{% endblock %}
+{% block title %}Список индивидуальных планов{% endblock %}
+{% block pagename %}Список индивидуальных планов{% endblock %}
 {% block content %}
-    <ul>
-        <li><a href="{% url 'tpplan' 1 %}">Учебный план за 2011-2012 учебный год.</a></li>
-        <li><a href="{% url 'tpplan' 1 %}">Учебный план за 2012-2013 учебный год.</a></li>
-        <li><a href="{% url 'tpplan' 1 %}">Учебный план за 2013-2014 учебный год.</a></li>
-        <li><a href="{% url 'tpplan' 1 %}">Учебный план за 2014-2015 учебный год.</a></li>
-        <li><a href="{% url 'tpplan' 1 %}">Учебный план за 2015-2016 учебный год.</a></li>
-        <li><a href="{% url 'tpplan' 1 %}">Учебный план за 2016-2017 учебный год.</a></li>
+    {% if list  %}
+        <ul>
+        {% for item in list %}
+                    <li><a href="{% url 'tpplan' item.id %}">План на {{  item.start_year }}
+                        + {{  item.start_year|add:"1" }} учебный год</a></li>
+        {% endfor %}
     </ul>
+    {% else %}
+        <p>Список пуст</p>
+    {% endif %}
 {% endblock %}

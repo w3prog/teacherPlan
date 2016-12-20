@@ -17,7 +17,7 @@ urlpatterns = patterns(
    #plans
    url(r'^listOfPlans$', listOfPlans, name='tpplanlist', ),
    url(r'^makeNewPlan$', makeNewPlan, name='tpnewPlan', ),
-   url(r'^plan/(?P<id>[0-9]+)$', plan, name='tpplan', ),
+   url(r'^plan/(?P<id>[0-9a-z]+)$', plan, name='tpplan', ),
    url(r'^currentPlan/', currentPlan, name='currentPlan', ),
    url(r'^registerTeacher/', registerTeacher,name='registerTeacher' ),
 

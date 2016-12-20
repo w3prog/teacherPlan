@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 from django.contrib.auth import logout
+from django.http import Http404
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
@@ -76,14 +77,12 @@ def registerTeacher(request):
 
 
 @login_teacher_required(login_url="/teacherPlan/login")
-def makeNewPlan(request):
-    # todo реализовать логику
-    return render(request, 'teacherPlan/make_plan.html')
-
-@login_teacher_required(login_url="/teacherPlan/login")
 def plan(request,id=1):
-    # todo реализовать логику
-    return render(request, 'teacherPlan/plan.html')
+    try:
+        tp = TeacherPlan.objects.get(id=id)
+    except:
+        raise Http404
+    return render(request, 'teacherPlan/plan.html',{'plan': tp, 'user_profile': tp.person_profile})
 
 @login_teacher_required(login_url="/teacherPlan/login")
 def currentPlan(request):

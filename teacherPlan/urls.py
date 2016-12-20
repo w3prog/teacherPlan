@@ -16,19 +16,18 @@ urlpatterns = patterns(
 
    #plans
    url(r'^listOfPlans$', listOfPlans, name='tpplanlist', ),
-   url(r'^makeNewPlan$', makeNewPlan, name='tpnewPlan', ),
    url(r'^plan/(?P<id>[0-9a-z]+)$', plan, name='tpplan', ),
    url(r'^currentPlan/', currentPlan, name='currentPlan', ),
    url(r'^registerTeacher/', registerTeacher,name='registerTeacher' ),
 
    #forms
-   url(r'^pdf/(?P<id>[0-9]+)', makePDF, name='pdf'),
-   url(r'^difWorkList/(?P<id>[0-9]+)', difWorkList, name='difWorkList'),
-   url(r'^disciplineList/(?P<id>[0-9]+)', disciplineList, name='disciplineList'),
-   url(r'^participationList/(?P<id>[0-9]+)', participationList, name='participationList'),
-   url(r'^publicationList/(?P<id>[0-9]+)', publicationList, name='publicationList'),
-   url(r'^qualificationList/(?P<id>[0-9]+)', qualificationList, name='qualificationList'),
-   url(r'^scWorkList/(?P<id>[0-9]+)', scWorkList, name='scWorkList'),
-   url(r'^studybookList/(?P<id>[0-9]+)', studybookList, name='studybookList'),
+   url(r'^pdf/(?P<id>[0-9a-z]+)', makePDF, name='pdf'),
+   url(r'^difWorkList/(?P<id>[0-9a-z]+)', difWorkList, name='difWorkList'),
+   url(r'^disciplineList/(?P<id>[0-9a-z]+)', disciplineList, name='disciplineList'),
+   url(r'^participationList/(?P<id>[0-9a-z]+)', participationList, name='participationList'),
+   url(r'^publicationList/(?P<id>[0-9a-z]+)', publicationList, name='publicationList'),
+   url(r'^qualificationList/(?P<id>[0-9a-z]+)', qualificationList, name='qualificationList'),
+   url(r'^scWorkList/(?P<id>[0-9a-z]+)', scWorkList, name='scWorkList'),
+   url(r'^studybookList/(?P<id>[0-9a-z]+)', studybookList, name='studybookList'),
 
 )

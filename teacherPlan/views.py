@@ -91,9 +91,9 @@ def currentPlan(request):
     user_profile = UserProfile.get_profile_by_user(request.user)
     plan=None
     if month < 8:
-        plan = TeacherPlan.objects.get_or_create(person_profile = user_profile, start_year = (year - 1))
+        plan = TeacherPlan.objects.get_or_create(person_profile = user_profile, start_year = (year - 1))[0]
     else :
-        plan = TeacherPlan.objects.get_or_create(person_profile = user_profile, start_year = year)
+        plan = TeacherPlan.objects.get_or_create(person_profile = user_profile, start_year = year)[0]
     return render(request, 'teacherPlan/plan.html',{'plan':plan,'user_profile':user_profile})
 
 @login_teacher_required(login_url="/teacherPlan/login")

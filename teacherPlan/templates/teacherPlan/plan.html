@@ -43,20 +43,20 @@
     {% endif %}
 
     <h3>Пункты плана:</h3>
-    <p><a href="{% url 'studybookList' 1 %}">Подготовка учебников, учебных пособий и методических указаний,
+    <p><a href="{% url 'studybookList' plan.id %}">Подготовка учебников, учебных пособий и методических указаний,
 включая электронные издания</a></p>
 
-    <p><a href="{% url 'disciplineList' 1 %}">Постановка и модернизация дисциплин</a></p>
+    <p><a href="{% url 'disciplineList' plan.id %}">Постановка и модернизация дисциплин</a></p>
 
-    <p><a href="{% url 'scWorkList' 1 %}">Научно-исследовательская  работа в университете и вне университета</a></p>
+    <p><a href="{% url 'scWorkList' plan.id %}">Научно-исследовательская  работа в университете и вне университета</a></p>
 
-    <p><a href="{% url 'participationList' 1 %}">Участие в конференциях и выставках</a></p>
+    <p><a href="{% url 'participationList' plan.id %}">Участие в конференциях и выставках</a></p>
 
-    <p><a href="{% url 'publicationList' 1 %}">Список публикаций</a></p>
+    <p><a href="{% url 'publicationList' plan.id %}">Список публикаций</a></p>
 
-    <p><a href="{% url 'qualificationList' 1 %}">Повышение  квалификации</a></p>
+    <p><a href="{% url 'qualificationList' plan.id %}">Повышение  квалификации</a></p>
 
-    <p><a href="{% url 'difWorkList' 1 %}">Другие виды работ, выполняемых в интересах университета, факультета и кафедры</a></p>
+    <p><a href="{% url 'difWorkList' plan.id %}">Другие виды работ, выполняемых в интересах университета, факультета и кафедры</a></p>
 
-    <p><a href="{% url 'pdf' 1 %}" class="btn btn-info">Загрузить в PDF</a></p>
+    <p><a href="{% url 'pdf' plan.id %}" class="btn btn-info">Загрузить в PDF</a></p>
 {% endblock %}

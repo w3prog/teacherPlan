@@ -8,7 +8,7 @@ from django.views.generic.edit import FormView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth
-
+import datetime
 from moevmCommon.models import UserProfile
 from teacherPlan.forms import *
 from .pdf.pdf_generate import conclusion_to_pdf
@@ -87,8 +87,16 @@ def plan(request,id=1):
 
 @login_teacher_required(login_url="/teacherPlan/login")
 def currentPlan(request):
-    #todo реализовать логику
-    return render(request, 'teacherPlan/plan.html')
+    year = datetime.datetime.now().year
+    month = datetime.datetime.now().month
+    user_profile = UserProfile.get_profile_by_user(request.user)
+    plan=None
+    if month < 8:
+        plan = TeacherPlan.objects.exclude(person_profile = user_profile, start_year = (year - 1))
+    else :
+        plan = TeacherPlan.objects.exclude(person_profile = user_profile, start_year = year)
+    print plan
+    return render(request, 'teacherPlan/plan.html',{'plan':plan,'user_profile':user_profile})
 
 @login_teacher_required(login_url="/teacherPlan/login")
 def listOfPlans(request):

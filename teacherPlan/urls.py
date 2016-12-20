@@ -5,10 +5,6 @@ from django.conf.urls import url, include
 from django.contrib.contenttypes import views as contenttype_views
 from views import *
 
-
-
-
-
 urlpatterns = patterns(
    '',
    url(r'^$', index, name='tpindex'),
@@ -32,7 +28,6 @@ urlpatterns = patterns(
    url(r'^participationList/(?P<id>[0-9]+)', participationList, name='participationList'),
    url(r'^publicationList/(?P<id>[0-9]+)', publicationList, name='publicationList'),
    url(r'^qualificationList/(?P<id>[0-9]+)', qualificationList, name='qualificationList'),
-   url(r'^remarkList/(?P<id>[0-9]+)', remarkList, name='remarkList'),
    url(r'^scWorkList/(?P<id>[0-9]+)', scWorkList, name='scWorkList'),
    url(r'^studybookList/(?P<id>[0-9]+)', studybookList, name='studybookList'),
 

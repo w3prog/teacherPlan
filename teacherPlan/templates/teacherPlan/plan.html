@@ -1,18 +1,45 @@
 {% extends 'teacherPlan/pages/template.html' %}
-{% block title %}Индивидуальный план Иванова Ивана Ивановича за 2016 год.{% endblock %}
-{% block pagename %}Индивидуальный план Иванова Ивана Ивановича за 2016 год.{% endblock %}
+{% block title %}Индивидуальный план {{ user_profile.FIO }} за 2016-2017 год.{% endblock %}
+{% block pagename %}Индивидуальный план {{ user_profile.FIO }} за 2016-2017 год.{% endblock %}
 {% block content %}
     <h2>Факультет: КТИ</h2>
     <p>Кафедра: МО ЭВМ</p>
-    <p>Должность: Доцент</p>
-    <p>Фамилия: Иванов</p>
-    <p>Имя: Иван</p>
-    <p>Отчетство: Иваныц</p>
-    <p>Год рождения: 1978 </p>
-    <p>Дата текущего избрания или зачисления на преподавательскую должность: </p>
-    <p>Ученая степень и год присуждения: кандидат технических наук 2000</p>
-    <p>Ученое звание и год присуждения: доцент 2005</p>
-    <p>Дата переизбрания(окончание трудового договора) : 2009</p>
+    {% if not user_profile.position == none %}
+        <p>Должность: {{ user_profile.position }}</p>
+    {% endif %}
+    {% if not user_profile.last_name == none %}
+        <p>Фамилия: {{ user_profile.last_name }}</p>
+    {% endif %}
+
+    {% if not user_profile.first_name == none %}
+        <p>Имя: {{ user_profile.first_name }}</p>
+    {% endif %}
+
+    {% if not user_profile.patronymic == none %}
+        <p>Отчетство: {{ user_profile.patronymic }}</p>
+    {% endif %}
+
+    {% if not user_profile.birth_date == none %}
+        <p>Год рождения: {{ user_profile.birth_date }}</p>
+    {% endif %}
+
+    {% if not user_profile.election_date == none %}
+        <p>Дата текущего избрания или зачисления на преподавательскую должность: {{ user_profile.election_date  }}</p>
+    {% endif %}
+
+    {% if not user_profile.academic_degree == none %}
+        <p>Ученая степень и год присуждения: {{ user_profile.academic_degree }}
+            {{ user_profile.year_of_academic_degree }}</p>
+    {% endif %}
+    {% if not user_profile.academic_status == none %}
+        <p>Ученое звание и год присуждения: {{ user_profile.academic_status }}
+            {{ user_profile.year_of_academic_status }}</p>
+    {% endif %}
+
+    {% if not user_profile.contract_date == none %}
+        <p>Дата переизбрания(окончание трудового договора) : {{ user_profile.contract_date }}</p>
+    {% endif %}
+
     <h3>Пункты плана:</h3>
     <p><a href="{% url 'studybookList' 1 %}">Подготовка учебников, учебных пособий и методических указаний,
 включая электронные издания</a></p>

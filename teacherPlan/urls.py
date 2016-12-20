@@ -31,6 +31,4 @@ urlpatterns = patterns(
    url(r'^scWorkList/(?P<id>[0-9]+)', scWorkList, name='scWorkList'),
    url(r'^studybookList/(?P<id>[0-9]+)', studybookList, name='studybookList'),
 
-   #for managers
-   url(r'^managerReport$', managerReport, name='tpsimpleReport'),
 )

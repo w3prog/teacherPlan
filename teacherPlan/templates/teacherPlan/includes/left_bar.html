@@ -14,8 +14,3 @@
 <li {% if request.get_full_path == plan_list_url %}class="active"{% endif %}>
     <a href="{% url 'tpplanlist' %}">Список планов</a>
 </li>
-{% if user.is_superuser %}
-<li {% if request.get_full_path == simple_report_url %}class="active"{% endif %}>
-    <a href="{% url 'tpsimpleReport' %}">Итоговый отчет</a>
-</li>
-{% endif %}

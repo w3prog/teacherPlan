@@ -111,7 +111,9 @@ def listOfPlans(request):
 @login_teacher_required(login_url="/teacherPlan/login")
 def makePDF(request,id=1):
     response = HttpResponse(content_type='application/pdf')
-    somefilename = "somefilename" #TODO сделать нормальное имя для файла
+
+    somefilename = "Учебный план " + str(UserProfile.get_profile_by_user(request.user).FIO)
+    print somefilename
     response['Content-Disposition'] = 'attachment; filename="' + somefilename + '.pdf"'
 
     return conclusion_to_pdf(response,id)
@@ -149,11 +151,3 @@ def difWorkList(request, id=1):
 
 ## END SECTION TP forms
 
-
-
-# for managers
-def managerReport(request):
-    if request.user.is_superuser:
-        return render(request, 'teacherPlan/manager/report.html')
-    else:
-        return HttpResponseRedirect("/teacherPlan/login")

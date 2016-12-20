@@ -39,7 +39,7 @@ def loginTeacher(request):
 def errorLoginTeacher(request):
     return render(request, 'teacherPlan/login.html', {'error_message': 'Ошибка авторизации'})
 
-@login_teacher_required(login_url="/teacherPlan/login")
+@login_required(login_url="/teacherPlan/login")
 def logoutTeacher(request):
     logout(request)
     return HttpResponseRedirect('/teacherPlan/login')

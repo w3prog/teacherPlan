@@ -138,10 +138,6 @@ def qualificationList(request, id=1):
 def difWorkList(request, id=1):
     # todo реализовать логику
     return render(request, 'teacherPlan/forms/7_dif_work_list.html', {'form':AnotherWorkForm})
-@login_teacher_required(login_url="/teacherPlan/login")
-def remarkList(request, id=1):
-    # todo реализовать логику
-    return render(request, 'teacherPlan/forms/8_remark_list.html', {'form':RemarkForm})
 
 ## END SECTION TP forms
 

@@ -718,6 +718,8 @@ class Participation(models.Model):
 
 @python_2_unicode_compatible
 class TeacherPlan(models.Model):
+  person_profile = models.ForeignKey(UserProfile)
+  date = models.SmallIntegerField("Год")
   study_books = ListField(EmbeddedModelField("Publication"))
   discipline = ListField(EmbeddedModelField("AcademicDisciplineOfTeacher"))
   sw_work = ListField(EmbeddedModelField("NIR"))
@@ -737,9 +739,3 @@ class Qualification(models.Model):
 class AnotherWork(models.Model):
   work_date = models.DateTimeField(verbose_name="Период")
   v_work = models.CharField(max_length=200, verbose_name="Вид работы")
-
-@python_2_unicode_compatible
-class Remark(models.Model):
-  rem_date = models.DateTimeField(verbose_name="Дата")
-  rem = models.CharField(max_length=200, verbose_name="Характер замечания")
-  position = models.CharField(max_length=200, verbose_name="Должность лица, вносящего замечание")

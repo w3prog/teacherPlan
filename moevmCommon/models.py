@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from django.contrib.auth.models import User
+from django.forms import forms
 from django.utils.encoding import python_2_unicode_compatible
 from djangotoolbox.fields import EmbeddedModelField
 from djangotoolbox.fields import ListField
@@ -358,7 +359,13 @@ class UserProfile(models.Model):
 
     @staticmethod
     def get_profile_by_user(user):
-      return UserProfile.objects.get(user_id=user.id)
+      us = None
+      try:
+        us = UserProfile.objects.get(user_id=user.id)
+      #todo возможно не лучший способ определить ошибку.
+      except :
+        us = UserProfile.objects.create(user=user)
+      return us
 
     @staticmethod
     def check_teacher(user):
@@ -672,6 +679,9 @@ class ScientificEvent(models.Model):
     verbose_name = "Тип",
   )
 
+  def __src__(self):
+    return self.event_name
+
   @staticmethod
   def create(**params):
     scientificEvent = ScientificEvent.objects.create(
@@ -717,19 +727,6 @@ class Participation(models.Model):
     return self.user + " на " + self.scientific_event.event_name
 
 @python_2_unicode_compatible
-class TeacherPlan(models.Model):
-  person_profile = models.ForeignKey(UserProfile)
-  date = models.SmallIntegerField("Год")
-  study_books = ListField(EmbeddedModelField("Publication"))
-  discipline = ListField(EmbeddedModelField("AcademicDisciplineOfTeacher"))
-  sw_work = ListField(EmbeddedModelField("NIR"))
-  participations = ListField(EmbeddedModelField("Participation"))
-  publications = ListField(EmbeddedModelField("Publication"))
-  qualifications = ListField(EmbeddedModelField("Qualification"))
-  anotherworks = ListField(EmbeddedModelField("AnotherWork"))
-  remarks = ListField(EmbeddedModelField("Remark"))
-
-@python_2_unicode_compatible
 class Qualification(models.Model):
   ql_date = models.DateTimeField(verbose_name="Период")
   for_ql = models.CharField(max_length=200, verbose_name="Форма повышения квалификации")
@@ -739,3 +736,29 @@ class Qualification(models.Model):
 class AnotherWork(models.Model):
   work_date = models.DateTimeField(verbose_name="Период")
   v_work = models.CharField(max_length=200, verbose_name="Вид работы")
+
+# class StringListField(forms.CharField):
+#   def prepare_value(self, value):
+#     return ', '.join(value)
+#
+#   def to_python(self, value):
+#     if not value:
+#       return []
+#     return [item.strip() for item in value.split(',')]
+
+
+
+@python_2_unicode_compatible
+class TeacherPlan(models.Model):
+  person_profile = models.ForeignKey(UserProfile)
+  start_year = models.SmallIntegerField("Год начала")
+  study_books = ListField(EmbeddedModelField("Publication"))
+  discipline = ListField(EmbeddedModelField("AcademicDisciplineOfTeacher"))
+  sw_work = ListField(EmbeddedModelField("NIR"))
+  participations = ListField(EmbeddedModelField("Participation"))
+  publications = ListField(EmbeddedModelField("Publication"))
+  qualifications = ListField(EmbeddedModelField("Qualification"))
+  anotherworks = ListField(EmbeddedModelField("AnotherWork"))
+
+  def __src__(self):
+    return self.person_profile.first_name + " " + str(self.start_year) + '-' + str(self.start_year+1)

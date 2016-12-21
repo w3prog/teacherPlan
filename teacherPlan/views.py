@@ -105,8 +105,11 @@ def listOfPlans(request):
 @login_teacher_required(login_url="/teacherPlan/login")
 def makePDF(request,id=1):
     response = HttpResponse(content_type='application/pdf')
-
-    somefilename = "Учебный план " + str(UserProfile.get_profile_by_user(request.user).FIO)
+    try:
+        tp = TeacherPlan.objects.get(id=id)
+    except:
+        raise Http404
+    somefilename = "teacher plan " + tp.id
     print somefilename
     response['Content-Disposition'] = 'attachment; filename="' + somefilename + '.pdf"'
 
@@ -171,8 +174,26 @@ def qualificationList(request, id=1):
     return render(request, 'teacherPlan/forms/6_qualification_list.html', {'form':QualificationForm})
 @login_teacher_required(login_url="/teacherPlan/login")
 def difWorkList(request, id=1):
-    # todo реализовать логику
-    return render(request, 'teacherPlan/forms/7_dif_work_list.html', {'form':AnotherWorkForm})
+    try:
+        tp = TeacherPlan.objects.get(id=id)
+    except:
+         raise Http404
+    if request.method == 'POST':
+        form = AnotherWorkForm(request.POST)
+        if form.is_valid():
+            newdisc = AnotherWork.objects.create(
+                work_date=request.POST['work_date'],
+                v_work=request.POST['v_work'])
+
+            tp.anotherworks =  tp.anotherworks + [newdisc]
+            tp.save()
+
+        return HttpResponseRedirect('/teacherPlan/difWorkList/' + tp.id)
+    else:
+        anotherworks = tp.anotherworks
+    return render(request, 'teacherPlan/forms/7_dif_work_list.html',
+                  {'form':AnotherWorkForm,
+                  'anotherworks':anotherworks})
 
 ## END SECTION TP forms
 

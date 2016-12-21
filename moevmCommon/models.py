@@ -703,7 +703,7 @@ class Qualification(models.Model):
 
 @python_2_unicode_compatible
 class AnotherWork(models.Model):
-  work_date = models.DateTimeField(verbose_name="Период")
+  work_date = models.CharField(verbose_name="Период", max_length=20)
   v_work = models.CharField(max_length=200, verbose_name="Вид работы")
 
 # class StringListField(forms.CharField):

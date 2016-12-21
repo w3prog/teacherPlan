@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+from django.http import Http404
 from reportlab.lib.enums import TA_CENTER, TA_LEFT
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.pagesizes import letter
@@ -9,11 +9,13 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.platypus import Paragraph, SimpleDocTemplate
 from reportlab.platypus import TableStyle
-from reportlab.platypus import Image, Paragraph, SimpleDocTemplate, Table
-from reportlab.lib import colors
+from reportlab.platypus import Paragraph, SimpleDocTemplate, Table
 from reportlab.platypus.flowables import PageBreak, Spacer
 from reportlab.lib.pagesizes import A4
 from reportlab.graphics.shapes import *
+
+from moevmCommon.models import TeacherPlan
+
 FILE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 def conclusion_to_pdf(responce=None,id=1):
@@ -41,6 +43,10 @@ def conclusion_to_pdf(responce=None,id=1):
 
       ])
 
+  # try:
+  #   tplan = TeacherPlan.objects.get(id=id)
+  # except:
+  #   raise Http404
 
   story = []
   story.append(Paragraph("МИНОБРНАУКИ РОССИИ",styles['TNR_H_Center']))
@@ -51,9 +57,9 @@ def conclusion_to_pdf(responce=None,id=1):
   story.append(Paragraph("<br/><br/><br/><br/>ИНДИВИДУАЛЬНЫЙ  ПЛАН <br/>ПРЕПОДАВАТЕЛЯ<br/><br/>",styles['TNR_Big_Bold_H_Center16']))
   story.append(Spacer(0, 0.5 *inch))
   personal_data = [
-      ['Факультет', '---'],
-      ['Кафедра', '---'],
-      ['Должность', '---']
+      ['Факультет', 'КТИ'],
+      ['Кафедра', 'моевм'],
+      ['Должность', ""]
     ]
   p_d = Table(personal_data)
   p_d.setStyle(normal_table_style1)

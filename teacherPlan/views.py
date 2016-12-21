@@ -109,8 +109,7 @@ def makePDF(request,id=1):
         tp = TeacherPlan.objects.get(id=id)
     except:
         raise Http404
-    somefilename = "teacher plan " + tp.id
-    print somefilename
+    somefilename = "teacher_plan_" + tp.id
     response['Content-Disposition'] = 'attachment; filename="' + somefilename + '.pdf"'
 
     return conclusion_to_pdf(response,id)

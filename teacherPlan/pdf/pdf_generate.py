@@ -7,7 +7,6 @@ from reportlab.lib.units import inch
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.platypus import Paragraph, SimpleDocTemplate
 from reportlab.platypus import TableStyle
 from reportlab.platypus import Paragraph, SimpleDocTemplate, Table
 from reportlab.platypus.flowables import PageBreak, Spacer
@@ -43,10 +42,10 @@ def conclusion_to_pdf(responce=None,id=1):
 
       ])
 
-  # try:
-  #   tplan = TeacherPlan.objects.get(id=id)
-  # except:
-  #   raise Http404
+  try:
+    tplan = TeacherPlan.objects.get(id=id)
+  except:
+    raise Http404
 
   story = []
   story.append(Paragraph("МИНОБРНАУКИ РОССИИ",styles['TNR_H_Center']))
@@ -77,11 +76,13 @@ def conclusion_to_pdf(responce=None,id=1):
   story.append(Paragraph("2.1. Подготовка учебников, учебных пособий и методических указаний,/"
                          " включая электронные издания", styles['TNR_Big_Bold_H_Center12']))
   story.append(Spacer(0, 0.3 *inch))
-  data = [
-             ['Наименование', 'Вид издания','Объем','Вид грифа','Срок сдачи рукописи','Отметка о выполнении'],
-            ['---','---','---','---','---','---']
 
+  tplan.study_books
+  data = [
+             ['Наименование', 'Вид издания','Объем','Вид грифа','Срок сдачи рукописи','Отметка о выполнении']
         ]
+  for i in tplan.study_books:
+    data.append([i.name,i.type,i.volume,i.vulture,i.finishDate,''])
 
   all_table=Table(data)
   all_table.setStyle(normal_table_style)
@@ -95,9 +96,9 @@ def conclusion_to_pdf(responce=None,id=1):
 
   data = [
        ['Наименование дисциплины','Вид занятий','Характер изменения', 'Отметка о выполнении'],
-       ['---','---','---','---']
-
       ]
+  for i in tplan.disciplines:
+    data.append([i.name, i.type, i.characterUpdate,''])
 
   all_table=Table(data)
   all_table.setStyle(normal_table_style)
@@ -110,9 +111,9 @@ def conclusion_to_pdf(responce=None,id=1):
 
   data = [
           ['Наименование работы','Период','В качестве кого участвовал','Организация или предприятие'],
-          ['---','---','---','---',]
-
       ]
+  for i in tplan.NIRS:
+    data.append([i.name, i.period, i.role,i.organisation])
 
   all_table=Table(data)
   all_table.setStyle(normal_table_style)
@@ -123,9 +124,9 @@ def conclusion_to_pdf(responce=None,id=1):
   story.append(Spacer(0, 0.3 *inch))
   data = [
           ['Наименование конференции или выставки','Дата', 'Уровень конференции или выставки','Наименование доклада или экспоната'],
-          ['---','---','---','---',]
-
       ]
+  for i in tplan.participations:
+    data.append([i.name, i.date, i.level,i.report])
 
   all_table=Table(data)
   all_table.setStyle(normal_table_style)
@@ -137,9 +138,10 @@ def conclusion_to_pdf(responce=None,id=1):
   story.append(Spacer(0, 0.3 *inch))
   data = [
           ['Наименование работ', 'Вид публикации','Объем в п.л.','Наименование издательства, журнала или сборника'],
-          ['---','---','---','---','---',]
-
       ]
+  for i in tplan.publications:
+    data.append([i.name_work, i.type, i.volume,i.name_publisher])
+
 
   all_table=Table(data)
   all_table.setStyle(normal_table_style)
@@ -153,9 +155,9 @@ def conclusion_to_pdf(responce=None,id=1):
   story.append(Spacer(0, 0.3 *inch))
   data = [
           ['Период','Форма повышения квалификации', 'Документ'],
-          ['---','---','---',]
-
       ]
+  for i in tplan.qualifications:
+    data.append([i.ql_date, i.for_ql, i.doc])
 
   all_table=Table(data)
   all_table.setStyle(normal_table_style)
@@ -166,9 +168,9 @@ def conclusion_to_pdf(responce=None,id=1):
   story.append(Spacer(0, 0.3 *inch))
   data = [
           ['Период','Вид работы'],
-          ['---','---',]
-
       ]
+  for i in tplan.anotherworks:
+    data.append([i.work_date, i.v_work])
 
   all_table=Table(data)
   all_table.setStyle(normal_table_style)
@@ -195,6 +197,20 @@ def conclusion_to_pdf(responce=None,id=1):
   story.append(PageBreak())
 
   story.append(Paragraph("9. Заключение кафедры", styles['TNR_Big_Bold_H_Center14']))
+  story.append(Paragraph("___________________________________________________________", styles['TNR_Big_Bold_H_Center14']))
+  story.append(Paragraph("___________________________________________________________", styles['TNR_Big_Bold_H_Center14']))
+  story.append(Paragraph("___________________________________________________________", styles['TNR_Big_Bold_H_Center14']))
+  story.append(Paragraph("___________________________________________________________", styles['TNR_Big_Bold_H_Center14']))
+  story.append(Paragraph("___________________________________________________________", styles['TNR_Big_Bold_H_Center14']))
+  story.append(Paragraph("___________________________________________________________", styles['TNR_Big_Bold_H_Center14']))
+  story.append(Paragraph("___________________________________________________________", styles['TNR_Big_Bold_H_Center14']))
+  story.append(Paragraph("___________________________________________________________", styles['TNR_Big_Bold_H_Center14']))
+  story.append(Paragraph("___________________________________________________________", styles['TNR_Big_Bold_H_Center14']))
+  story.append(Paragraph("___________________________________________________________", styles['TNR_Big_Bold_H_Center14']))
+  story.append(Paragraph("___________________________________________________________", styles['TNR_Big_Bold_H_Center14']))
+  story.append(Paragraph("___________________________________________________________", styles['TNR_Big_Bold_H_Center14']))
+  story.append(Paragraph("___________________________________________________________", styles['TNR_Big_Bold_H_Center14']))
+  story.append(Paragraph("___________________________________________________________", styles['TNR_Big_Bold_H_Center14']))
 
   # story.append(Line(0, 5, 100, 50))
   #
@@ -206,4 +222,5 @@ def conclusion_to_pdf(responce=None,id=1):
   else:
     doc = SimpleDocTemplate(responce, pagesize=A4)
   doc.build(story)
+
   return responce

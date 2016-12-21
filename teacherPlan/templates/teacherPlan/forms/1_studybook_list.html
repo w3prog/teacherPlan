@@ -13,11 +13,11 @@
             <th>Отметка  о выполнении</th>
         {% for book in books %}
             <tr>
-                <td>book.name</td>
-                <td>book.type</td>
-                <td>book.unitVolume</td>
-                <td>book.name</td>
-                <td>book.name</td>
+                <td>{{ book.name }}</td>
+                <td>{{ book.type }}</td>
+                <td>{{ book.volume }}</td>
+                <td>{{ book.vulture }}</td>
+                <td>{{ book.finishDate }}</td>
                 <td></td>
             </tr>
         {% endfor %}

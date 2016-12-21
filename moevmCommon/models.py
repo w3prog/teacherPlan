@@ -425,6 +425,28 @@ class AcademicDiscipline(models.Model):
   def __str__(self):
     return self.teacher + " " + self.disc
 
+
+class StudyBook(models.Model):
+  name = models.CharField(
+    max_length=80,
+    verbose_name="Название",
+  )
+  type = models.CharField(
+    max_length=80,
+    verbose_name="Вид издания",
+  )
+  volume = models.IntegerField(
+    verbose_name="Объем",
+  )
+  vulture = models.CharField(
+    max_length=80,
+    verbose_name="Вид грифа",
+  )
+  finishDate = models.CharField(
+    max_length=20,
+    verbose_name="Срок сдачи рукописи",
+  )
+
 class NIR(models.Model):
   name = models.CharField(
     max_length=250,
@@ -658,7 +680,7 @@ class TeacherPlan(models.Model):
   person_profile = models.ForeignKey(UserProfile)
   start_year = models.SmallIntegerField("Год начала")
 
-  study_books = ListField(EmbeddedModelField("Publication"))
+  study_books = ListField(EmbeddedModelField("StudyBook"))
   disciplines = ListField(EmbeddedModelField("AcademicDiscipline"))
   NIRS = ListField(EmbeddedModelField("NIR"))
   participations = ListField(EmbeddedModelField("Participation"))

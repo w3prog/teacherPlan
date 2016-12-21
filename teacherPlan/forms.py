@@ -12,12 +12,11 @@ from moevmCommon.models import AnotherWork, Qualification
 
 #SECTION form for teacherPlan
 class StudyBookForm(forms.Form):
-  #todo проверить совпадение размерностей
-  name_mw = CharField(max_length=200, label="Наименование")
-  edition = CharField(max_length=200, label="Вид издания")
+  name = CharField(max_length=200, label="Наименование")
+  type = CharField(max_length=200, label="Вид издания")
   volume = CharField(max_length=200, label="Объем")
-  requisite = CharField(max_length=200, label="Вид грифа")
-  mw_date = DateField(label="Срок сдачи рукописи")
+  vulture = CharField(max_length=200, label="Вид грифа")
+  finishDate = CharField(label="Срок сдачи рукописи")
 
 class AcademicDisciplineForm(forms.Form):
   name = CharField(max_length=200, label="Наименование дисциплины")

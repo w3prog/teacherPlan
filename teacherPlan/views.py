@@ -165,9 +165,27 @@ def participationList(request, id=1):
     return render(request, 'teacherPlan/forms/4_participation_list.html', {'form':ParticipationForm})
 @login_teacher_required(login_url="/teacherPlan/login")
 def publicationList(request, id=1):
-    # todo реализовать логику
-    publications=1
-    return render(request, 'teacherPlan/forms/5_publication_list.html', {'form': PublicationForm})
+    try:
+        tp = TeacherPlan.objects.get(id=id)
+    except:
+         raise Http404
+    if request.method == 'POST':
+        form = PublicationForm(request.POST)
+        if form.is_valid():
+            newTeacherPublication = TeacherPublication.objects.create(
+                name_work=request.POST['name_work'],
+                type=request.POST['type'],
+                volume=request.POST['volume'],
+                name_publisher=request.POST['name_publisher'],
+            )
+            tp.publications =  tp.publications + [newTeacherPublication]
+            tp.save()
+
+        return HttpResponseRedirect('/teacherPlan/publicationList/' + tp.id)
+    else:
+        publications = tp.publications
+    return render(request, 'teacherPlan/forms/5_publication_list.html',
+                  {'form':PublicationForm,'publications':publications})
 @login_teacher_required(login_url="/teacherPlan/login")
 def qualificationList(request, id=1):
     try:

@@ -706,6 +706,14 @@ class AnotherWork(models.Model):
   work_date = models.CharField(verbose_name="Период", max_length=20)
   v_work = models.CharField(max_length=200, verbose_name="Вид работы")
 
+@python_2_unicode_compatible
+class TeacherPublication(models.Model):
+  name_work = models.CharField(max_length=200, verbose_name="Наименование работ")
+  type = models.CharField(max_length=200, verbose_name="Вид публикации")
+  volume = models.IntegerField(verbose_name="Объем")
+  name_publisher = models.CharField(max_length=200, verbose_name="Наименование издательства")
+
+
 # class StringListField(forms.CharField):
 #   def prepare_value(self, value):
 #     return ', '.join(value)
@@ -726,7 +734,7 @@ class TeacherPlan(models.Model):
   disciplines = ListField(EmbeddedModelField("AcademicDiscipline"))
   sw_work = ListField(EmbeddedModelField("NIR"))
   participations = ListField(EmbeddedModelField("Participation"))
-  publications = ListField(EmbeddedModelField("Publication"))
+  publications = ListField(EmbeddedModelField("TeacherPublication"))
   qualifications = ListField(EmbeddedModelField("Qualification"))
   anotherworks = ListField(EmbeddedModelField("AnotherWork"))
 

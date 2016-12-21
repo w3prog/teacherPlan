@@ -161,7 +161,27 @@ def scWorkList(request, id=1):
     return render(request, 'teacherPlan/forms/3_sc_work_list.html', {'form':ScWorkForm})
 @login_teacher_required(login_url="/teacherPlan/login")
 def participationList(request, id=1):
-    # todo реализовать логику
+    try:
+        tp = TeacherPlan.objects.get(id=id)
+    except:
+         raise Http404
+    if request.method == 'POST':
+        form = ParticipationForm(request.POST)
+        if form.is_valid():
+            newParticipation = Participation.objects.create(
+                name=request.POST['name'],
+                date=request.POST['date'],
+                level=request.POST['level'],
+                report=request.POST['report'],
+            )
+            tp.participations =  tp.participations + [newParticipation]
+            tp.save()
+
+        return HttpResponseRedirect('/teacherPlan/participationList/' + tp.id)
+    else:
+        participations = tp.participations
+    return render(request, 'teacherPlan/forms/4_participation_list.html',
+                  {'form':ParticipationForm,'participations':participations})
     return render(request, 'teacherPlan/forms/4_participation_list.html', {'form':ParticipationForm})
 @login_teacher_required(login_url="/teacherPlan/login")
 def publicationList(request, id=1):

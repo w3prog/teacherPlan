@@ -4,20 +4,26 @@
 {% block content %}
 
     <table class="table table-bordered">
+    {% if participations %}
         <tr>
             <th>Дата</th>
             <th>Наименование конференции или выставки</th>
             <th>Уровень конференции или выставки</th>
             <th>Наименование доклада или экспоната</th>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-    </table>
+        {% for participation in participations %}
+            <tr>
+                <td>{{ participation.name }}</td>
+                <td>{{ participation.level }}</td>
+                <td>{{ participation.report }}</td>
+                <td>{{ participation.date }}</td>
+            </tr>
+        {% endfor %}
 
-    <form action="/add_participation" method="post">
+
+    </table>
+    {% endif %}
+
+    <form action="#" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Добавить">

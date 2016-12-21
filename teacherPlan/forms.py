@@ -31,10 +31,10 @@ class ScWorkForm(forms.Form):
   organization = CharField(max_length=200, label="Организация или предприятие")
 
 class ParticipationForm(forms.Form):
-  conf_date = DateField(label="Дата")
-  name_conf = CharField(max_length=200, label="Наименование конференции")
-  level_conf = CharField(max_length=200, label="Уровень конференции")
-  name_rep = CharField(max_length=200, label="Наименование доклада")
+  name = CharField(max_length=200, label="Наименование конференции")
+  level = CharField(max_length=200, label="Уровень конференции")
+  report = CharField(max_length=200, label="Наименование доклада")
+  date = CharField(max_length=30,label="Дата")
 
 class PublicationForm(forms.Form):
   name_work = CharField(max_length=200, label="Наименование работ")

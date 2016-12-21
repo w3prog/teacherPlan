@@ -2,7 +2,7 @@
 {% block title %}Методическая работа {% endblock %}
 {% block pagename %}Подготовка учебников, учебных пособий и методических указаний, включая электронные издания {% endblock %}
 {% block content %}
-
+    {% if books %}
     <table class="table table-bordered">
         <tr>
             <th>Наименование</th>
@@ -11,17 +11,22 @@
             <th>Вид грифа</th>
             <th>Срок сдачи рукописи</th>
             <th>Отметка  о выполнении</th>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-    </table>
+        {% for book in books %}
+            <tr>
+                <td>book.name</td>
+                <td>book.type</td>
+                <td>book.unitVolume</td>
+                <td>book.name</td>
+                <td>book.name</td>
+                <td></td>
+            </tr>
+        {% endfor %}
 
-    <form action="/add_studybook" method="post">
+
+    </table>
+    {% endif %}
+
+    <form action="#" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Добавить">

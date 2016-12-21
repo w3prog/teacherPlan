@@ -2,22 +2,27 @@
 {% block title %}Методическая работа {% endblock %}
 {% block pagename %}Постановка и модернизация дисциплин{% endblock %}
 {% block content %}
-
+    {% if disciplines %}
     <table class="table table-bordered">
         <tr>
             <th>Наименование дисциплины</th>
             <th>Вид занятий</th>
             <th>Характер изменения</th>
             <th>Отметка  о выполнении</th>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
         </tr>
-    </table>
+        <tr>
+            {% for discipline in disciplines %}
+                <td>{{  discipline.name }}</td>
+                <td>{{  discipline.type }}</td>
+                <td>{{  discipline.characterUpdate }}</td>
+                <td></td>
+                </tr>
+            {% endfor %}
 
-    <form action="/add_discipline" method="post">
+    </table>
+    {% endif %}
+
+    <form action="#" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Добавить">

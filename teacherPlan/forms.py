@@ -6,9 +6,7 @@ from django.forms import CharField,\
   IntegerField,\
   ModelForm, ChoiceField, EmailField
 from moevmCommon.models import *
-from moevmCommon.models import AcademicDiscipline, AcademicDisciplineOfTeacher
-from moevmCommon.models import ScientificEvent
-from moevmCommon.models import UserProfile,ACADEMIC_DEGREE_CHOICES,\
+from moevmCommon.models import ACADEMIC_DEGREE_CHOICES,\
   ACADEMIC_STATE_CHOICES,ACADEMIC_STATUS_CHOICES
 from moevmCommon.models import AnotherWork, Qualification
 
@@ -22,9 +20,9 @@ class StudyBookForm(forms.Form):
   mw_date = DateField(label="Срок сдачи рукописи")
 
 class AcademicDisciplineForm(forms.Form):
-  name_disc = CharField(max_length=200, label="Наименование дисциплины")
-  occ = CharField(max_length=200, label="Вид занятия")
-  change = CharField(max_length=200, label="Характер изменения")
+  name = CharField(max_length=200, label="Наименование дисциплины")
+  type = CharField(max_length=200, label="Вид занятия")
+  characterUpdate = CharField(max_length=200, label="Характер изменения")
 
 class ScWorkForm(forms.Form):
   name_work = CharField(max_length=200, label="Наименование работы")

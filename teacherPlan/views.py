@@ -115,12 +115,43 @@ def makePDF(request,id=1):
 ##SECTION TP forms
 @login_teacher_required(login_url="/teacherPlan/login")
 def studybookList(request, id=1):
-    #todo реализовать логику
-    return render(request, 'teacherPlan/forms/1_studybook_list.html', {'form':StudyBookForm})
+    #todo исправить проблемы в модели
+    try:
+        plan = TeacherPlan.objects.get(id=id)[0]
+    except:
+        raise Http404
+    if request.method == 'POST':
+        return HttpResponseRedirect("")
+    else:
+
+        books = plan.study_books
+        return render(request, 'teacherPlan/forms/1_studybook_list.html', {'form': StudyBookForm,'books':books})
+
 @login_teacher_required(login_url="/teacherPlan/login")
 def disciplineList(request, id=1):
-    # todo реализовать логику
-    return render(request, 'teacherPlan/forms/2_discipline_list.html', {'form':AcademicDisciplineForm})
+    try:
+        tp = TeacherPlan.objects.get(id=id)
+    except:
+         raise Http404
+    if request.method == 'POST':
+        form = AcademicDisciplineForm(request.POST)
+        if form.is_valid():
+            newdisc = AcademicDiscipline.objects.create(
+                name=request.POST['name'],
+                type=request.POST['type'],
+                characterUpdate=request.POST['characterUpdate'])
+
+            tp.disciplines =  tp.disciplines + [newdisc]
+            tp.save()
+
+        return HttpResponseRedirect('/teacherPlan/disciplineList/' + tp.id)
+    else:
+        disciplines = tp.disciplines
+    return render(request,
+                  'teacherPlan/forms/2_discipline_list.html',
+                  {'form':AcademicDisciplineForm,
+                   'disciplines':disciplines})
+
 @login_teacher_required(login_url="/teacherPlan/login")
 def scWorkList(request, id=1):
     # todo реализовать логику

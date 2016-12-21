@@ -400,30 +400,6 @@ class AcademicDiscipline(models.Model):
     max_length=150,
     verbose_name="Наименование дисциплины",
   )
-
-  @staticmethod
-  def create(**params):
-    academicDiscipline = AcademicDiscipline.objects.create(
-      name=params.get('name'),
-
-    )
-    academicDiscipline.save()
-
-    return academicDiscipline
-
-  def __str__(self):
-    return self.name
-
-
-class AcademicDisciplineOfTeacher(models.Model):
-  teacher = models.ForeignKey(
-    UserProfile,
-    verbose_name="Преподаватель",
-  )
-  disc = models.ForeignKey(
-    AcademicDiscipline,
-    verbose_name="Дисциплины",
-  )
   type = models.CharField(
     max_length=40,
     null=True,
@@ -434,24 +410,17 @@ class AcademicDisciplineOfTeacher(models.Model):
     null=True,
     verbose_name="Характер обновления",
   )
-  completeMark = models.NullBooleanField(
-    default=False,
-    null=True,
-    verbose_name="Отметка о завершении",
-  )
 
   @staticmethod
   def create(**params):
-    academicDisciplineOfTeacher = AcademicDisciplineOfTeacher.objects.create(
-      teacher=params.get('teacher'),
-      disc=params.get('disc'),
+    academicDiscipline = AcademicDiscipline.objects.create(
+      disc=params.get('name'),
       type=params.get('type'),
       characterUpdate=params.get('characterUpdate'),
-      completeMark=params.get('completeMark'),
     )
-    academicDisciplineOfTeacher.save()
+    academicDiscipline.save()
 
-    return academicDisciplineOfTeacher
+    return academicDiscipline
 
   def __str__(self):
     return self.teacher + " " + self.disc
@@ -752,8 +721,9 @@ class AnotherWork(models.Model):
 class TeacherPlan(models.Model):
   person_profile = models.ForeignKey(UserProfile)
   start_year = models.SmallIntegerField("Год начала")
+
   study_books = ListField(EmbeddedModelField("Publication"))
-  discipline = ListField(EmbeddedModelField("AcademicDisciplineOfTeacher"))
+  disciplines = ListField(EmbeddedModelField("AcademicDiscipline"))
   sw_work = ListField(EmbeddedModelField("NIR"))
   participations = ListField(EmbeddedModelField("Participation"))
   publications = ListField(EmbeddedModelField("Publication"))

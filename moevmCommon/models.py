@@ -697,7 +697,7 @@ class Participation(models.Model):
 
 @python_2_unicode_compatible
 class Qualification(models.Model):
-  ql_date = models.DateTimeField(verbose_name="Период")
+  ql_date = models.CharField(max_length=20, verbose_name="Период")
   for_ql = models.CharField(max_length=200, verbose_name="Форма повышения квалификации")
   doc = models.CharField(max_length=200, verbose_name="Документ")
 

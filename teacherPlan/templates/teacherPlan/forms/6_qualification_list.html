@@ -3,19 +3,24 @@
 {% block pagename %}Повышение  квалификации{% endblock %}
 {% block content %}
 
+    {% if qualifications %}
     <table class="table table-bordered">
         <tr>
             <th>Период</th>
             <th>Форма повышения квалификации</th>
             <th>Документ</th>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
         </tr>
-    </table>
 
-    <form action="/add_qualification" method="post">
+        {% for qualification in qualifications %}
+            <tr>
+                <td>{{ qualification.ql_date }}</td>
+                <td>{{ qualification.for_ql }}</td>
+                <td>{{ qualification.doc }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+    <form action="#" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Добавить">

@@ -170,8 +170,27 @@ def publicationList(request, id=1):
     return render(request, 'teacherPlan/forms/5_publication_list.html', {'form': PublicationForm})
 @login_teacher_required(login_url="/teacherPlan/login")
 def qualificationList(request, id=1):
-    # todo реализовать логику
-    return render(request, 'teacherPlan/forms/6_qualification_list.html', {'form':QualificationForm})
+    try:
+        tp = TeacherPlan.objects.get(id=id)
+    except:
+         raise Http404
+    if request.method == 'POST':
+        form = QualificationForm(request.POST)
+        if form.is_valid():
+            newdisc = Qualification.objects.create(
+                ql_date=request.POST['ql_date'],
+                for_ql=request.POST['for_ql'],
+                doc=request.POST['doc'],
+            )
+            tp.qualifications =  tp.qualifications + [newdisc]
+            tp.save()
+
+        return HttpResponseRedirect('/teacherPlan/qualificationList/' + tp.id)
+    else:
+        qualifications = tp.qualifications
+    return render(request, 'teacherPlan/forms/6_qualification_list.html',
+                  {'form':QualificationForm,'qualifications':qualifications})
+
 @login_teacher_required(login_url="/teacherPlan/login")
 def difWorkList(request, id=1):
     try:

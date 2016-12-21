@@ -426,21 +426,14 @@ class AcademicDiscipline(models.Model):
     return self.teacher + " " + self.disc
 
 class NIR(models.Model):
-  user = models.ForeignKey(
-    UserProfile,
-    verbose_name="Сотрудник",
-  )
-  workName = models.CharField(
+  name = models.CharField(
     max_length=250,
     verbose_name="Название работ",
   )
-  startDate = models.DateField(
+  period = models.CharField(
     null=True,
-    verbose_name="Дата начала работ",
-  )
-  finishDate = models.DateField(
-    null=True,
-    verbose_name="Дата конца работ",
+    verbose_name="Период работ",
+    max_length=80
   )
   role = models.CharField(
     max_length=100,
@@ -452,29 +445,6 @@ class NIR(models.Model):
     null=True,
     verbose_name="Организация",
   )
-  cipher = models.CharField(
-    max_length="100",
-    null=True,
-    verbose_name = "Шифр",
-  )
-
-  @staticmethod
-  def create(**params):
-    nir = NIR.objects.create(
-      user=params.get('user'),
-      startDate=params.get('startDate'),
-      finishDate = params.get('finishDate'),
-      role = params.get('role'),
-      organisation = params.get('organisation'),
-      cipher = params.get('cipher'),
-    )
-
-    nir.save()
-
-    return nir
-
-  def __str__(self):
-    return self.workName + " " + self.organisation + " " + self.cipher
 
 TYPE_PUBLICATION_CHOICES = (
   ('guidelines', 'Методическое указание'),
@@ -690,7 +660,7 @@ class TeacherPlan(models.Model):
 
   study_books = ListField(EmbeddedModelField("Publication"))
   disciplines = ListField(EmbeddedModelField("AcademicDiscipline"))
-  sw_work = ListField(EmbeddedModelField("NIR"))
+  NIRS = ListField(EmbeddedModelField("NIR"))
   participations = ListField(EmbeddedModelField("Participation"))
   publications = ListField(EmbeddedModelField("TeacherPublication"))
   qualifications = ListField(EmbeddedModelField("Qualification"))

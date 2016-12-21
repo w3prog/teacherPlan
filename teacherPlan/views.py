@@ -155,10 +155,31 @@ def disciplineList(request, id=1):
                   {'form':AcademicDisciplineForm,
                    'disciplines':disciplines})
 
+
 @login_teacher_required(login_url="/teacherPlan/login")
 def scWorkList(request, id=1):
-    # todo реализовать логику
-    return render(request, 'teacherPlan/forms/3_sc_work_list.html', {'form':ScWorkForm})
+    try:
+        tp = TeacherPlan.objects.get(id=id)
+    except:
+         raise Http404
+    if request.method == 'POST':
+        form = ScientificWorkForm(request.POST)
+        if form.is_valid():
+            newNIR = NIR.objects.create(
+                name=request.POST['name'],
+                period=request.POST['period'],
+                role=request.POST['role'],
+                organisation=request.POST['organisation'],
+            )
+            tp.NIRS =  tp.NIRS + [newNIR]
+            tp.save()
+
+        return HttpResponseRedirect('/teacherPlan/scWorkList/' + tp.id)
+    else:
+        nirs = tp.NIRS
+    return render(request, 'teacherPlan/forms/3_sc_work_list.html',
+                  {'form':ScientificWorkForm,'nirs':nirs})
+
 @login_teacher_required(login_url="/teacherPlan/login")
 def participationList(request, id=1):
     try:
@@ -182,7 +203,7 @@ def participationList(request, id=1):
         participations = tp.participations
     return render(request, 'teacherPlan/forms/4_participation_list.html',
                   {'form':ParticipationForm,'participations':participations})
-    return render(request, 'teacherPlan/forms/4_participation_list.html', {'form':ParticipationForm})
+
 @login_teacher_required(login_url="/teacherPlan/login")
 def publicationList(request, id=1):
     try:

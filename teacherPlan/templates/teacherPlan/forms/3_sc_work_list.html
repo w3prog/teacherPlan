@@ -3,23 +3,29 @@
 {% block pagename %}Научно-исследовательская  работа в университете и вне университета{% endblock %}
 {% block content %}
 
-    <table class="table table-bordered">
+    {% if nirs %}
+            <table class="table table-bordered">
         <tr>
             <th>Наименование работы</th>
             <th>Период</th>
-            <th>Объем</th>
             <th>В качестве кого участвовал</th>
             <th>Организация или предприятие</th>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
         </tr>
-    </table>
 
-    <form action="/add_sс_work" method="post">
+        {% for nir in nirs %}
+            <tr>
+                <td>{{ nir.name }}</td>
+                <td>{{ nir.period }}</td>
+                <td>{{ nir.role }}</td>
+                <td>{{ nir.organisation }}</td>
+            </tr>
+        {% endfor %}
+
+    </table>
+    {% endif %}
+
+
+    <form action="#" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Добавить">

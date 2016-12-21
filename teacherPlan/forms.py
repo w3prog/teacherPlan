@@ -24,11 +24,11 @@ class AcademicDisciplineForm(forms.Form):
   type = CharField(max_length=200, label="Вид занятия")
   characterUpdate = CharField(max_length=200, label="Характер изменения")
 
-class ScWorkForm(forms.Form):
-  name_work = CharField(max_length=200, label="Наименование работы")
+class ScientificWorkForm(forms.Form):
+  name = CharField(max_length=200, label="Наименование работы")
   period = CharField(max_length=200, label="Период")
-  partaker = CharField(max_length=200, label="В качестве кого участвовал")
-  organization = CharField(max_length=200, label="Организация или предприятие")
+  role = CharField(max_length=200, label="В качестве кого участвовал")
+  organisation = CharField(max_length=200, label="Организация или предприятие")
 
 class ParticipationForm(forms.Form):
   name = CharField(max_length=200, label="Наименование конференции")

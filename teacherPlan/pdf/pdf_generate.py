@@ -63,12 +63,18 @@ def conclusion_to_pdf(responce=None,id=1):
   p_d = Table(personal_data)
   p_d.setStyle(normal_table_style1)
   story.append(p_d)
+  story.append(Paragraph("____________________________________________", styles['TNR_mini']))
   story.append(Paragraph("<br/><br/><br/>Фамилия", styles['TNR_mini']))
   story.append(Paragraph("<br/><br/><br/>&nbsp &nbsp &nbsp &nbsp &nbsp  &nbspИмя  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp Отчество", styles['TNR_mini']))
+  story.append(Paragraph("____________________________________________", styles['TNR_mini']))
   story.append(Paragraph("<br/><br/><br/>Год рождения", styles['TNR_mini']))
+  story.append(Paragraph("____________________________________________", styles['TNR_mini']))
   story.append(Paragraph("<br/><br/><br/>Дата текущего  избрания или зачисления на преподавательскую должность", styles['TNR_mini']))
+  story.append(Paragraph("____________________________________________", styles['TNR_mini']))
   story.append(Paragraph("<br/><br/><br/>Ученая степень и год присуждения", styles['TNR_mini']))
+  story.append(Paragraph("____________________________________________", styles['TNR_mini']))
   story.append(Paragraph("<br/><br/><br/>Ученое звание и год присвоения", styles['TNR_mini']))
+  story.append(Paragraph("____________________________________________", styles['TNR_mini']))
   story.append(Paragraph("<br/><br/><br/>Дата переизбрания (окончания трудового договора)", styles['TNR_mini']))
   story.append(PageBreak())
 
@@ -212,9 +218,8 @@ def conclusion_to_pdf(responce=None,id=1):
   story.append(Paragraph("___________________________________________________________", styles['TNR_Big_Bold_H_Center14']))
   story.append(Paragraph("___________________________________________________________", styles['TNR_Big_Bold_H_Center14']))
 
-  # story.append(Line(0, 5, 100, 50))
-  #
-
+  story.append(Paragraph("Преподаватель", styles['TNR_mini']))
+  story.append(Paragraph("Зав.кафедрой", styles['TNR_mini']))
 
 
   if(responce==None):

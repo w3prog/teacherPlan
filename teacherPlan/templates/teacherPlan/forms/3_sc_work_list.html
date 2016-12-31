@@ -2,7 +2,7 @@
 {% block title %}Научная работа{% endblock %}
 {% block pagename %}Научно-исследовательская  работа в университете и вне университета{% endblock %}
 {% block content %}
-
+    <a type="button" href="{% url 'tpplan' planid %}">Назад к плану</a>
     {% if nirs %}
             <table class="table table-bordered">
         <tr>
@@ -30,5 +30,6 @@
         {{ form.as_p }}
         <input type="submit" value="Добавить">
     </form>
-
+    <br>
+    <a type="button" class="btn btn-primary" href="{% url 'tpplan' planid %}">Назад к плану</a>
 {% endblock %}

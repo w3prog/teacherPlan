@@ -2,6 +2,7 @@
 {% block title %}Другие виды работ, выполняемых в интересах университета, факультета и кафедры{% endblock %}
 {% block pagename %} Другие виды работ, выполняемых в интересах университета, факультета и кафедры{% endblock %}
 {% block content %}
+    <a type="button" href="{% url 'tpplan' planid %}">Назад к плану</a>
     {% if anotherworks %}
     <table class="table table-bordered">
         <tr>
@@ -25,7 +26,8 @@
         {{ form.as_p }}
         <input type="submit" value="Добавить">
     </form>
-
+    <br>
+    <a type="button" class="btn btn-primary" href="{% url 'tpplan' planid %}">Назад к плану</a>
 {% endblock %}
 
 

@@ -140,7 +140,15 @@ def studybookList(request, id=1):
     else:
         books = tp.study_books
         print books
-        return render(request, 'teacherPlan/forms/1_studybook_list.html', {'form': StudyBookForm,'books':books})
+        return render(
+            request,
+            'teacherPlan/forms/1_studybook_list.html',
+            {
+                'form': StudyBookForm,
+                'books':books,
+                'planid':tp.id
+            }
+        )
 
 @login_teacher_required(login_url="/teacherPlan/login")
 def disciplineList(request, id=1):
@@ -162,10 +170,15 @@ def disciplineList(request, id=1):
         return HttpResponseRedirect('/teacherPlan/disciplineList/' + tp.id)
     else:
         disciplines = tp.disciplines
-    return render(request,
-                  'teacherPlan/forms/2_discipline_list.html',
-                  {'form':AcademicDisciplineForm,
-                   'disciplines':disciplines})
+    return render(
+        request,
+        'teacherPlan/forms/2_discipline_list.html',
+        {
+            'form':AcademicDisciplineForm,
+            'disciplines':disciplines,
+            'planid': tp.id
+        }
+    )
 
 
 @login_teacher_required(login_url="/teacherPlan/login")
@@ -189,8 +202,15 @@ def scWorkList(request, id=1):
         return HttpResponseRedirect('/teacherPlan/scWorkList/' + tp.id)
     else:
         nirs = tp.NIRS
-    return render(request, 'teacherPlan/forms/3_sc_work_list.html',
-                  {'form':ScientificWorkForm,'nirs':nirs})
+    return render(
+        request,
+        'teacherPlan/forms/3_sc_work_list.html',
+        {
+            'form':ScientificWorkForm,
+            'nirs':nirs,
+            'planid': tp.id
+        }
+    )
 
 @login_teacher_required(login_url="/teacherPlan/login")
 def participationList(request, id=1):
@@ -213,8 +233,15 @@ def participationList(request, id=1):
         return HttpResponseRedirect('/teacherPlan/participationList/' + tp.id)
     else:
         participations = tp.participations
-    return render(request, 'teacherPlan/forms/4_participation_list.html',
-                  {'form':ParticipationForm,'participations':participations})
+    return render(
+        request,
+        'teacherPlan/forms/4_participation_list.html',
+        {
+            'form':ParticipationForm,
+            'participations':participations,
+            'planid': tp.id
+        }
+    )
 
 @login_teacher_required(login_url="/teacherPlan/login")
 def publicationList(request, id=1):
@@ -237,8 +264,15 @@ def publicationList(request, id=1):
         return HttpResponseRedirect('/teacherPlan/publicationList/' + tp.id)
     else:
         publications = tp.publications
-    return render(request, 'teacherPlan/forms/5_publication_list.html',
-                  {'form':PublicationForm,'publications':publications})
+    return render(
+        request,
+        'teacherPlan/forms/5_publication_list.html',
+        {
+            'form':PublicationForm,
+            'publications':publications,
+            'planid': tp.id
+        }
+    )
 @login_teacher_required(login_url="/teacherPlan/login")
 def qualificationList(request, id=1):
     try:
@@ -259,8 +293,15 @@ def qualificationList(request, id=1):
         return HttpResponseRedirect('/teacherPlan/qualificationList/' + tp.id)
     else:
         qualifications = tp.qualifications
-    return render(request, 'teacherPlan/forms/6_qualification_list.html',
-                  {'form':QualificationForm,'qualifications':qualifications})
+    return render(
+        request,
+        'teacherPlan/forms/6_qualification_list.html',
+        {
+            'form':QualificationForm,
+            'qualifications':qualifications,
+            'planid': tp.id
+        }
+    )
 
 @login_teacher_required(login_url="/teacherPlan/login")
 def difWorkList(request, id=1):
@@ -281,9 +322,15 @@ def difWorkList(request, id=1):
         return HttpResponseRedirect('/teacherPlan/difWorkList/' + tp.id)
     else:
         anotherworks = tp.anotherworks
-    return render(request, 'teacherPlan/forms/7_dif_work_list.html',
-                  {'form':AnotherWorkForm,
-                  'anotherworks':anotherworks})
+    return render(
+        request,
+        'teacherPlan/forms/7_dif_work_list.html',
+        {
+            'form':AnotherWorkForm,
+            'anotherworks':anotherworks,
+            'planid': tp.id
+        }
+    )
 
 ## END SECTION TP forms
 

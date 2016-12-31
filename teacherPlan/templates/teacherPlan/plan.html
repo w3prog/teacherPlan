@@ -30,11 +30,11 @@
     {% endif %}
 
     {% if not user_profile.academic_degree == none %}
-        <p>Ученая степень и год присуждения: {{ user_profile.academic_degree }}
+        <p>Ученая степень и год присуждения: {{ user_profile.get_academic_degree_display }}
             {{ user_profile.year_of_academic_degree }}</p>
     {% endif %}
     {% if not user_profile.academic_status == none %}
-        <p>Ученое звание и год присуждения: {{ user_profile.academic_status }}
+        <p>Ученое звание и год присуждения: {{ user_profile.get_academic_status_display }}
             {{ user_profile.year_of_academic_status }}</p>
     {% endif %}
 

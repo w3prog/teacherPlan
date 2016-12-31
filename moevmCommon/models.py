@@ -34,6 +34,7 @@ def filter_by_foreign_fields(model_manager, **filter_fields):
 
     return list(filter(filter_condition, model_manager.all()))
 
+@python_2_unicode_compatible
 class UserProfileManager(models.Manager):
     # Для фильтрации по внешнему ключу UserProfile
     #def filter(self, **filter_fields):
@@ -394,7 +395,7 @@ class UserProfile(models.Model):
     class Meta:
         db_table = 'userprofiles'
 
-
+@python_2_unicode_compatible
 class AcademicDiscipline(models.Model):
   name = models.CharField(
     max_length=150,
@@ -425,7 +426,7 @@ class AcademicDiscipline(models.Model):
   def __str__(self):
     return self.teacher + " " + self.disc
 
-
+@python_2_unicode_compatible
 class StudyBook(models.Model):
   name = models.CharField(
     max_length=80,
@@ -447,6 +448,7 @@ class StudyBook(models.Model):
     verbose_name="Срок сдачи рукописи",
   )
 
+@python_2_unicode_compatible
 class NIR(models.Model):
   name = models.CharField(
     max_length=250,
@@ -481,6 +483,7 @@ reIter = (
   ('repeating', 'повторяющийся')
 )
 
+@python_2_unicode_compatible
 class Publication(models.Model):
   user = models.ForeignKey(
     UserProfile,
@@ -614,6 +617,7 @@ reIter = (
         ('repeating', 'повторяющийся')
 )
 
+@python_2_unicode_compatible
 class Participation(models.Model):
   date = models.CharField(
     verbose_name="Дата проведения",

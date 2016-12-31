@@ -74,7 +74,7 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
 )
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'Europe/Moscow'
 DEFAULT_CHARSET = 'UTF-8'

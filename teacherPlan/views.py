@@ -34,7 +34,7 @@ def loginTeacher(request):
                 return HttpResponseRedirect('/teacherPlan/loginwitherror')
         else:
             print "Некорректные данные: Логин {0}, Пароль {1}".format(username, password)
-            return HttpResponseRedirect('/loginwitherror')
+            return HttpResponseRedirect('/teacherPlan/loginwitherror')
     return render(request, 'teacherPlan/login.html')
 
 def errorLoginTeacher(request):

@@ -16,7 +16,7 @@ class StudyBookForm(forms.Form):
   type = CharField(max_length=200, label="Вид издания")
   volume = CharField(max_length=200, label="Объем")
   vulture = CharField(max_length=200, label="Вид грифа")
-  finishDate = CharField(label="Срок сдачи рукописи")
+  finishDate = IntegerField(label="Срок сдачи рукописи")
 
 class AcademicDisciplineForm(forms.Form):
   name = CharField(max_length=200, label="Наименование дисциплины")

@@ -3,6 +3,12 @@
 {% block pagename %}Список публикаций{% endblock %}
 {% block content %}
     <a type="button" href="{% url 'tpplan' planid %}">Назад к плану</a>
+    {% if form.errors %}
+        <p class="bg-danger text-danger">
+            Ошибка при заполнении формы.
+        </p>
+    {% endif %}
+
     {% if publications %}
     <table class="table table-bordered">
         <tr>

@@ -14,9 +14,9 @@ from moevmCommon.models import AnotherWork, Qualification
 class StudyBookForm(forms.Form):
   name = CharField(max_length=200, label="Наименование")
   type = CharField(max_length=200, label="Вид издания")
-  volume = CharField(max_length=200, label="Объем")
+  volume = IntegerField(label="Объем в п.л.",widget=forms.TextInput(attrs={'type': 'number'}))
   vulture = CharField(max_length=200, label="Вид грифа")
-  finishDate = IntegerField(label="Срок сдачи рукописи")
+  finishDate = IntegerField(label="Срок сдачи рукописи",widget=forms.TextInput(attrs={'type': 'number'}))
 
 class AcademicDisciplineForm(forms.Form):
   name = CharField(max_length=200, label="Наименование дисциплины")
@@ -38,7 +38,7 @@ class ParticipationForm(forms.Form):
 class PublicationForm(forms.Form):
   name_work = CharField(max_length=200, label="Наименование работ")
   type = CharField(max_length=200, label="Вид публикации")
-  volume = IntegerField(label="Объем в п.л.")
+  volume = IntegerField(label="Объем в п.л.",widget=forms.TextInput(attrs={'type': 'number'}))
   name_publisher = CharField(max_length=200, label="Наименование издательства")
 
 class QualificationForm(ModelForm):

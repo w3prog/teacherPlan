@@ -188,6 +188,9 @@ class UserProfileManager(models.Manager):
             academic_status=academic_status,
         )
 
+    def __str__(self):
+      return 'UserProfileManager'
+
 PERSON_TYPE_CHOICES = (
     ('s', 'Студент'),
     ('h', 'Староста'),
@@ -447,6 +450,11 @@ class StudyBook(models.Model):
     max_length=20,
     verbose_name="Срок сдачи рукописи",
   )
+  def __str__(self):
+    name=""
+    if not self.name is None:
+      name = self.name
+    return "StudyBook " + name
 
 @python_2_unicode_compatible
 class NIR(models.Model):
@@ -469,6 +477,11 @@ class NIR(models.Model):
     null=True,
     verbose_name="Организация",
   )
+  def __str__(self):
+    name=""
+    if not self.name is None:
+      name = self.name
+    return "NIR " + name
 
 TYPE_PUBLICATION_CHOICES = (
   ('guidelines', 'Методическое указание'),
@@ -495,9 +508,6 @@ class Publication(models.Model):
     max_length=250,
     verbose_name="Название",
   )
-
-  
-
   # объем
   volume = models.IntegerField(
     verbose_name="Объем",
@@ -651,17 +661,33 @@ class Participation(models.Model):
     null=True,
     verbose_name="Название доклада",
   )
+  def __str__(self):
+    name=""
+    if self.name is None:
+      name = self.name
+    return "Participation " + name
 
 @python_2_unicode_compatible
 class Qualification(models.Model):
   ql_date = models.CharField(max_length=20, verbose_name="Период")
   for_ql = models.CharField(max_length=200, verbose_name="Форма повышения квалификации")
   doc = models.CharField(max_length=200, verbose_name="Документ")
+  def __str__(self):
+    name=""
+    if not self.for_ql is None:
+      name = self.for_ql
+    return "Qualification " + name
 
 @python_2_unicode_compatible
 class AnotherWork(models.Model):
   work_date = models.CharField(verbose_name="Период", max_length=20)
   v_work = models.CharField(max_length=200, verbose_name="Вид работы")
+  def __str__(self):
+    name=""
+    if not self.v_work is None:
+      name = self.v_work
+    return "Another work " + name
+
 
 @python_2_unicode_compatible
 class TeacherPublication(models.Model):
@@ -669,6 +695,11 @@ class TeacherPublication(models.Model):
   type = models.CharField(max_length=200, verbose_name="Вид публикации")
   volume = models.IntegerField(verbose_name="Объем")
   name_publisher = models.CharField(max_length=200, verbose_name="Наименование издательства")
+  def __str__(self):
+    name = ""
+    if not self.name_work is None:
+      name = self.name_work
+    return "Teacher publication " + name
 
 # class StringListField(forms.CharField):
 #   def prepare_value(self, value):
@@ -692,5 +723,5 @@ class TeacherPlan(models.Model):
   qualifications = ListField(EmbeddedModelField("Qualification"))
   anotherworks = ListField(EmbeddedModelField("AnotherWork"))
 
-  def __src__(self):
+  def __str__(self):
     return self.person_profile.first_name + " " + str(self.start_year) + '-' + str(self.start_year+1)

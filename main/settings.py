@@ -122,3 +122,4 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.messages.context_processors.messages",
     "django.core.context_processors.request",
 )
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")

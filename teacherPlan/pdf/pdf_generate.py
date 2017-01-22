@@ -1,17 +1,18 @@
 # -*- coding: utf-8 -*-
+import os
+
 from django.http import Http404
+from reportlab.lib import colors
 from reportlab.lib.enums import TA_CENTER, TA_LEFT
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.lib.pagesizes import letter
+from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.units import inch
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.platypus import TableStyle
-from reportlab.platypus import Paragraph, SimpleDocTemplate, Table
+from reportlab.platypus import Paragraph, SimpleDocTemplate, Table,Image
 from reportlab.platypus.flowables import PageBreak, Spacer
 from reportlab.lib.pagesizes import A4
-from reportlab.graphics.shapes import *
 from reportlab.lib.units import mm
 
 from moevmCommon.models import TeacherPlan
@@ -23,27 +24,98 @@ def conclusion_to_pdf(responce=None,id=1):
   pdfmetrics.registerFont(TTFont('TimesBold', os.path.join(FILE_DIR,'TimesBold.ttf')))
   pdfmetrics.registerFont(TTFont('TimesItalic', os.path.join(FILE_DIR,'TimesItalic.ttf')))
   styles = getSampleStyleSheet()
-  styles.add(ParagraphStyle(name='TNR_H_Center', fontName='TimesNewRoman', fontSize=12, alignment=TA_CENTER, leftIndent=1.5*inch))
-  styles.add(ParagraphStyle(name='TNR_H_Left', fontName='TimesNewRoman', leading = 30, fontSize=12, alignment=TA_LEFT, leftIndent=1.5*inch))
-  styles.add(ParagraphStyle(name='TNR_Bold_H_Center', fontName='TimesBold', fontSize=12, alignment=TA_CENTER, leftIndent=1.5*inch))
-  styles.add(ParagraphStyle(name='TNR_Big_Bold_H_Center16',fontName='TimesBold',leading = 20, fontSize=16, alignment=TA_CENTER))
-  styles.add(ParagraphStyle(name='TNR_Big_Bold_H_Center14',fontName='TimesBold',leading = 20, fontSize=14, alignment=TA_CENTER))
-  styles.add(ParagraphStyle(name='TNR_Big_Bold_H_Center12',fontName='TimesBold',leading = 20, fontSize=12, alignment=TA_CENTER))
-  styles.add(ParagraphStyle(name='TNR_mini',fontName='TimesItalic',leading = 12, fontSize=9, alignment=TA_CENTER))
+  #Стили под шапку
+  styles.add(
+    ParagraphStyle(
+      name='TNR_H_Center',
+      fontName='TimesNewRoman',
+      fontSize=12,
+      alignment=TA_CENTER,
+      #leftIndent=1.5*inch
+    )
+  )
+  styles.add(
+    ParagraphStyle(
+      name='TNR_Bold_H_Center',
+      fontName='TimesBold',
+      fontSize=12,
+      alignment=TA_CENTER,
+      leftIndent=-0.7 * inch,
+      leading=12,
+    )
+  )
+  styles.add(
+    ParagraphStyle(
+      name='TNR_Big_Bold_H_Center16',
+      fontName='TimesBold',
+
+      fontSize=16,
+      alignment=TA_CENTER,
+      #leftIndent=1.5*inch
+    )
+  )
+
+
+  styles.add(
+    ParagraphStyle(
+      name='TNR_H_Left',
+      fontName='TimesNewRoman',
+      leading = 30,
+      fontSize=12,
+      alignment=TA_LEFT,
+      leftIndent=1.5*inch
+    )
+  )
+
+
+  styles.add(
+    ParagraphStyle(
+      name='TNR_Big_Bold_H_Center14',
+      fontName='TimesBold',
+      leading = 20,
+      fontSize=14,
+      alignment=TA_CENTER)
+  )
+  styles.add(
+    ParagraphStyle(
+      name='TNR_Big_Bold_H_Center12',
+      fontName='TimesBold',
+      leading = 20,
+      fontSize=12,
+      alignment=TA_CENTER
+    )
+  )
+  styles.add(
+    ParagraphStyle(
+      name='TNR_mini',
+      fontName='TimesItalic',
+      leading = 12,
+      fontSize=9,
+      alignment=TA_CENTER
+    )
+  )
   normal_table_style = TableStyle([
           ('FONT', (0, 0), (-1, -1), 'TimesNewRoman', 9),
           ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
           ('GRID', (0, 0), (-1, -1), 0.25, colors.black),
           ('INNERGRID', (0, 0), (-1, -1), 0.25, colors.black),
           ('VALIGN', (0, 0), (-1, -1), 'BOTTOM'),
-          ('wordWrap', (0, 0), (-1, -1), True)
-      ])
+      ]
+  )
 
   normal_table_style1 = TableStyle([
           ('FONT', (0, 0), (-1, -1), 'TimesNewRoman', 12),
           ('ALIGN', (0, 0), (-1, -1), 'CENTER')
 
       ])
+  head_table_style = TableStyle([
+          ('FONT', (0, 0), (-1, -1), 'TimesNewRoman', 12),
+          ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+          ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+      ]
+  )
+
+
 
   try:
     tplan = TeacherPlan.objects.get(id=id)
@@ -57,12 +129,19 @@ def conclusion_to_pdf(responce=None,id=1):
 
   story = []
   story.append(Paragraph("МИНОБРНАУКИ РОССИИ",styles['TNR_H_Center']))
-  story.append(Paragraph("""<br/><br/>САНКТ-ПЕТЕРБУРГСКИЙ
+  LETI_NAME = Paragraph("""<br/><br/>САНКТ-ПЕТЕРБУРГСКИЙ
   <br/>ГОСУДАРСТВЕННЫЙ ЭЛЕКТРОТЕХНИЧЕСКИЙ УНИВЕРСИТЕТ
-  <br/>«ЛЭТИ» им.В.И.Ульянова (Ленина)""",styles['TNR_Bold_H_Center']))
+  <br/>«ЛЭТИ» им.В.И.Ульянова (Ленина)""",styles['TNR_Bold_H_Center'])
+
+  Leti_image = Image(os.path.join(FILE_DIR,'im.png').__str__())
+  Leti_image.drawHeight = 25*mm
+  Leti_image.drawWidth = 20*mm
+  header_table = Table([[Leti_image,LETI_NAME]], colWidths=(20*mm,155*mm))
+  header_table.setStyle(head_table_style)
+  story.append(header_table)
 
   story.append(Paragraph("<br/><br/><br/><br/>ИНДИВИДУАЛЬНЫЙ  ПЛАН <br/>"
-                         "ПРЕПОДАВАТЕЛЯ<br/><br/>",styles['TNR_Big_Bold_H_Center16']))
+                         "ПРЕПОДАВАТЕЛЯ<br/>",styles['TNR_Big_Bold_H_Center16']))
   story.append(Spacer(0, 0.5 *inch))
   personal_data = [
       ['Факультет', 'КТИ'],
@@ -73,7 +152,7 @@ def conclusion_to_pdf(responce=None,id=1):
   p_d.setStyle(normal_table_style1)
   story.append(p_d)
   story.append(Paragraph("____________________________________________", styles['TNR_mini']))
-  story.append(Paragraph("<br/><br/><br/>Фамилия", styles['TNR_mini']))
+  story.append(Paragraph("<br/><br/>Фамилия", styles['TNR_mini']))
   story.append(Paragraph(" &nbsp &nbsp &nbsp &nbsp Отчество", styles['TNR_mini']))
   story.append(Paragraph("____________________________________________", styles['TNR_mini']))
   story.append(Paragraph("<br/><br/><br/>Год рождения", styles['TNR_mini']))

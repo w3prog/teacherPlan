@@ -158,21 +158,56 @@ def conclusion_to_pdf(responce=None,id=1):
   story.append(Paragraph("<br/><br/><br/><br/>ИНДИВИДУАЛЬНЫЙ  ПЛАН <br/>"
                          "ПРЕПОДАВАТЕЛЯ<br/>",styles['TNR_Big_Bold_H_Center16']))
   story.append(Spacer(0, 0.5 *inch))
+
+  position = ""
+  if not tplan.person_profile.position == None:
+    position = tplan.person_profile.position
+
+  birth_date = ""
+  if not tplan.person_profile.birth_date == None:
+    birth_date = tplan.person_profile.birth_date.year
+
+  election_date = ""
+  if not tplan.person_profile.election_date == None:
+    election_date = dateformat.format(tplan.person_profile.election_date, 'd E Y')
+
+  academic_degree = ""
+  if not tplan.person_profile.academic_degree == None:
+    academic_degree = tplan.person_profile.get_academic_degree_display()
+
+  academic_degree_date = ""
+  if not tplan.person_profile.year_of_academic_degree == None:
+    academic_degree_date = tplan.person_profile.year_of_academic_degree.year
+
+  academic_status = ""
+  if not tplan.person_profile.academic_status == None:
+    academic_status = tplan.person_profile.get_academic_status_display()
+
+  academic_status_date = ""
+  if not tplan.person_profile.year_of_academic_status == None:
+    academic_status_date = tplan.person_profile.year_of_academic_degree.year
+
+  contract_date=""
+  if not tplan.person_profile.contract_date == None:
+    contract_date = dateformat.format(tplan.person_profile.contract_date, 'd E Y')
+
   personal_data = [
       ['Факультет', 'компьютерных технологий и информатики '],
       ['Кафедра', 'математического обеспечения и применения ЭВМ'],
       ['ФИО', tplan.person_profile.FIO],
-      ['Должность', tplan.person_profile.position],
-      ['Год рождения', tplan.person_profile.birth_date.year],
+      ['Должность', position],
+      ['Год рождения', birth_date],
       [Paragraph('Дата текущего  избрания или зачисления на преподавательскую должность',header_table_paragraph_style),
-       dateformat.format(tplan.person_profile.election_date, 'd E Y')],
+       election_date],
       [Paragraph('Ученая степень и год присуждения',header_table_paragraph_style),
-       "%s %s" % (tplan.person_profile.get_academic_degree_display(),tplan.person_profile.year_of_academic_degree.year)],
+       "%s %s" % (academic_degree,academic_degree_date)],
       ['Ученое звание и год присвоения',
-       "%s %s" % (tplan.person_profile.get_academic_status_display(), tplan.person_profile.year_of_academic_degree.year)],
+       "%s %s" % (academic_status, academic_status_date)],
       [Paragraph('Дата переизбрания (окончания трудового договора)',header_table_paragraph_style),
-       dateformat.format(tplan.person_profile.contract_date, 'd E Y')],
+       contract_date ],
     ]
+
+
   p_d = Table(personal_data,colWidths=(70*mm,105*mm))
   p_d.setStyle(normal_table_style1)
   story.append(p_d)

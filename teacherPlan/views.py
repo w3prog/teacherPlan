@@ -277,9 +277,9 @@ def qualificationList(request, id=1):
         form = QualificationForm(request.POST)
         if form.is_valid():
             newdisc = Qualification.objects.create(
-                ql_date=request.POST['ql_date'],
-                for_ql=request.POST['for_ql'],
-                doc=request.POST['doc'],
+                period=request.POST['period'],
+                form_training=request.POST['form_training'],
+                document=request.POST['document'],
             )
             tp.qualifications =  tp.qualifications + [newdisc]
             tp.save()

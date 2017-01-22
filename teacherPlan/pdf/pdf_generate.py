@@ -356,9 +356,50 @@ def conclusion_to_pdf(responce=None,id=1):
   ]
   table = Table(table_data,colWidths=(40*mm,90*mm,45*mm))
   story.append(table)
-  # story.append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", styles['TNR_bold_text']))
-  # story.append(Paragraph("&nbsp;&nbsp;&nbsp;&nbsp;____________________________&nbsp;&nbsp;_________________", styles['TNR_bold_text']))
 
+  story.append(PageBreak())
+  story.append(Paragraph("Заключение за пятилетний период работы", styles['TNR_Big_Bold_H_Center14']))
+  story.append(Paragraph("Особые достижения преподавателя за пятилетний период работы " +
+                         "(Подготовка и защита диссертации, подготовка призеров конкурсов студенческих и аспиранских работ, " +
+                         "победителей предметных олимпиад и т.д.).", header_table_paragraph_style))
+
+  story.append(Paragraph('<br/><br/>', styles['TNR_bold_text']))
+
+
+  table_data = [
+    ['Наименование работ','Период'],
+    ['',''],
+    ['',''],
+    ['',''],
+    ['',''],
+    ['',''],
+    ['',''],
+    ['',''],
+  ]
+  story.append(Paragraph('<br/><br/>', styles['TNR_bold_text']))
+
+  table = Table(table_data, colWidths=(120 * mm, 55 * mm))
+  table.setStyle(normal_table_style)
+  story.append(table)
+
+  story.append(Paragraph("Заключение кафедры за 5-летний период работы", styles['TNR_Big_Bold_H_Center14']))
+  story.append(Paragraph("______________________________________________________________________", styles['TNR_bold_text']))
+  story.append(Paragraph("______________________________________________________________________", styles['TNR_bold_text']))
+  story.append(Paragraph("______________________________________________________________________", styles['TNR_bold_text']))
+  story.append(Paragraph("______________________________________________________________________", styles['TNR_bold_text']))
+  story.append(Paragraph("______________________________________________________________________", styles['TNR_bold_text']))
+  story.append(Paragraph("______________________________________________________________________", styles['TNR_bold_text']))
+
+  story.append(Paragraph('<br/><br/>', styles['TNR_bold_text']))
+
+  table_data = [
+    [Paragraph('Преподаватель', styles['TNR_bold_text']), '________________________________________','_________________'],
+    [Paragraph('Зав. кафедрой', styles['TNR_bold_text']), '________________________________________','_________________'],
+    [Paragraph('Декан', styles['TNR_bold_text']), '________________________________________','_________________'],
+    [],
+  ]
+  table = Table(table_data, colWidths=(40 * mm, 90 * mm, 45 * mm))
+  story.append(table)
 
   if(responce==None):
     doc = SimpleDocTemplate('mydoc.pdf',pagesize = A4)

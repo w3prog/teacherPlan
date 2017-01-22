@@ -414,44 +414,6 @@ class UserProfile(models.Model):
         verbose_name_plural = u"Профили пользователей"
 
 @python_2_unicode_compatible
-class AcademicDiscipline(models.Model):
-  name = models.CharField(
-    max_length=150,
-    verbose_name="Наименование дисциплины",
-  )
-  type = models.CharField(
-    max_length=40,
-    null=True,
-    verbose_name="Вид занятия",
-    blank=True,
-  )
-  characterUpdate = models.CharField(
-    max_length=250,
-    null=True,
-    verbose_name="Характер обновления",
-    blank=True,
-  )
-
-  @staticmethod
-  def create(**params):
-    academicDiscipline = AcademicDiscipline.objects.create(
-      disc=params.get('name'),
-      type=params.get('type'),
-      characterUpdate=params.get('characterUpdate'),
-    )
-    academicDiscipline.save()
-
-    return academicDiscipline
-
-  def __str__(self):
-    return unicode(u"Учебная дисциплина " + self.name)
-
-  class Meta:
-    verbose_name = u"Академическая дисциплина"
-    verbose_name_plural = u"Академические дисциплины"
-
-#TeacherPlan
-@python_2_unicode_compatible
 class StudyBook(models.Model):
   name = models.CharField(
     max_length=80,
@@ -484,12 +446,37 @@ class StudyBook(models.Model):
     name=""
     if not self.name is None:
       name = self.name
-    return "Учебная книга " + name
+    return unicode(u"Учебная книга " + name)
   class Meta:
     verbose_name = u"Учебная книга"
     verbose_name_plural = u"Учебные книги"
 
-#TeacherPlan
+@python_2_unicode_compatible
+class AcademicDiscipline(models.Model):
+  name = models.CharField(
+    max_length=150,
+    verbose_name="Наименование дисциплины",
+  )
+  type = models.CharField(
+    max_length=40,
+    verbose_name="Вид занятия",
+    null=True,
+    blank=True,
+  )
+  characterUpdate = models.CharField(
+    max_length=250,
+    verbose_name="Характер обновления",
+    null=True,
+    blank=True,
+  )
+
+  def __str__(self):
+    return unicode(u"Учебная дисциплина " + self.name)
+
+  class Meta:
+    verbose_name = u"Академическая дисциплина"
+    verbose_name_plural = u"Академические дисциплины"
+
 @python_2_unicode_compatible
 class NIR(models.Model):
   name = models.CharField(
@@ -518,69 +505,29 @@ class NIR(models.Model):
     name=""
     if not self.name is None:
       name = self.name
-    return "Научно-исследовательская работа " + name
+    return unicode(u"Научно-исследовательская работа " + name)
 
   class Meta:
     verbose_name = u"Научно-исследовательская работа"
     verbose_name_plural = u"Научно-исследовательские работы"
 
-TYPE_PUBLICATION_CHOICES = (
-  ('guidelines', 'Методическое указание'),
-  ('book', 'Книга'),
-  ('journal', 'Статья в журнале'),
-  ('compilation', 'Конспект лекции/сборник докладов'),
-  ('collection ', 'Сборник трудов')
-)
-
-reIter = (
-  ('disposable', 'одноразовый'),
-  ('repeating', 'повторяющийся')
-)
-
-
-EVENT_TYPE_CHOISES = (
-  ('k','Конкурс'),
-  ('v','Выставка'),
-  ('с','Конференция'),
-  ('q','Семинар'),
-)
-
-reIter = (
-        ('disposable', 'одноразовый'),
-        ('repeating', 'повторяющийся')
-)
-#TeacherPlan
 @python_2_unicode_compatible
 class Participation(models.Model):
+  name = models.CharField(
+    max_length=255,
+    verbose_name="Название",
+  )
   date = models.CharField(
     verbose_name="Дата проведения",
     null=True,
     blank=True,
     max_length=20,
   )
-
-  type = models.CharField(
-    max_length=1,
-    choices=EVENT_TYPE_CHOISES,
-    default='c',
-    verbose_name = "Тип",
-  )
-
-  name = models.CharField(
-    max_length=255,
-    verbose_name="Название",
-  )
   level = models.CharField(
     max_length=20,
     null=True,
     blank=True,
     verbose_name="Уровень",
-  )
-  place = models.CharField(
-    verbose_name="Место проведения",
-    max_length="100",
-    null=True,
-    blank=True,
   )
   report = models.CharField(
     max_length=250,
@@ -590,45 +537,13 @@ class Participation(models.Model):
   )
   def __str__(self):
     name=""
-    if self.name is None:
+    if not self.name is None:
       name = self.name
-    return unicode("Участие" + name)
+    return unicode(u"Участие " + name)
   class Meta:
     verbose_name = u"Участие"
     verbose_name_plural = u"Участия"
 
-#TeacherPlan
-@python_2_unicode_compatible
-class Qualification(models.Model):
-  period = models.CharField(max_length=20, verbose_name="Период")
-  form_training = models.CharField(max_length=200, verbose_name="Форма повышения квалификации")
-  document = models.CharField(max_length=200, verbose_name="Документ")
-  def __str__(self):
-    name=""
-    if not self.form_training is None:
-      name = self.form_training
-    return unicode("Квалификация " + name)
-
-  class Meta:
-    verbose_name = u"Повышение квалификации"
-    verbose_name_plural = u"Повышения квалификации"
-
-#TeacherPlan
-@python_2_unicode_compatible
-class AnotherWork(models.Model):
-  work_date = models.CharField(verbose_name="Период", max_length=20)
-  type_work = models.CharField(max_length=200, verbose_name="Вид работы")
-  def __str__(self):
-    name=""
-    if not self.type_work is None:
-      name = self.type_work
-    return unicode("Another work " + name)
-
-  class Meta:
-    verbose_name = u"Дополнительная работа"
-    verbose_name_plural = u"Дополнительные работы"
-
-#TeacherPlan
 @python_2_unicode_compatible
 class TeacherPublication(models.Model):
   name_work = models.CharField(max_length=200, verbose_name="Наименование работ")
@@ -639,11 +554,40 @@ class TeacherPublication(models.Model):
     name = ""
     if not self.name_work is None:
       name = self.name_work
-    return "Teacher publication " + name
+    return unicode(u"Публикация преподавателя " + name)
 
   class Meta:
     verbose_name = u"Публикация преподавателя"
     verbose_name_plural = u"Публикации преподавателя"
+
+@python_2_unicode_compatible
+class Qualification(models.Model):
+  period = models.CharField(max_length=20, verbose_name="Период")
+  form_training = models.CharField(max_length=200, verbose_name="Форма повышения квалификации")
+  document = models.CharField(max_length=200, verbose_name="Документ")
+  def __str__(self):
+    name=""
+    if not self.form_training is None:
+      name = self.form_training
+    return unicode(u"Квалификация " + name)
+
+  class Meta:
+    verbose_name = u"Повышение квалификации"
+    verbose_name_plural = u"Повышения квалификации"
+
+@python_2_unicode_compatible
+class AnotherWork(models.Model):
+  work_date = models.CharField(verbose_name="Период", max_length=20)
+  type_work = models.CharField(max_length=200, verbose_name="Вид работы")
+  def __str__(self):
+    name=""
+    if not self.type_work is None:
+      name = self.type_work
+    return unicode(u"Дополнительная работа " + name)
+
+  class Meta:
+    verbose_name = u"Дополнительная работа"
+    verbose_name_plural = u"Дополнительные работы"
 
 # class StringListField(forms.CharField):
 #   def prepare_value(self, value):
@@ -668,7 +612,7 @@ class TeacherPlan(models.Model):
   anotherworks = ListField(EmbeddedModelField("AnotherWork"))
 
   def __str__(self):
-    return self.person_profile.first_name + " " + str(self.start_year) + '-' + str(self.start_year+1)
+    return unicode(self.person_profile.first_name + " " + str(self.start_year) + '-' + str(self.start_year+1))
 
   class Meta:
     verbose_name = u"Учебный план"

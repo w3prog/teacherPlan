@@ -307,7 +307,7 @@ def difWorkList(request, id=1):
         if form.is_valid():
             newdisc = AnotherWork.objects.create(
                 work_date=request.POST['work_date'],
-                v_work=request.POST['v_work'])
+                type_work=request.POST['type_work'])
             tp.anotherworks =  tp.anotherworks + [newdisc]
             tp.save()
         return HttpResponseRedirect('/teacherPlan/difWorkList/' + tp.id)

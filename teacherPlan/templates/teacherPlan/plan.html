@@ -1,8 +1,6 @@
 {% extends 'teacherPlan/pages/template.html' %}
-{% block title %}Индивидуальный план {{ user_profile.FIO }} за {{  plan.start_year }}
-    -{{  plan.start_year|add:"1" }} год.{% endblock %}
-{% block pagename %}Индивидуальный план {{ user_profile.FIO }} за {{ plan.start_year }}-
-    {{  plan.start_year|add:"1" }} год.{% endblock %}
+{% block title %}Индивидуальный план за {{ plan.start_year }}-{{  plan.start_year|add:"1" }} год.{% endblock %}
+{% block pagename %}Индивидуальный план за {{ plan.start_year }}-{{  plan.start_year|add:"1" }} год.{% endblock %}
 {% block content %}
     <h2>Факультет: КТИ</h2>
     <p>Кафедра: МО ЭВМ</p>

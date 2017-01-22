@@ -47,6 +47,11 @@ def conclusion_to_pdf(responce=None,id=1):
   except:
     raise Http404
 
+  tplan.person_profile.last_name
+  tplan.person_profile.first_name
+  tplan.person_profile.academic_degree
+
+
   story = []
   story.append(Paragraph("МИНОБРНАУКИ РОССИИ",styles['TNR_H_Center']))
   story.append(Paragraph("""<br/><br/>САНКТ-ПЕТЕРБУРГСКИЙ
@@ -57,8 +62,8 @@ def conclusion_to_pdf(responce=None,id=1):
   story.append(Spacer(0, 0.5 *inch))
   personal_data = [
       ['Факультет', 'КТИ'],
-      ['Кафедра', 'моевм'],
-      ['Должность', ""]
+      ['Кафедра', 'МО ЭВМ'],
+      ['Должность', tplan.person_profile.position]
     ]
   p_d = Table(personal_data)
   p_d.setStyle(normal_table_style1)

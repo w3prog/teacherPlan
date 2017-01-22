@@ -203,7 +203,6 @@ ACADEMIC_STATUS_CHOICES  = (
   ('d','Доцент'),
   ('p','Профессор'),
 )
-
 ACADEMIC_DEGREE_CHOICES = (
   ('n','Без степени'),
   ('t','Кандидат наук'),

@@ -14,9 +14,9 @@ from moevmCommon.models import AnotherWork, Qualification
 class StudyBookForm(forms.Form):
   name = CharField(max_length=200, label="Наименование")
   type = CharField(max_length=200, label="Вид издания")
-  volume = IntegerField(label="Объем в п.л.",widget=forms.TextInput(attrs={'type': 'number'}))
+  volume = IntegerField(label="Объем в п.л.",widget=forms.TextInput(attrs={'type': 'number',"min": "0"}))
   vulture = CharField(max_length=200, label="Вид грифа")
-  finishDate = IntegerField(label="Срок сдачи рукописи",widget=forms.TextInput(attrs={'type': 'number'}))
+  finishDate = IntegerField(label="Срок сдачи рукописи",widget=forms.TextInput(attrs={'type': 'number',"min": "0"}))
 
 class AcademicDisciplineForm(forms.Form):
   name = CharField(max_length=200, label="Наименование дисциплины")
@@ -38,18 +38,18 @@ class ParticipationForm(forms.Form):
 class PublicationForm(forms.Form):
   name_work = CharField(max_length=200, label="Наименование работ")
   type = CharField(max_length=200, label="Вид публикации")
-  volume = IntegerField(label="Объем в п.л.",widget=forms.TextInput(attrs={'type': 'number'}))
+  volume = IntegerField(label="Объем в п.л.",widget=forms.TextInput(attrs={'type': 'number',"min": "0"}))
   name_publisher = CharField(max_length=200, label="Наименование издательства")
 
 class QualificationForm(ModelForm):
   class Meta:
     model = Qualification
-    fields = ('ql_date', 'for_ql', 'doc')
+    fields = ("period", "form_training", "document")
 
 class AnotherWorkForm(ModelForm):
   class Meta:
     model = AnotherWork
-    fields = ('work_date', 'v_work')
+    fields = ('work_date', "type_work")
 
 # END SECTION
 class RegisterTeacherForm(forms.Form):

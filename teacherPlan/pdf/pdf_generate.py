@@ -192,7 +192,7 @@ def conclusion_to_pdf(responce=None,id=1):
     contract_date = dateformat.format(tplan.person_profile.contract_date, 'd E Y')
 
   personal_data = [
-      ['Факультет', 'компьютерных технологий и информатики '],
+      ['Факультет', 'компьютерных технологий и информатики'],
       ['Кафедра', 'математического обеспечения и применения ЭВМ'],
       ['ФИО', tplan.person_profile.FIO],
       ['Должность', position],

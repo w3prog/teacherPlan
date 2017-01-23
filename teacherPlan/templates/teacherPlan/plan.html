@@ -2,8 +2,8 @@
 {% block title %}Индивидуальный план за {{ plan.start_year }}-{{  plan.start_year|add:"1" }} год.{% endblock %}
 {% block pagename %}Индивидуальный план за {{ plan.start_year }}-{{  plan.start_year|add:"1" }} год.{% endblock %}
 {% block content %}
-    <h2>Факультет: КТИ</h2>
-    <p>Кафедра: МО ЭВМ</p>
+    <h2>Факультет: компьютерных технологий и информатики</h2>
+    <p>Кафедра: математического обеспечения и применения ЭВМ</p>
     {% if not user_profile.position == none %}
         <p>Должность: {{ user_profile.position }}</p>
     {% endif %}

@@ -12,17 +12,36 @@
     {% if disciplines %}
     <table class="table table-bordered">
         <tr>
+            <th></th>
             <th>Наименование дисциплины</th>
             <th>Вид занятий</th>
             <th>Характер изменения</th>
             <th>Отметка  о выполнении</th>
+            <th></th>
         </tr>
         <tr>
             {% for discipline in disciplines %}
+                <td width="10">
+                    <form action="{% url 'difWorkListEdit' planid %}" method="get">
+                        <input type="hidden" name="idlink" value="{{  discipline.id }}">
+                        <button type="submit" class="btn btn-info btn-xs">
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                        </button>
+                    </form>
+                </td>
                 <td>{{  discipline.name }}</td>
                 <td>{{  discipline.type }}</td>
                 <td>{{  discipline.characterUpdate }}</td>
-                <td></td>
+                <td width="10">
+                    <form action="#" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="id" value="{{  discipline.id }}">
+                        <input type="hidden" name="type" value="delete">
+                        <button type="submit" class="btn btn-danger btn-xs">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </button>
+                    </form>
+                </td>
                 </tr>
             {% endfor %}
 

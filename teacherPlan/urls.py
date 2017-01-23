@@ -21,13 +21,22 @@ urlpatterns = patterns(
    url(r'^registerTeacher/', registerTeacher,name='registerTeacher' ),
 
    #forms
-   url(r'^studybookList/(?P<id>[0-9a-z]+)', studybookList, name='studybookList'),
-   url(r'^disciplineList/(?P<id>[0-9a-z]+)', disciplineList, name='disciplineList'),
+   url(r'^studybookList/(?P<id>[0-9a-z]+)', studybook_list, name='studybookList'),
+   url(r'^disciplineList/(?P<id>[0-9a-z]+)', discipline_list, name='disciplineList'),
    url(r'^scWorkList/(?P<id>[0-9a-z]+)', scWorkList, name='scWorkList'),
-   url(r'^participationList/(?P<id>[0-9a-z]+)', participationList, name='participationList'),
-   url(r'^publicationList/(?P<id>[0-9a-z]+)', publicationList, name='publicationList'),
-   url(r'^qualificationList/(?P<id>[0-9a-z]+)', qualificationList, name='qualificationList'),
-   url(r'^difWorkList/(?P<id>[0-9a-z]+)', difWorkList, name='difWorkList'),
+   url(r'^participationList/(?P<id>[0-9a-z]+)', participation_list, name='participationList'),
+   url(r'^publicationList/(?P<id>[0-9a-z]+)', publication_list, name='publicationList'),
+   url(r'^qualificationList/(?P<id>[0-9a-z]+)', qualification_list, name='qualificationList'),
+   url(r'^difWorkList/(?P<id>[0-9a-z]+)', dif_work_list, name='difWorkList'),
+
+   #forms_edit
+   url(r'^studybookList/(?P<id>[0-9a-z]+)/edit', studybook_list_edit, name='studybookListEdit'),
+   url(r'^disciplineList/(?P<id>[0-9a-z]+)/edit', discipline_list_edit, name='disciplineListEdit'),
+   url(r'^scWorkList/(?P<id>[0-9a-z]+)/edit', scWorkList_edit, name='scWorkListEdit'),
+   url(r'^participationList/(?P<id>[0-9a-z]+)/edit', participation_list_edit, name='participationListEdit'),
+   url(r'^publicationList/(?P<id>[0-9a-z]+)/edit', publication_list_edit, name='publicationListEdit'),
+   url(r'^qualificationList/(?P<id>[0-9a-z]+)/edit', qualification_list_edit, name='qualificationListEdit'),
+   url(r'^difWorkList/(?P<id>[0-9a-z]+)/edit', dif_work_list_edit, name='difWorkListEdit'),
 
    url(r'^pdf/(?P<id>[0-9a-z]+)', makePDF, name='pdf'),
 )

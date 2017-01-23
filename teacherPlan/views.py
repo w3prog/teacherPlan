@@ -14,6 +14,10 @@ from moevmCommon.models import UserProfile
 from teacherPlan.forms import *
 from .pdf.pdf_generate import conclusion_to_pdf
 from moevmCommon.decorators import login_teacher_required
+from bson.objectid import ObjectId
+from django.db import connections
+
+
 
 @login_teacher_required(login_url="/teacherPlan/login")
 def index(request):
@@ -114,9 +118,9 @@ def makePDF(request,id=1):
 
     return conclusion_to_pdf(response,id)
 
-##SECTION TP forms
+##SECTION TP FROM
 @login_teacher_required(login_url="/teacherPlan/login")
-def studybookList(request, id=1):
+def studybook_list(request, id=1):
     try:
         tp = TeacherPlan.objects.get(id=id)
     except:
@@ -147,7 +151,7 @@ def studybookList(request, id=1):
         )
 
 @login_teacher_required(login_url="/teacherPlan/login")
-def disciplineList(request, id=1):
+def discipline_list(request, id=1):
     try:
         tp = TeacherPlan.objects.get(id=id)
     except:
@@ -174,7 +178,6 @@ def disciplineList(request, id=1):
             'planid': tp.id
         }
     )
-
 
 @login_teacher_required(login_url="/teacherPlan/login")
 def scWorkList(request, id=1):
@@ -207,7 +210,7 @@ def scWorkList(request, id=1):
     )
 
 @login_teacher_required(login_url="/teacherPlan/login")
-def participationList(request, id=1):
+def participation_list(request, id=1):
     try:
         tp = TeacherPlan.objects.get(id=id)
     except:
@@ -237,7 +240,7 @@ def participationList(request, id=1):
     )
 
 @login_teacher_required(login_url="/teacherPlan/login")
-def publicationList(request, id=1):
+def publication_list(request, id=1):
     try:
         tp = TeacherPlan.objects.get(id=id)
     except:
@@ -267,23 +270,34 @@ def publicationList(request, id=1):
     )
 
 @login_teacher_required(login_url="/teacherPlan/login")
-def qualificationList(request, id=1):
+def qualification_list(request, id=1):
     try:
         tp = TeacherPlan.objects.get(id=id)
     except:
          raise Http404
     form = QualificationForm
-    if request.method == 'POST':
-        form = QualificationForm(request.POST)
-        if form.is_valid():
-            newdisc = Qualification.objects.create(
-                period=request.POST['period'],
-                form_training=request.POST['form_training'],
-                document=request.POST['document'],
-            )
-            tp.qualifications =  tp.qualifications + [newdisc]
-            tp.save()
-            return HttpResponseRedirect('/teacherPlan/qualificationList/' + tp.id)
+    if request.method == 'POST' :
+        if not 'type' in request.POST:
+            form = QualificationForm(request.POST)
+            if form.is_valid():
+                newdisc = Qualification.objects.create(
+                    period=request.POST['period'],
+                    form_training=request.POST['form_training'],
+                    document=request.POST['document'],
+                )
+                tp.qualifications =  tp.qualifications + [newdisc]
+                tp.save()
+                return HttpResponseRedirect('/teacherPlan/qualificationList/' + tp.id)
+        elif request.POST['type'] == 'delete':
+            form = QualificationDeleteForm(request.POST)
+            if form.is_valid():
+                array = []
+                for i in tp.qualifications:
+                    if not i.id ==request.POST['id']:
+                        array.append(i)
+                tp.qualifications = array
+                tp.save()
+                return HttpResponseRedirect('/teacherPlan/qualificationList/' + tp.id)
     qualifications = tp.qualifications
     return render(
         request,
@@ -296,7 +310,7 @@ def qualificationList(request, id=1):
     )
 
 @login_teacher_required(login_url="/teacherPlan/login")
-def difWorkList(request, id=1):
+def dif_work_list(request, id=1):
     try:
         tp = TeacherPlan.objects.get(id=id)
     except:
@@ -322,5 +336,36 @@ def difWorkList(request, id=1):
         }
     )
 
-## END SECTION TP forms
+##END SECTION TP FORMS
+
+##SECTION TP FORMS EDIT
+@login_teacher_required(login_url="/teacherPlan/login")
+def studybook_list_edit(request, id=1):
+    pass
+
+@login_teacher_required(login_url="/teacherPlan/login")
+def discipline_list_edit(request, id=1):
+    pass
+
+@login_teacher_required(login_url="/teacherPlan/login")
+def scWorkList_edit(request, id=1):
+    pass
+
+@login_teacher_required(login_url="/teacherPlan/login")
+def participation_list_edit(request, id=1):
+    pass
+
+@login_teacher_required(login_url="/teacherPlan/login")
+def publication_list_edit(request, id=1):
+    pass
+
+@login_teacher_required(login_url="/teacherPlan/login")
+def qualification_list_edit(request, id=1):
+    pass
+
+@login_teacher_required(login_url="/teacherPlan/login")
+def dif_work_list_edit(request, id=1):
+    pass
+
+##END SECTION TP FORMS EDIT
 

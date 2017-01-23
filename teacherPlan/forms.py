@@ -50,8 +50,19 @@ class AnotherWorkForm(ModelForm):
   class Meta:
     model = AnotherWork
     fields = ('work_date', "type_work")
-
 # END SECTION
+
+#DELETE FORMS
+
+class QualificationDeleteForm(forms.Form):
+  class Meta:
+    id = CharField(max_length=200, label="Наименование работ")
+
+
+#END SECTION
+
+
+
 class RegisterTeacherForm(forms.Form):
   username = CharField(
     label='Логин',

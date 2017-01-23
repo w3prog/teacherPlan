@@ -15,6 +15,7 @@
             <th>Период</th>
             <th>Форма повышения квалификации</th>
             <th>Документ</th>
+            <th></th>
         </tr>
 
         {% for qualification in qualifications %}
@@ -22,6 +23,14 @@
                 <td>{{ qualification.period }}</td>
                 <td>{{ qualification.form_training }}</td>
                 <td>{{ qualification.document }}</td>
+                <td>
+                    <form action="#" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="id" value="{{  qualification.id }}">
+                        <input type="hidden" name="type" value="delete">
+                        <input type="submit" value="Удалить">
+                    </form></td>
+
             </tr>
         {% endfor %}
     </table>

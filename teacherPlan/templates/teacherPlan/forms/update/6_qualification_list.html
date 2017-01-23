@@ -1,0 +1,27 @@
+{% extends 'teacherPlan/pages/template.html' %}
+{% block title %}Редактирование сведений о "повышение  квалификации"{% endblock %}
+{% block pagename %}Редактирование сведений о "повышение  квалификации"{% endblock %}
+{% block content %}
+
+    <a type="button" href="{% url 'tpplan' planid %}">Назад к плану</a>
+        {% if form.errors %}
+        <p class="bg-danger text-danger">
+            Ошибка при заполнении формы.
+        </p>
+    {% endif %}
+
+    <form action="#" method="post">
+        {% csrf_token %}
+         <p><label for="id_period">Период:</label>
+             <input id="id_period" maxlength="20" name="period" type="text"></p>
+         <p><label for="id_form_training">Форма повышения квалификации:</label>
+             <input id="id_form_training" maxlength="200" name="form_training" type="text"></p>
+         <p><label for="id_document">Документ:</label>
+             <input id="id_document" maxlength="200" name="document" type="text"></p>
+        <input type="type" value="update">
+        <input type="hidden" value="idqual">
+        <input type="submit" value="Изменить">
+    </form>
+    <br>
+    <a type="button" class="btn btn-primary" href="{% url 'tpplan' planid %}">Отмена</a>
+{% endblock %}

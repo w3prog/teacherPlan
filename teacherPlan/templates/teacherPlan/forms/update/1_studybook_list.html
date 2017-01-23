@@ -11,15 +11,16 @@
 
     <form action="#" method="post">
         {% csrf_token %}
-        <p><label for="id_name_work">Наименование работ:</label>
-            <input id="id_name_work" maxlength="200" name="name_work" type="text" value="{{ publ.name_work }}"></p>
-        <p><label for="id_type">Вид публикации:</label>
-            <input id="id_type" maxlength="200" name="type" type="text" value="{{ publ.type }}"></p>
+        <p><label for="id_name">Наименование:</label>
+            <input id="id_name" maxlength="200" name="name" type="text" value="{{ target.name }}"></p>
+        <p><label for="id_type">Вид издания:</label>
+            <input id="id_type" maxlength="200" name="type" type="text"  value="{{ target.type }}"></p>
         <p><label for="id_volume">Объем в п.л.</label>
-            <input id="id_volume" min="0" name="volume" type="number" value="{{ publ.volume }}"></p>
-        <p><label for="id_name_publisher">Наименование издательства:</label>
-            <input id="id_name_publisher" maxlength="200" name="name_publisher" type="text"
-                   value="{{ publ.name_publisher }}"></p>
+            <input id="id_volume" min="0" name="volume" type="number"  value="{{ target.volume }}"></p>
+        <p><label for="id_vulture">Вид грифа:</label>
+            <input id="id_vulture" maxlength="200" name="vulture" type="text"  value="{{ target.vulture }}"></p>
+        <p><label for="id_finishDate">Срок сдачи рукописи:</label>
+            <input id="id_finishDate" min="0" name="finishDate" type="number" value="{{ target.finishDate }}"></p>
         <input type="hidden" name="idlink" value="{{ idlink }}">
         <input type="submit" value="Изменить">
     </form>

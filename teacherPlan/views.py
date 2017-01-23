@@ -127,7 +127,7 @@ def studybook_list(request, id=1):
          raise Http404
     form = StudyBookForm
     if request.method == 'POST':
-        if not 'type' in request.POST:
+        if not 'delete' in request.POST:
             form = StudyBookForm(request.POST)
             if form.is_valid():
                 newdisc = StudyBook.objects.create(
@@ -140,14 +140,14 @@ def studybook_list(request, id=1):
                 tp.study_books = tp.study_books + [newdisc]
                 tp.save()
                 return HttpResponseRedirect('/teacherPlan/studybookList/' + tp.id)
-    elif request.POST['type'] == 'delete':
-            array = []
-            for i in tp.study_books:
-                if not i.id == request.POST['id']:
-                    array.append(i)
-            tp.study_books = array
-            tp.save()
-            return HttpResponseRedirect('/teacherPlan/studybookList/' + tp.id)
+        elif request.POST['delete'] == 'delete':
+                array = []
+                for i in tp.study_books:
+                    if not i.id == request.POST['id']:
+                        array.append(i)
+                tp.study_books = array
+                tp.save()
+                return HttpResponseRedirect('/teacherPlan/studybookList/' + tp.id)
     books = tp.study_books
     return render(
             request,
@@ -167,7 +167,7 @@ def discipline_list(request, id=1):
          raise Http404
     form = AcademicDisciplineForm
     if request.method == 'POST':
-        if not 'type' in request.POST:
+        if not 'delete' in request.POST:
             form = AcademicDisciplineForm(request.POST)
             if form.is_valid():
                 newdisc = AcademicDiscipline.objects.create(
@@ -178,14 +178,14 @@ def discipline_list(request, id=1):
                 tp.disciplines = tp.disciplines + [newdisc]
                 tp.save()
                 return HttpResponseRedirect('/teacherPlan/disciplineList/' + tp.id)
-    elif request.POST['type'] == 'delete':
-            array = []
-            for i in tp.disciplines:
-                if not i.id == request.POST['id']:
-                    array.append(i)
-            tp.disciplines = array
-            tp.save()
-            return HttpResponseRedirect('/teacherPlan/disciplineList/' + tp.id)
+        elif request.POST['delete'] == 'delete':
+                array = []
+                for i in tp.disciplines:
+                    if not i.id == request.POST['id']:
+                        array.append(i)
+                tp.disciplines = array
+                tp.save()
+                return HttpResponseRedirect('/teacherPlan/disciplineList/' + tp.id)
     disciplines = tp.disciplines
     return render(
         request,

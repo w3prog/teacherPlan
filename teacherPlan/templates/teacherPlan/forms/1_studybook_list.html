@@ -12,14 +12,14 @@
     {% if books %}
     <table class="table table-bordered">
         <tr>
-        <th></th>
+            <th></th>
             <th>Наименование</th>
             <th>Вид издания</th>
             <th>Объем</th>
             <th>Вид грифа</th>
             <th>Срок сдачи рукописи</th>
-            <th>Отметка  о выполнении</th>
             <th></th>
+        </tr>
         {% for book in books %}
             <tr>
                 <td width="10">
@@ -39,7 +39,7 @@
                     <form action="#" method="post">
                         {% csrf_token %}
                         <input type="hidden" name="id" value="{{  book.id }}">
-                        <input type="hidden" name="type" value="delete">
+                        <input type="hidden" name="delete" value="delete">
                         <button type="submit" class="btn btn-danger btn-xs">
                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                         </button>

@@ -395,19 +395,183 @@ def dif_work_list(request, id=1):
 ##SECTION TP FORMS EDIT
 @login_teacher_required(login_url="/teacherPlan/login")
 def studybook_list_edit(request, id=1):
-    pass
+    try:
+        tp = TeacherPlan.objects.get(id=id)
+    except:
+         raise Http404
+    form = StudyBookForm
+    if request.method == 'POST':
+        form = StudyBookForm(request.POST)
+        if form.is_valid():
+            newdisc = StudyBook.objects.create(
+                name=request.POST['name'],
+                type=request.POST['type'],
+                volume=request.POST['volume'],
+                vulture=request.POST['vulture'],
+                finishDate=request.POST['finishDate'],
+            )
+            array = []
+            for i in tp.study_books:
+                if not i.id == request.POST['idlink']:
+                    array.append(i)
+                else:
+                    array.append(newdisc)
+            tp.study_books = array
+            tp.save()
+            return HttpResponseRedirect('/teacherPlan/studybookList/' + tp.id)
+
+    target = None
+    idlink = request.GET['idlink']
+    for i in tp.study_books:
+        if i.id == idlink:
+            target = i
+            break
+    if target == None:
+        raise Http404
+    return render(
+        request,
+        'teacherPlan/forms/update/1_studybook_list.html',
+        {
+            'idlink': idlink,
+            'form':form,
+            'target':target,
+            'planid': tp.id
+        }
+    )
 
 @login_teacher_required(login_url="/teacherPlan/login")
 def discipline_list_edit(request, id=1):
-    pass
+    try:
+        tp = TeacherPlan.objects.get(id=id)
+    except:
+         raise Http404
+    form = AcademicDisciplineForm
+    if request.method == 'POST':
+        form = AcademicDisciplineForm(request.POST)
+        if form.is_valid():
+            newdisc = AcademicDiscipline.objects.create(
+                name=request.POST['name'],
+                type=request.POST['type'],
+                characterUpdate=request.POST['characterUpdate']
+            )
+            array = []
+            for i in tp.disciplines:
+                if not i.id == request.POST['idlink']:
+                    array.append(i)
+                else:
+                    array.append(newdisc)
+            tp.disciplines = array
+            tp.save()
+            return HttpResponseRedirect('/teacherPlan/disciplineList/' + tp.id)
+
+    target = None
+    idlink = request.GET['idlink']
+    for i in tp.disciplines:
+        if i.id == idlink:
+            target = i
+            break
+    if target == None:
+        raise Http404
+    return render(
+        request,
+        'teacherPlan/forms/update/2_discipline_list.html',
+        {
+            'idlink': idlink,
+            'form':form,
+            'target':target,
+            'planid': tp.id
+        }
+    )
 
 @login_teacher_required(login_url="/teacherPlan/login")
 def scWorkList_edit(request, id=1):
-    pass
+    try:
+        tp = TeacherPlan.objects.get(id=id)
+    except:
+         raise Http404
+    form = ScientificWorkForm
+    if request.method == 'POST':
+        form = ScientificWorkForm(request.POST)
+        if form.is_valid():
+            newNIR = NIR.objects.create(
+                name=request.POST['name'],
+                period=request.POST['period'],
+                role=request.POST['role'],
+                organisation=request.POST['organisation'],
+            )
+            array = []
+            for i in tp.NIRS:
+                if not i.id == request.POST['idlink']:
+                    array.append(i)
+                else:
+                    array.append(newNIR)
+            tp.NIRS = array
+            tp.save()
+            return HttpResponseRedirect('/teacherPlan/scWorkList/' + tp.id)
+
+    target = None
+    idlink = request.GET['idlink']
+    for i in tp.NIRS:
+        if i.id == idlink:
+            target = i
+            break
+    if target == None:
+        raise Http404
+    return render(
+        request,
+        'teacherPlan/forms/update/3_sc_work_list.html',
+        {
+            'idlink': idlink,
+            'form':form,
+            'target':target,
+            'planid': tp.id
+        }
+    )
 
 @login_teacher_required(login_url="/teacherPlan/login")
 def participation_list_edit(request, id=1):
-    pass
+    try:
+        tp = TeacherPlan.objects.get(id=id)
+    except:
+         raise Http404
+    form = ParticipationForm
+    if request.method == 'POST':
+        form = ParticipationForm(request.POST)
+        if form.is_valid():
+            newParticipation = Participation.objects.create(
+                name=request.POST['name'],
+                date=request.POST['date'],
+                level=request.POST['level'],
+                report=request.POST['report'],
+            )
+            array = []
+            for i in tp.participations:
+                if not i.id == request.POST['idlink']:
+                    array.append(i)
+                else:
+                    array.append(newParticipation)
+            tp.participations = array
+            tp.save()
+            return HttpResponseRedirect('/teacherPlan/participationList/' + tp.id)
+
+    target = None
+    idlink = request.GET['idlink']
+    for i in tp.participations:
+        if i.id == idlink:
+            target = i
+            break
+    if target == None:
+        raise Http404
+    return render(
+        request,
+        'teacherPlan/forms/update/4_participation_list.html',
+        {
+            'idlink': idlink,
+            'form':form,
+            'target':target,
+            'planid': tp.id
+        }
+    )
 
 @login_teacher_required(login_url="/teacherPlan/login")
 def publication_list_edit(request, id=1):

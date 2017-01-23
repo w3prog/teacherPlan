@@ -283,7 +283,7 @@ def publication_list(request, id=1):
          raise Http404
     form = PublicationForm
     if request.method == 'POST':
-        if not 'type' in request.POST:
+        if not 'delete' in request.POST:
             form = PublicationForm(request.POST)
             if form.is_valid():
                 newTeacherPublication = TeacherPublication.objects.create(
@@ -295,7 +295,7 @@ def publication_list(request, id=1):
                 tp.publications =  tp.publications + [newTeacherPublication]
                 tp.save()
                 return HttpResponseRedirect('/teacherPlan/publicationList/' + tp.id)
-        elif request.POST['type'] == 'delete':
+        elif request.POST['delete'] == 'delete':
             array = []
             for i in tp.publications:
                 if not i.id == request.POST['id']:
@@ -417,22 +417,39 @@ def publication_list_edit(request, id=1):
          raise Http404
     form = PublicationForm
     if request.method == 'POST':
-        if not 'type' in request.POST:
-            form = AnotherWorkForm(request.POST)
-            if form.is_valid():
-                newdisc = AnotherWork.objects.create(
-                    work_date=request.POST['work_date'],
-                    type_work=request.POST['type_work'])
-                tp.anotherworks =  tp.anotherworks + [newdisc]
-                tp.save()
-            return HttpResponseRedirect('/teacherPlan/difWorkList/' + tp.id)
-    anotherworks = tp.anotherworks
+        form = PublicationForm(request.POST)
+        if form.is_valid():
+            newTeacherPublication = TeacherPublication.objects.create(
+                name_work=request.POST['name_work'],
+                type=request.POST['type'],
+                volume=request.POST['volume'],
+                name_publisher=request.POST['name_publisher'],
+            )
+            array = []
+            for i in tp.publications:
+                if not i.id == request.POST['idlink']:
+                    array.append(i)
+                else:
+                    array.append(newTeacherPublication)
+            tp.publications = array
+            tp.save()
+            return HttpResponseRedirect('/teacherPlan/publicationList/' + tp.id)
+
+    publ = None
+    idlink = request.GET['idlink']
+    for i in tp.publications:
+        if i.id == idlink:
+            publ = i
+            break
+    if publ == None:
+        raise Http404
     return render(
         request,
-        'teacherPlan/forms/7_dif_work_list.html',
+        'teacherPlan/forms/update/5_publication_list.html',
         {
+            'idlink': idlink,
             'form':form,
-            'anotherworks':anotherworks,
+            'publ':publ,
             'planid': tp.id
         }
     )

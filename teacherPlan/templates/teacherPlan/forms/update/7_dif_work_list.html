@@ -1,0 +1,29 @@
+{% extends 'teacherPlan/pages/template.html' %}
+{% block title %}Редактирование сведений о "О работах в интересах вуза"{% endblock %}
+{% block pagename %}Редактирование сведений о "О работах в интересах вуза"{% endblock %}
+{% block content %}
+    <a type="button" href="{% url 'tpplan' planid %}">Назад к плану</a>
+        {% if form.errors %}
+        <p class="bg-danger text-danger">
+            Ошибка при заполнении формы.
+        </p>
+    {% endif %}
+
+    <form action="#" method="post">
+        {% csrf_token %}
+
+        <p><label for="id_work_date">Период:</label>
+            <input id="id_work_date" maxlength="20" name="work_date" type="text" value="{{ anotherwork.work_date }}"></p>
+        <p><label for="id_type_work">Вид работы:</label>
+            <input id="id_type_work" maxlength="200" name="type_work" type="text" value="{{ anotherwork.type_work }}"></p>
+
+
+        <input type="hidden" name="idaw" value="{{ idaw }}">
+        <input type="submit" value="Изменить">
+    </form>
+    <br>
+    <a type="button" class="btn btn-primary" href="{% url 'difWorkList' planid %}">Отмена</a>
+{% endblock %}
+
+
+

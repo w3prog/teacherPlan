@@ -317,14 +317,23 @@ def dif_work_list(request, id=1):
          raise Http404
     form = AnotherWorkForm
     if request.method == 'POST':
-        form = AnotherWorkForm(request.POST)
-        if form.is_valid():
-            newdisc = AnotherWork.objects.create(
-                work_date=request.POST['work_date'],
-                type_work=request.POST['type_work'])
-            tp.anotherworks =  tp.anotherworks + [newdisc]
+        if not 'type' in request.POST:
+            form = AnotherWorkForm(request.POST)
+            if form.is_valid():
+                newdisc = AnotherWork.objects.create(
+                    work_date=request.POST['work_date'],
+                    type_work=request.POST['type_work'])
+                tp.anotherworks =  tp.anotherworks + [newdisc]
+                tp.save()
+            return HttpResponseRedirect('/teacherPlan/difWorkList/' + tp.id)
+        elif request.POST['type'] == 'delete':
+            array = []
+            for i in tp.anotherworks:
+                if not i.id ==request.POST['id']:
+                    array.append(i)
+            tp.anotherworks = array
             tp.save()
-        return HttpResponseRedirect('/teacherPlan/difWorkList/' + tp.id)
+            return HttpResponseRedirect('/teacherPlan/difWorkList/' + tp.id)
     anotherworks = tp.anotherworks
     return render(
         request,
@@ -389,10 +398,9 @@ def qualification_list_edit(request, id=1):
     for i in tp.qualifications:
         if i.id == idqual:
             qualification = i
-
+            break
     if qualification==None:
         raise Http404
-    print "in get message"
     return render(
         request,
         'teacherPlan/forms/update/6_qualification_list.html',
@@ -405,7 +413,46 @@ def qualification_list_edit(request, id=1):
     )
 @login_teacher_required(login_url="/teacherPlan/login")
 def dif_work_list_edit(request, id=1):
-    pass
+    try:
+        tp = TeacherPlan.objects.get(id=id)
+    except:
+         raise Http404
+    form = AnotherWorkForm
+    if request.method == 'POST':
+        form = AnotherWorkForm(request.POST)
+        if form.is_valid():
+            newdisc = AnotherWork.objects.create(
+                work_date=request.POST['work_date'],
+                type_work=request.POST['type_work']
+            )
+            array = []
+            for i in tp.anotherworks:
+                if not i.id == request.POST['idaw']:
+                    array.append(i)
+                else:
+                    array.append(newdisc)
+            tp.anotherworks = array
+            tp.save()
+            return HttpResponseRedirect('/teacherPlan/difWorkList/' + tp.id)
+
+    anotherwork=None
+    idaw = request.GET['idaw']
+    for i in tp.anotherworks:
+        if i.id == idaw:
+            anotherwork = i
+            break
+    if anotherwork==None:
+        raise Http404
+    return render(
+        request,
+        'teacherPlan/forms/update/7_dif_work_list.html',
+        {
+            'idaw':idaw,
+            'form': form,
+            'anotherwork': anotherwork,
+            'planid': tp.id
+        }
+    )
 
 ##END SECTION TP FORMS EDIT
 

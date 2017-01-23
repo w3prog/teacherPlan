@@ -28,10 +28,11 @@
                         </button>
                     </form>
                 </td>
+                <td>{{ participation.date }}</td>
                 <td>{{ participation.name }}</td>
                 <td>{{ participation.level }}</td>
                 <td>{{ participation.report }}</td>
-                <td>{{ participation.date }}</td>
+
                 <td width="10">
                     <form action="#" method="post">
                         {% csrf_token %}

@@ -127,16 +127,25 @@ def studybook_list(request, id=1):
          raise Http404
     form = StudyBookForm
     if request.method == 'POST':
-        form = StudyBookForm(request.POST)
-        if form.is_valid():
-            newdisc = StudyBook.objects.create(
-                name=request.POST['name'],
-                type=request.POST['type'],
-                volume=request.POST['volume'],
-                vulture=request.POST['vulture'],
-                finishDate=request.POST['finishDate'],
-            )
-            tp.study_books =  tp.study_books + [newdisc]
+        if not 'type' in request.POST:
+            form = StudyBookForm(request.POST)
+            if form.is_valid():
+                newdisc = StudyBook.objects.create(
+                    name=request.POST['name'],
+                    type=request.POST['type'],
+                    volume=request.POST['volume'],
+                    vulture=request.POST['vulture'],
+                    finishDate=request.POST['finishDate'],
+                )
+                tp.study_books = tp.study_books + [newdisc]
+                tp.save()
+                return HttpResponseRedirect('/teacherPlan/studybookList/' + tp.id)
+    elif request.POST['type'] == 'delete':
+            array = []
+            for i in tp.study_books:
+                if not i.id == request.POST['id']:
+                    array.append(i)
+            tp.study_books = array
             tp.save()
             return HttpResponseRedirect('/teacherPlan/studybookList/' + tp.id)
     books = tp.study_books
@@ -158,14 +167,23 @@ def discipline_list(request, id=1):
          raise Http404
     form = AcademicDisciplineForm
     if request.method == 'POST':
-        form = AcademicDisciplineForm(request.POST)
-        if form.is_valid():
-            newdisc = AcademicDiscipline.objects.create(
-                name=request.POST['name'],
-                type=request.POST['type'],
-                characterUpdate=request.POST['characterUpdate']
-            )
-            tp.disciplines =  tp.disciplines + [newdisc]
+        if not 'type' in request.POST:
+            form = AcademicDisciplineForm(request.POST)
+            if form.is_valid():
+                newdisc = AcademicDiscipline.objects.create(
+                    name=request.POST['name'],
+                    type=request.POST['type'],
+                    characterUpdate=request.POST['characterUpdate']
+                )
+                tp.disciplines = tp.disciplines + [newdisc]
+                tp.save()
+                return HttpResponseRedirect('/teacherPlan/disciplineList/' + tp.id)
+    elif request.POST['type'] == 'delete':
+            array = []
+            for i in tp.disciplines:
+                if not i.id == request.POST['id']:
+                    array.append(i)
+            tp.disciplines = array
             tp.save()
             return HttpResponseRedirect('/teacherPlan/disciplineList/' + tp.id)
     disciplines = tp.disciplines
@@ -187,15 +205,24 @@ def scWorkList(request, id=1):
          raise Http404
     form = ScientificWorkForm
     if request.method == 'POST':
-        form = ScientificWorkForm(request.POST)
-        if form.is_valid():
-            newNIR = NIR.objects.create(
-                name=request.POST['name'],
-                period=request.POST['period'],
-                role=request.POST['role'],
-                organisation=request.POST['organisation'],
-            )
-            tp.NIRS =  tp.NIRS + [newNIR]
+        if not 'type' in request.POST:
+            form = ScientificWorkForm(request.POST)
+            if form.is_valid():
+                newNIR = NIR.objects.create(
+                    name=request.POST['name'],
+                    period=request.POST['period'],
+                    role=request.POST['role'],
+                    organisation=request.POST['organisation'],
+                )
+                tp.NIRS = tp.NIRS + [newNIR]
+                tp.save()
+                return HttpResponseRedirect('/teacherPlan/scWorkList/' + tp.id)
+        elif request.POST['type'] == 'delete':
+            array = []
+            for i in tp.NIRS:
+                if not i.id == request.POST['id']:
+                    array.append(i)
+            tp.NIRS = array
             tp.save()
             return HttpResponseRedirect('/teacherPlan/scWorkList/' + tp.id)
     nirs = tp.NIRS
@@ -217,15 +244,24 @@ def participation_list(request, id=1):
          raise Http404
     form = ParticipationForm
     if request.method == 'POST':
-        form = ParticipationForm(request.POST)
-        if form.is_valid():
-            newParticipation = Participation.objects.create(
-                name=request.POST['name'],
-                date=request.POST['date'],
-                level=request.POST['level'],
-                report=request.POST['report'],
-            )
-            tp.participations =  tp.participations + [newParticipation]
+        if not 'type' in request.POST:
+            form = ParticipationForm(request.POST)
+            if form.is_valid():
+                newParticipation = Participation.objects.create(
+                    name=request.POST['name'],
+                    date=request.POST['date'],
+                    level=request.POST['level'],
+                    report=request.POST['report'],
+                )
+                tp.participations = tp.participations + [newParticipation]
+                tp.save()
+                return HttpResponseRedirect('/teacherPlan/participationList/' + tp.id)
+        elif request.POST['type'] == 'delete':
+            array = []
+            for i in tp.participations:
+                if not i.id == request.POST['id']:
+                    array.append(i)
+            tp.participations = array
             tp.save()
             return HttpResponseRedirect('/teacherPlan/participationList/' + tp.id)
     participations = tp.participations
@@ -247,15 +283,24 @@ def publication_list(request, id=1):
          raise Http404
     form = PublicationForm
     if request.method == 'POST':
-        form = PublicationForm(request.POST)
-        if form.is_valid():
-            newTeacherPublication = TeacherPublication.objects.create(
-                name_work=request.POST['name_work'],
-                type=request.POST['type'],
-                volume=request.POST['volume'],
-                name_publisher=request.POST['name_publisher'],
-            )
-            tp.publications =  tp.publications + [newTeacherPublication]
+        if not 'type' in request.POST:
+            form = PublicationForm(request.POST)
+            if form.is_valid():
+                newTeacherPublication = TeacherPublication.objects.create(
+                    name_work=request.POST['name_work'],
+                    type=request.POST['type'],
+                    volume=request.POST['volume'],
+                    name_publisher=request.POST['name_publisher'],
+                )
+                tp.publications =  tp.publications + [newTeacherPublication]
+                tp.save()
+                return HttpResponseRedirect('/teacherPlan/publicationList/' + tp.id)
+        elif request.POST['type'] == 'delete':
+            array = []
+            for i in tp.publications:
+                if not i.id == request.POST['id']:
+                    array.append(i)
+            tp.publications = array
             tp.save()
             return HttpResponseRedirect('/teacherPlan/publicationList/' + tp.id)
     publications = tp.publications
@@ -366,7 +411,31 @@ def participation_list_edit(request, id=1):
 
 @login_teacher_required(login_url="/teacherPlan/login")
 def publication_list_edit(request, id=1):
-    pass
+    try:
+        tp = TeacherPlan.objects.get(id=id)
+    except:
+         raise Http404
+    form = PublicationForm
+    if request.method == 'POST':
+        if not 'type' in request.POST:
+            form = AnotherWorkForm(request.POST)
+            if form.is_valid():
+                newdisc = AnotherWork.objects.create(
+                    work_date=request.POST['work_date'],
+                    type_work=request.POST['type_work'])
+                tp.anotherworks =  tp.anotherworks + [newdisc]
+                tp.save()
+            return HttpResponseRedirect('/teacherPlan/difWorkList/' + tp.id)
+    anotherworks = tp.anotherworks
+    return render(
+        request,
+        'teacherPlan/forms/7_dif_work_list.html',
+        {
+            'form':form,
+            'anotherworks':anotherworks,
+            'planid': tp.id
+        }
+    )
 
 @login_teacher_required(login_url="/teacherPlan/login")
 def qualification_list_edit(request, id=1):

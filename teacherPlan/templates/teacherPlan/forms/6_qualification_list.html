@@ -24,12 +24,17 @@
                 <td>{{ qualification.form_training }}</td>
                 <td>{{ qualification.document }}</td>
                 <td>
+                    <form action="{% url 'qualificationListEdit' planid %}" method="get">
+                        <input type="hidden" name="idqual" value="{{  qualification.id }}">
+                        <input type="submit" value="Редактировать">
+                    </form>
                     <form action="#" method="post">
                         {% csrf_token %}
                         <input type="hidden" name="id" value="{{  qualification.id }}">
                         <input type="hidden" name="type" value="delete">
                         <input type="submit" value="Удалить">
-                    </form></td>
+                    </form>
+                </td>
 
             </tr>
         {% endfor %}

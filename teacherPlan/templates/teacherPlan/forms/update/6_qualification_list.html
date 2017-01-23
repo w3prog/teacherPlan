@@ -13,13 +13,14 @@
     <form action="#" method="post">
         {% csrf_token %}
          <p><label for="id_period">Период:</label>
-             <input id="id_period" maxlength="20" name="period" type="text"></p>
+             <input id="id_period" maxlength="20" name="period" type="text" value="{{ qualification.period }}"></p>
          <p><label for="id_form_training">Форма повышения квалификации:</label>
-             <input id="id_form_training" maxlength="200" name="form_training" type="text"></p>
+             <input id="id_form_training" maxlength="200" name="form_training" type="text"
+                    value="{{ qualification.form_training }}"></p>
          <p><label for="id_document">Документ:</label>
-             <input id="id_document" maxlength="200" name="document" type="text"></p>
-        <input type="type" value="update">
-        <input type="hidden" value="idqual">
+             <input id="id_document" maxlength="200" name="document" type="text"
+             value="{{ qualification.document }}"></p>
+        <input type="hidden" name="idqual" value="{{ idqual }}">
         <input type="submit" value="Изменить">
     </form>
     <br>

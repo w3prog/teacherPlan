@@ -361,8 +361,48 @@ def publication_list_edit(request, id=1):
 
 @login_teacher_required(login_url="/teacherPlan/login")
 def qualification_list_edit(request, id=1):
-    pass
+    try:
+        tp = TeacherPlan.objects.get(id=id)
+    except:
+         raise Http404
+    form = QualificationForm
+    if request.method == 'POST':
 
+        form = QualificationForm(request.POST)
+        if form.is_valid():
+            newdisc = Qualification.objects.create(
+                period=request.POST['period'],
+                form_training=request.POST['form_training'],
+                document=request.POST['document'],
+            )
+            array = []
+            for i in tp.qualifications:
+                if not i.id == request.POST['idqual']:
+                    array.append(i)
+                else:
+                    array.append(newdisc)
+            tp.qualifications = array
+            tp.save()
+            return HttpResponseRedirect('/teacherPlan/qualificationList/' + tp.id)
+    qualification=None
+    idqual = request.GET['idqual']
+    for i in tp.qualifications:
+        if i.id == idqual:
+            qualification = i
+
+    if qualification==None:
+        raise Http404
+    print "in get message"
+    return render(
+        request,
+        'teacherPlan/forms/update/6_qualification_list.html',
+        {
+            'idqual':idqual,
+            'form': form,
+            'qualification': qualification,
+            'planid': tp.id
+        }
+    )
 @login_teacher_required(login_url="/teacherPlan/login")
 def dif_work_list_edit(request, id=1):
     pass

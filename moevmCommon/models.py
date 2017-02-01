@@ -436,7 +436,7 @@ class StudyBook(models.Model):
     blank=True,
   )
   finishDate = models.CharField(
-    max_length=20,
+    max_length=80,
     verbose_name="Срок сдачи рукописи",
     null=True,
     blank=True,
@@ -520,7 +520,7 @@ class Participation(models.Model):
     verbose_name="Дата проведения",
     null=True,
     blank=True,
-    max_length=20,
+    max_length=80,
   )
   level = models.CharField(
     max_length=20,
@@ -576,7 +576,7 @@ class Qualification(models.Model):
 
 @python_2_unicode_compatible
 class AnotherWork(models.Model):
-  work_date = models.CharField(verbose_name="Период", max_length=20)
+  work_date = models.CharField(verbose_name="Период", max_length=80)
   type_work = models.CharField(max_length=200, verbose_name="Вид работы")
   def __str__(self):
     name=""

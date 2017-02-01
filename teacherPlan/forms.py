@@ -33,7 +33,7 @@ class ParticipationForm(forms.Form):
   name = CharField(max_length=200, label="Наименование конференции")
   level = CharField(max_length=200, label="Уровень конференции")
   report = CharField(max_length=200, label="Наименование доклада")
-  date = CharField(max_length=30,label="Дата")
+  date = CharField(max_length=80,label="Дата")
 
 class PublicationForm(forms.Form):
   name_work = CharField(max_length=200, label="Наименование работ")

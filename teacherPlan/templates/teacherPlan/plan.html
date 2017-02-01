@@ -56,5 +56,17 @@
 
     <p><a href="{% url 'difWorkList' plan.id %}">Другие виды работ, выполняемых в интересах университета, факультета и кафедры</a></p>
 
-    <p><a href="{% url 'pdf' plan.id %}" class="btn btn-info">Загрузить в PDF</a></p>
+    <p>
+    <form action="{% url 'pdf' plan.id %}" method="get">
+        <label for="with_the_cover_page">С титульной страницей
+            <input type="checkbox" name="with_the_cover_page">
+
+        </label><br>
+        <label for="with_finish_page">С итоговой страницей
+            <input type="checkbox" name="with_the_cover_page">
+        </label><br>
+        {% csrf_token %}
+        <input type="submit" class="btn btn-info" value="Загрузить в PDF"></input>
+    </form>
+    </p>
 {% endblock %}

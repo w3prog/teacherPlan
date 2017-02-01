@@ -109,6 +109,17 @@ def listOfPlans(request):
 @login_teacher_required(login_url="/teacherPlan/login")
 def makePDF(request,id=1):
     response = HttpResponse(content_type='application/pdf')
+    has_cover_page=False
+    try:
+        has_cover_page = request.GET['with_the_cover_page']
+    except:
+        print "Без титультика"
+
+    try:
+        has_cover_page = request.GET['with_finish_page']
+    except:
+        print "Без итоговой страницы"
+
     try:
         tp = TeacherPlan.objects.get(id=id)
     except:
@@ -116,7 +127,7 @@ def makePDF(request,id=1):
     somefilename = "teacher_plan_" + tp.id
     response['Content-Disposition'] = 'attachment; filename="' + somefilename + '.pdf"'
 
-    return conclusion_to_pdf(response,id)
+    return conclusion_to_pdf(response,id,has_cover_page)
 
 ##SECTION TP FROM
 @login_teacher_required(login_url="/teacherPlan/login")

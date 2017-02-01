@@ -20,7 +20,7 @@ from moevmCommon.models import TeacherPlan
 
 FILE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-def conclusion_to_pdf(responce=None,id=1):
+def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page=False):
   pdfmetrics.registerFont(TTFont('TimesNewRoman', os.path.join(FILE_DIR,'TimesNewRoman.ttf')))
   pdfmetrics.registerFont(TTFont('TimesBold', os.path.join(FILE_DIR,'TimesBold.ttf')))
   pdfmetrics.registerFont(TTFont('TimesItalic', os.path.join(FILE_DIR,'TimesItalic.ttf')))
@@ -141,77 +141,75 @@ def conclusion_to_pdf(responce=None,id=1):
   except:
     raise Http404
 
-
   story = []
-  story.append(Paragraph("МИНОБРНАУКИ РОССИИ",styles['TNR_H_Center']))
-  LETI_NAME = Paragraph("""<br/><br/>САНКТ-ПЕТЕРБУРГСКИЙ
-  <br/>ГОСУДАРСТВЕННЫЙ ЭЛЕКТРОТЕХНИЧЕСКИЙ УНИВЕРСИТЕТ
-  <br/>«ЛЭТИ» им.В.И.Ульянова (Ленина)""",styles['TNR_Bold_H_Center'])
+  if has_cover_page:
+    story.append(Paragraph("МИНОБРНАУКИ РОССИИ",styles['TNR_H_Center']))
+    LETI_NAME = Paragraph("""<br/><br/>САНКТ-ПЕТЕРБУРГСКИЙ
+    <br/>ГОСУДАРСТВЕННЫЙ ЭЛЕКТРОТЕХНИЧЕСКИЙ УНИВЕРСИТЕТ
+    <br/>«ЛЭТИ» им.В.И.Ульянова (Ленина)""",styles['TNR_Bold_H_Center'])
 
-  Leti_image = Image(os.path.join(FILE_DIR,'im.png').__str__())
-  Leti_image.drawHeight = 25*mm
-  Leti_image.drawWidth = 20*mm
-  header_table = Table([[Leti_image,LETI_NAME]], colWidths=(20*mm,155*mm))
-  header_table.setStyle(head_table_style)
-  story.append(header_table)
+    Leti_image = Image(os.path.join(FILE_DIR,'im.png').__str__())
+    Leti_image.drawHeight = 25*mm
+    Leti_image.drawWidth = 20*mm
+    header_table = Table([[Leti_image,LETI_NAME]], colWidths=(20*mm,155*mm))
+    header_table.setStyle(head_table_style)
+    story.append(header_table)
 
-  story.append(Paragraph("<br/><br/><br/><br/>ИНДИВИДУАЛЬНЫЙ  ПЛАН <br/>"
-                         "ПРЕПОДАВАТЕЛЯ<br/>",styles['TNR_Big_Bold_H_Center16']))
-  story.append(Spacer(0, 0.5 *inch))
+    story.append(Paragraph("<br/><br/><br/><br/>ИНДИВИДУАЛЬНЫЙ  ПЛАН <br/>"
+                           "ПРЕПОДАВАТЕЛЯ<br/>",styles['TNR_Big_Bold_H_Center16']))
+    story.append(Spacer(0, 0.5 *inch))
 
-  position = ""
-  if not tplan.person_profile.position == None:
-    position = tplan.person_profile.position
+    position = ""
+    if not tplan.person_profile.position == None:
+      position = tplan.person_profile.position
 
-  birth_date = ""
-  if not tplan.person_profile.birth_date == None:
-    birth_date = tplan.person_profile.birth_date.year
+    birth_date = ""
+    if not tplan.person_profile.birth_date == None:
+      birth_date = tplan.person_profile.birth_date.year
 
-  election_date = ""
-  if not tplan.person_profile.election_date == None:
-    election_date = dateformat.format(tplan.person_profile.election_date, 'd E Y')
+    election_date = ""
+    if not tplan.person_profile.election_date == None:
+      election_date = dateformat.format(tplan.person_profile.election_date, 'd E Y')
 
-  academic_degree = ""
-  if not tplan.person_profile.academic_degree == None:
-    academic_degree = tplan.person_profile.get_academic_degree_display()
+    academic_degree = ""
+    if not tplan.person_profile.academic_degree == None:
+      academic_degree = tplan.person_profile.get_academic_degree_display()
 
-  academic_degree_date = ""
-  if not tplan.person_profile.year_of_academic_degree == None:
-    academic_degree_date = tplan.person_profile.year_of_academic_degree.year
+    academic_degree_date = ""
+    if not tplan.person_profile.year_of_academic_degree == None:
+      academic_degree_date = tplan.person_profile.year_of_academic_degree.year
 
-  academic_status = ""
-  if not tplan.person_profile.academic_status == None:
-    academic_status = tplan.person_profile.get_academic_status_display()
+    academic_status = ""
+    if not tplan.person_profile.academic_status == None:
+      academic_status = tplan.person_profile.get_academic_status_display()
 
-  academic_status_date = ""
-  if not tplan.person_profile.year_of_academic_status == None:
-    academic_status_date = tplan.person_profile.year_of_academic_degree.year
+    academic_status_date = ""
+    if not tplan.person_profile.year_of_academic_status == None:
+      academic_status_date = tplan.person_profile.year_of_academic_degree.year
 
-  contract_date=""
-  if not tplan.person_profile.contract_date == None:
-    contract_date = dateformat.format(tplan.person_profile.contract_date, 'd E Y')
+    contract_date=""
+    if not tplan.person_profile.contract_date == None:
+      contract_date = dateformat.format(tplan.person_profile.contract_date, 'd E Y')
 
-  personal_data = [
-      ['Факультет', 'компьютерных технологий и информатики'],
-      ['Кафедра', 'математического обеспечения и применения ЭВМ'],
-      ['ФИО', tplan.person_profile.FIO],
-      ['Должность', position],
-      ['Год рождения', birth_date],
-      [Paragraph('Дата текущего  избрания или зачисления на преподавательскую должность',header_table_paragraph_style),
-       election_date],
-      [Paragraph('Ученая степень и год присуждения',header_table_paragraph_style),
-       "%s %s" % (academic_degree,academic_degree_date)],
-      ['Ученое звание и год присвоения',
-       "%s %s" % (academic_status, academic_status_date)],
-      [Paragraph('Дата переизбрания (окончания трудового договора)',header_table_paragraph_style),
-       contract_date ],
-    ]
-
-
-  p_d = Table(personal_data,colWidths=(70*mm,105*mm))
-  p_d.setStyle(normal_table_style1)
-  story.append(p_d)
-  story.append(PageBreak())
+    personal_data = [
+        ['Факультет', 'компьютерных технологий и информатики'],
+        ['Кафедра', 'математического обеспечения и применения ЭВМ'],
+        ['ФИО', tplan.person_profile.FIO],
+        ['Должность', position],
+        ['Год рождения', birth_date],
+        [Paragraph('Дата текущего  избрания или зачисления на преподавательскую должность',header_table_paragraph_style),
+         election_date],
+        [Paragraph('Ученая степень и год присуждения',header_table_paragraph_style),
+         "%s %s" % (academic_degree,academic_degree_date)],
+        ['Ученое звание и год присвоения',
+         "%s %s" % (academic_status, academic_status_date)],
+        [Paragraph('Дата переизбрания (окончания трудового договора)',header_table_paragraph_style),
+         contract_date ],
+      ]
+    p_d = Table(personal_data,colWidths=(70*mm,105*mm))
+    p_d.setStyle(normal_table_style1)
+    story.append(p_d)
+    story.append(PageBreak())
 
   story.append(Paragraph("2. Методическая работа", styles['TNR_Big_Bold_H_Center14']))
   story.append(Paragraph("2.1. Подготовка учебников, учебных пособий и методических указаний,"
@@ -393,48 +391,49 @@ def conclusion_to_pdf(responce=None,id=1):
   story.append(table)
 
   story.append(PageBreak())
-  story.append(Paragraph("Заключение за пятилетний период работы", styles['TNR_Big_Bold_H_Center14']))
-  story.append(Paragraph("Особые достижения преподавателя за пятилетний период работы " +
-                         "(Подготовка и защита диссертации, подготовка призеров конкурсов студенческих и аспиранских работ, " +
-                         "победителей предметных олимпиад и т.д.).", header_table_paragraph_style))
+  if with_finish_page:
+    story.append(Paragraph("Заключение за пятилетний период работы", styles['TNR_Big_Bold_H_Center14']))
+    story.append(Paragraph("Особые достижения преподавателя за пятилетний период работы " +
+                           "(Подготовка и защита диссертации, подготовка призеров конкурсов студенческих и аспиранских работ, " +
+                           "победителей предметных олимпиад и т.д.).", header_table_paragraph_style))
 
-  story.append(Paragraph('<br/><br/>', styles['TNR_bold_text']))
+    story.append(Paragraph('<br/><br/>', styles['TNR_bold_text']))
 
 
-  table_data = [
-    ['Наименование работ','Период'],
-    ['',''],
-    ['',''],
-    ['',''],
-    ['',''],
-    ['',''],
-    ['',''],
-    ['',''],
-  ]
-  story.append(Paragraph('<br/><br/>', styles['TNR_bold_text']))
+    table_data = [
+      ['Наименование работ','Период'],
+      ['',''],
+      ['',''],
+      ['',''],
+      ['',''],
+      ['',''],
+      ['',''],
+      ['',''],
+    ]
+    story.append(Paragraph('<br/><br/>', styles['TNR_bold_text']))
 
-  table = Table(table_data, colWidths=(120 * mm, 55 * mm))
-  table.setStyle(normal_table_style)
-  story.append(table)
+    table = Table(table_data, colWidths=(120 * mm, 55 * mm))
+    table.setStyle(normal_table_style)
+    story.append(table)
 
-  story.append(Paragraph("Заключение кафедры за 5-летний период работы", styles['TNR_Big_Bold_H_Center14']))
-  story.append(Paragraph("______________________________________________________________________", styles['TNR_bold_text']))
-  story.append(Paragraph("______________________________________________________________________", styles['TNR_bold_text']))
-  story.append(Paragraph("______________________________________________________________________", styles['TNR_bold_text']))
-  story.append(Paragraph("______________________________________________________________________", styles['TNR_bold_text']))
-  story.append(Paragraph("______________________________________________________________________", styles['TNR_bold_text']))
-  story.append(Paragraph("______________________________________________________________________", styles['TNR_bold_text']))
+    story.append(Paragraph("Заключение кафедры за 5-летний период работы", styles['TNR_Big_Bold_H_Center14']))
+    story.append(Paragraph("______________________________________________________________________", styles['TNR_bold_text']))
+    story.append(Paragraph("______________________________________________________________________", styles['TNR_bold_text']))
+    story.append(Paragraph("______________________________________________________________________", styles['TNR_bold_text']))
+    story.append(Paragraph("______________________________________________________________________", styles['TNR_bold_text']))
+    story.append(Paragraph("______________________________________________________________________", styles['TNR_bold_text']))
+    story.append(Paragraph("______________________________________________________________________", styles['TNR_bold_text']))
 
-  story.append(Paragraph('<br/><br/>', styles['TNR_bold_text']))
+    story.append(Paragraph('<br/><br/>', styles['TNR_bold_text']))
 
-  table_data = [
-    [Paragraph('Преподаватель', styles['TNR_bold_text']), '________________________________________','_________________'],
-    [Paragraph('Зав. кафедрой', styles['TNR_bold_text']), '________________________________________','_________________'],
-    [Paragraph('Декан', styles['TNR_bold_text']), '________________________________________','_________________'],
-    [],
-  ]
-  table = Table(table_data, colWidths=(40 * mm, 90 * mm, 45 * mm))
-  story.append(table)
+    table_data = [
+      [Paragraph('Преподаватель', styles['TNR_bold_text']), '________________________________________','_________________'],
+      [Paragraph('Зав. кафедрой', styles['TNR_bold_text']), '________________________________________','_________________'],
+      [Paragraph('Декан', styles['TNR_bold_text']), '________________________________________','_________________'],
+      [],
+    ]
+    table = Table(table_data, colWidths=(40 * mm, 90 * mm, 45 * mm))
+    story.append(table)
 
   if(responce==None):
     doc = SimpleDocTemplate('mydoc.pdf',pagesize = A4)

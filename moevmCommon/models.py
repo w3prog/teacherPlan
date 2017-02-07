@@ -547,7 +547,7 @@ class Participation(models.Model):
 class TeacherPublication(models.Model):
   name_work = models.CharField(max_length=200, verbose_name="Наименование работ")
   type = models.CharField(max_length=200, verbose_name="Вид публикации")
-  volume = models.IntegerField(verbose_name="Объем")
+  volume = models.FloatField(verbose_name="Объем")
   name_publisher = models.CharField(max_length=200, verbose_name="Наименование издательства")
   def __str__(self):
     name = ""

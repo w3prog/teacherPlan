@@ -67,6 +67,17 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
       leftIndent=1.5*inch
     )
   )
+  styles.add(
+    ParagraphStyle(
+      name='TNR_Left',
+      fontName='TimesNewRoman',
+      spaceBefore=0.3,
+      leading=12,
+      fontSize=12,
+      alignment=TA_LEFT
+    )
+  )
+
 
 
   styles.add(
@@ -258,6 +269,7 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
               Paragraph('Отметка о выполнении', styles['TNR_mini']),
             ],
       ]
+
   for i in tplan.disciplines:
     data.append(
       [
@@ -271,6 +283,10 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
   all_table=Table(data, colWidths=(47*mm, 30*mm, 73*mm,25*mm) )
   all_table.setStyle(normal_table_style)
   story.append(all_table)
+
+  story.append(Paragraph("Принял к исполнению", styles['TNR_Left']))
+  story.append(Paragraph("Преподаватель __________________(подпись)", styles['TNR_Left']))
+
   story.append(Spacer(0, 0.3 *inch))
 
   story.append(Paragraph("3. Научная работа", styles['TNR_Big_Bold_H_Center14']))

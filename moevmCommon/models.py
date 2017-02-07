@@ -214,6 +214,12 @@ ACADEMIC_STATE_CHOICES  = (
   ('s','Соискатель'),
   ('st','Стажер'),
 )
+RATE_CHOICES = (
+    ('1','0,25'),
+    ('2','0,5'),
+    ('3','0,75'),
+    ('4','1'),
+)
 
 @python_2_unicode_compatible
 class UserProfile(models.Model):
@@ -303,6 +309,14 @@ class UserProfile(models.Model):
     year_of_academic_status = models.DateField(
         null=True,
         verbose_name="Год получения учебного звания",
+        blank=True,
+    )
+
+    rate = models.CharField(
+        max_length=1,
+        choices=RATE_CHOICES,
+        null=True,
+        verbose_name="Ставка",
         blank=True,
     )
 

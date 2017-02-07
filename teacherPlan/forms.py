@@ -20,7 +20,13 @@ class StudyBookForm(forms.Form):
 
 class AcademicDisciplineForm(forms.Form):
   name = CharField(max_length=200, label="Наименование дисциплины")
-  type = CharField(max_length=200, label="Вид занятия")
+  type = ChoiceField(label="Вид занятия",
+                     choices=(
+                       ("Лекции","Лекции"),
+                       ("Лабораторные работы","Лабораторные работы"),
+                       ("Практические занятия","Практические занятия"),
+                     )
+                     )
   characterUpdate = CharField(max_length=200, label="Характер изменения")
 
 class ScientificWorkForm(forms.Form):

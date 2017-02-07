@@ -4,6 +4,7 @@ from django import forms
 from django.forms import CharField,\
   DateField,\
   IntegerField,\
+  FloatField,\
   ModelForm, ChoiceField, EmailField
 from moevmCommon.models import *
 from moevmCommon.models import ACADEMIC_DEGREE_CHOICES,\
@@ -13,10 +14,16 @@ from moevmCommon.models import AnotherWork, Qualification
 #SECTION form for teacherPlan
 class StudyBookForm(forms.Form):
   name = CharField(max_length=200, label="Наименование")
-  type = CharField(max_length=200, label="Вид издания")
-  volume = IntegerField(label="Объем в п.л.",widget=forms.TextInput(attrs={'type': 'number',"min": "0"}))
+  type = ChoiceField(label="Вид издания",
+    choices = (
+      ("Учебник", "Учебник"),
+      ("Учебное пособие", "Учебное пособие"),
+      ("Учебно-методическое пособие", "Учебно-методическое пособие")
+    )
+  )
+  volume = FloatField(label="Объем в п.л.",widget=forms.TextInput(attrs={'type': 'number',"min": "0","step":"0.001"}))
   vulture = CharField(max_length=200, label="Вид грифа")
-  finishDate = IntegerField(label="Срок сдачи рукописи",widget=forms.TextInput(attrs={'type': 'number',"min": "0"}))
+  finishDate = CharField(max_length=80,label="Срок сдачи рукописи")
 
 class AcademicDisciplineForm(forms.Form):
   name = CharField(max_length=200, label="Наименование дисциплины")

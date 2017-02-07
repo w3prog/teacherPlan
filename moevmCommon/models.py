@@ -424,7 +424,7 @@ class StudyBook(models.Model):
     null=True,
     blank=True,
   )
-  volume = models.IntegerField(
+  volume = models.FloatField(
     verbose_name="Объем",
     null=True,
     blank=True,

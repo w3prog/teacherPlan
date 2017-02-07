@@ -615,6 +615,69 @@ class AnotherWork(models.Model):
 class TeacherPlan(models.Model):
   person_profile = models.ForeignKey(UserProfile)
   start_year = models.SmallIntegerField("Год начала")
+  first_name = models.CharField(name="Имя", max_length=30)
+  last_name = models.CharField(name="Фамилия", max_length=30)
+  patronymic = models.CharField(name="Отчество", max_length=30)
+
+  department_name = models.CharField(name= "Название кафедры",max_length=10)
+  organisation_name = models.CharField(name= "Название факультета",max_length=10)
+  department_head = models.CharField(name= "Заведующий кафедры",max_length=100)
+  organisation_head = models.CharField(name= "Декан",max_length=100)
+
+  election_date = models.DateField(
+      null=True,
+      verbose_name="Дата текущего избрания или зачисления на преподавательскую должность",
+      blank=True,
+  )
+
+  position = models.CharField(
+      max_length=40,
+      null=True,
+      verbose_name="Должность",
+      blank=True,
+  )
+
+  contract_date = models.DateField(
+      null=True,
+      verbose_name="Срок окончания трудового договора",
+      blank=True,
+  )
+
+  academic_degree = models.CharField(
+      max_length=1,
+      choices=ACADEMIC_DEGREE_CHOICES,
+      null=True,
+      verbose_name="Ученая степень",
+      blank=True,
+  )
+
+  year_of_academic_degree = models.DateField(
+      null=True,
+      verbose_name="Год присвоения ученой степени",
+      blank=True,
+  )
+
+  academic_status = models.CharField(
+      max_length=1,
+      choices=ACADEMIC_STATUS_CHOICES,
+      null=True,
+      verbose_name="Учебное звание",
+      blank=True,
+  )
+
+  year_of_academic_status = models.DateField(
+      null=True,
+      verbose_name="Год получения учебного звания",
+      blank=True,
+  )
+
+  rate = models.CharField(
+      max_length=1,
+      choices=RATE_CHOICES,
+      null=True,
+      verbose_name="Ставка",
+      blank=True,
+  )
 
   study_books = ListField(EmbeddedModelField("StudyBook"))
   disciplines = ListField(EmbeddedModelField("AcademicDiscipline"))
@@ -625,7 +688,8 @@ class TeacherPlan(models.Model):
   anotherworks = ListField(EmbeddedModelField("AnotherWork"))
 
   def __str__(self):
-    return unicode(self.person_profile.first_name + " " + str(self.start_year) + '-' + str(self.start_year+1))
+    return unicode(self.person_profile.FIO + " " +
+                   str(self.start_year) + '-' + str(self.start_year+1))
 
   class Meta:
     verbose_name = u"Учебный план"

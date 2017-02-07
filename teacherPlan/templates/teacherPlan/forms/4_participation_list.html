@@ -3,7 +3,7 @@
 {% block pagename %}Участие в конференциях и выставках{% endblock %}
 {% block content %}
     <a type="button" href="{% url 'tpplan' planid %}">Назад к плану</a>
-        {% if form.errors %}
+    {% if form.errors %}
         <p class="bg-danger text-danger">
             Ошибка при заполнении формы.
         </p>

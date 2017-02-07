@@ -232,7 +232,7 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
       [
         Paragraph(i.name,styles['TNR_mini']),
         Paragraph(i.type,styles['TNR_mini']),
-        Paragraph(i.volume,styles['TNR_mini']),
+        Paragraph(str(i.volume),styles['TNR_mini']),
         Paragraph(i.vulture,styles['TNR_mini']),
         Paragraph(i.finishDate,styles['TNR_mini']),
         Paragraph('',styles['TNR_mini'])
@@ -341,7 +341,7 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
       [
         Paragraph(i.name_work, styles['TNR_mini']),
         Paragraph(i.type, styles['TNR_mini']),
-        Paragraph(i.volume, styles['TNR_mini']),
+        Paragraph(str(i.volume), styles['TNR_mini']),
         Paragraph(i.name_publisher, styles['TNR_mini'])
       ]
     )

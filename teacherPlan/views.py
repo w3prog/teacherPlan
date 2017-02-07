@@ -114,9 +114,9 @@ def makePDF(request,id=1):
         has_cover_page = request.GET['with_the_cover_page']
     except:
         print "Без титультика"
-
+    has_finish_page = False
     try:
-        has_cover_page = request.GET['with_finish_page']
+        has_finish_page = request.GET['with_finish_page']
     except:
         print "Без итоговой страницы"
 
@@ -127,7 +127,7 @@ def makePDF(request,id=1):
     somefilename = "teacher_plan_" + tp.id
     response['Content-Disposition'] = 'attachment; filename="' + somefilename + '.pdf"'
 
-    return conclusion_to_pdf(response,id,has_cover_page)
+    return conclusion_to_pdf(response,id,has_cover_page,has_finish_page)
 
 ##SECTION TP FROM
 @login_teacher_required(login_url="/teacherPlan/login")

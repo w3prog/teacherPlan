@@ -280,8 +280,8 @@ class UserProfile(models.Model):
 
     contract_date = models.DateField(
         null=True,
-        verbose_name="Срок окончания трудового договора",
         blank=True,
+        verbose_name="Срок окончания трудового договора",
     )
 
     academic_degree = models.CharField(
@@ -615,14 +615,15 @@ class AnotherWork(models.Model):
 class TeacherPlan(models.Model):
   person_profile = models.ForeignKey(UserProfile)
   start_year = models.SmallIntegerField("Год начала")
-  first_name = models.CharField(name="Имя", max_length=30)
-  last_name = models.CharField(name="Фамилия", max_length=30)
-  patronymic = models.CharField(name="Отчество", max_length=30)
 
-  department_name = models.CharField(name= "Название кафедры",max_length=10)
-  organisation_name = models.CharField(name= "Название факультета",max_length=10)
-  department_head = models.CharField(name= "Заведующий кафедры",max_length=100)
-  organisation_head = models.CharField(name= "Декан",max_length=100)
+  first_name = models.CharField(verbose_name="Имя", max_length=30)
+  last_name = models.CharField(verbose_name="Фамилия", max_length=30)
+  patronymic = models.CharField(verbose_name="Отчество", max_length=30)
+
+  department_name = models.CharField(verbose_name= "Название кафедры",max_length=10)
+  organisation_name = models.CharField(verbose_name= "Название факультета",max_length=10)
+  department_head = models.CharField(verbose_name= "Заведующий кафедры",max_length=100)
+  organisation_head = models.CharField(verbose_name= "Декан",max_length=100)
 
   election_date = models.DateField(
       null=True,

@@ -2,6 +2,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
 
-from teacherPlan.models import Settings
+from teacherPlan.models import TeacherSettings
 
-admin.AdminSite.register(Settings)
+admin.site.register(TeacherSettings)

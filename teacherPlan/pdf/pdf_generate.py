@@ -228,7 +228,16 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
              ]
         ]
   for i in tplan.study_books:
-    data.append([i.name,i.type,i.volume,i.vulture,i.finishDate,''])
+    data.append(
+      [
+        Paragraph(i.name,styles['TNR_mini']),
+        Paragraph(i.type,styles['TNR_mini']),
+        Paragraph(i.volume,styles['TNR_mini']),
+        Paragraph(i.vulture,styles['TNR_mini']),
+        Paragraph(i.finishDate,styles['TNR_mini']),
+        Paragraph('',styles['TNR_mini'])
+      ]
+    )
 
   all_table=Table(data, colWidths=(67*mm, 22*mm, 19*mm,16*mm, 25*mm, 25*mm))
   all_table.setStyle(normal_table_style)
@@ -250,7 +259,14 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
             ],
       ]
   for i in tplan.disciplines:
-    data.append([i.name, i.type, i.characterUpdate,''])
+    data.append(
+      [
+        Paragraph(i.name, styles['TNR_mini']),
+        Paragraph(i.type, styles['TNR_mini']),
+        Paragraph(i.characterUpdate, styles['TNR_mini']),
+        Paragraph('', styles['TNR_mini'])
+      ]
+    )
 
   all_table=Table(data, colWidths=(47*mm, 30*mm, 73*mm,25*mm) )
   all_table.setStyle(normal_table_style)
@@ -270,7 +286,14 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
           ],
       ]
   for i in tplan.NIRS:
-    data.append([i.name, i.period, i.role,i.organisation])
+    data.append(
+      [
+        Paragraph(i.name, styles['TNR_mini']),
+        Paragraph(i.period, styles['TNR_mini']),
+        Paragraph(i.role, styles['TNR_mini']),
+        Paragraph(i.organisation, styles['TNR_mini']),
+      ]
+    )
 
   all_table=Table(data, colWidths=(80*mm, 25*mm, 45*mm,25*mm))
   all_table.setStyle(normal_table_style)
@@ -288,7 +311,14 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
           ],
       ]
   for i in tplan.participations:
-    data.append([i.name, i.date, i.level,i.report])
+    data.append(
+      [
+        Paragraph(i.name, styles['TNR_mini']),
+        Paragraph(i.date, styles['TNR_mini']),
+        Paragraph(i.level, styles['TNR_mini']),
+        Paragraph(i.report, styles['TNR_mini'])
+      ]
+    )
 
   all_table=Table(data, colWidths=(21*mm, 56*mm, 41*mm,57*mm))
   all_table.setStyle(normal_table_style)
@@ -307,7 +337,14 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
           ],
       ]
   for i in tplan.publications:
-    data.append([i.name_work, i.type, i.volume,i.name_publisher])
+    data.append(
+      [
+        Paragraph(i.name_work, styles['TNR_mini']),
+        Paragraph(i.type, styles['TNR_mini']),
+        Paragraph(i.volume, styles['TNR_mini']),
+        Paragraph(i.name_publisher, styles['TNR_mini'])
+      ]
+    )
 
 
   all_table=Table(data, colWidths=(80*mm, 29*mm, 18*mm,48*mm))
@@ -326,7 +363,13 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
           ],
       ]
   for i in tplan.qualifications:
-    data.append([i.period, i.form_training, i.document])
+    data.append(
+      [
+        Paragraph(i.period, styles['TNR_mini']),
+        Paragraph(i.form_training, styles['TNR_mini']),
+        Paragraph(i.document, styles['TNR_mini'])
+      ]
+    )
 
   all_table=Table(data, colWidths=(27*mm, 79*mm, 69*mm))
   all_table.setStyle(normal_table_style)
@@ -342,7 +385,12 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
           ],
       ]
   for i in tplan.anotherworks:
-    data.append([i.work_date, i.type_work])
+    data.append(
+      [
+        Paragraph(i.work_date, styles['TNR_mini']),
+        Paragraph(i.type_work, styles['TNR_mini'])
+      ]
+    )
 
   all_table=Table(data, colWidths=(27*mm, 148*mm))
   all_table.setStyle(normal_table_style)

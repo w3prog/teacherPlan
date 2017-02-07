@@ -4,7 +4,7 @@ import os
 from django.http import Http404
 from django.utils import dateformat
 from reportlab.lib import colors
-from reportlab.lib.enums import TA_CENTER, TA_LEFT
+from reportlab.lib.enums import TA_CENTER, TA_LEFT,TA_JUSTIFY,TA_RIGHT
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.units import inch
 from reportlab.lib.styles import ParagraphStyle
@@ -131,7 +131,15 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
           leading=12,
           fontSize=12,
           alignment=TA_LEFT,
-
+      )
+  )
+  styles.add(
+      ParagraphStyle(
+          name='content_table',
+          fontName='TimesNewRoman',
+          leading=10,
+          fontSize=10,
+          alignment=TA_JUSTIFY
       )
   )
   styles.add(
@@ -357,12 +365,12 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
   for i in tplan.study_books:
     data.append(
       [
-        Paragraph(i.name, styles['TNR_normal_left']),
-        Paragraph(i.type, styles['TNR_normal_left']),
+        Paragraph(i.name, styles['content_table']),
+        Paragraph(i.type, styles['content_table']),
         Paragraph(str(i.volume), styles['TNR_normal']),
-        Paragraph(i.vulture, styles['TNR_normal_left']),
+        Paragraph(i.vulture, styles['content_table']),
         Paragraph(i.finishDate, styles['TNR_normal']),
-        Paragraph('', styles['TNR_normal_left'])
+        Paragraph('', styles['content_table'])
       ]
     )
 
@@ -389,10 +397,10 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
   for i in tplan.disciplines:
     data.append(
       [
-        Paragraph(i.name, styles['TNR_normal_left']),
-        Paragraph(i.type, styles['TNR_normal_left']),
-        Paragraph(i.characterUpdate, styles['TNR_normal_left']),
-        Paragraph('', styles['TNR_normal_left'])
+        Paragraph(i.name, styles['content_table']),
+        Paragraph(i.type, styles['content_table']),
+        Paragraph(i.characterUpdate, styles['content_table']),
+        Paragraph('', styles['content_table'])
       ]
     )
 
@@ -420,10 +428,10 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
   for i in tplan.NIRS:
     data.append(
       [
-        Paragraph(i.name, styles['TNR_normal_left']),
+        Paragraph(i.name, styles['content_table']),
         Paragraph(i.period, styles['TNR_normal']),
-        Paragraph(i.role, styles['TNR_normal_left']),
-        Paragraph(i.organisation, styles['TNR_normal_left']),
+        Paragraph(i.role, styles['content_table']),
+        Paragraph(i.organisation, styles['content_table']),
       ]
     )
 
@@ -446,9 +454,9 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
     data.append(
       [
         Paragraph(i.name, styles['TNR_normal']),
-        Paragraph(i.date, styles['TNR_normal_left']),
-        Paragraph(i.level, styles['TNR_normal_left']),
-        Paragraph(i.report, styles['TNR_normal_left'])
+        Paragraph(i.date, styles['content_table']),
+        Paragraph(i.level, styles['content_table']),
+        Paragraph(i.report, styles['content_table'])
       ]
     )
 
@@ -471,10 +479,10 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
   for i in tplan.publications:
     data.append(
       [
-        Paragraph(i.name_work, styles['TNR_normal_left']),
-        Paragraph(i.type, styles['TNR_normal_left']),
+        Paragraph(i.name_work, styles['content_table']),
+        Paragraph(i.type, styles['content_table']),
         Paragraph(str(i.volume), styles['TNR_normal']),
-        Paragraph(i.name_publisher, styles['TNR_normal_left'])
+        Paragraph(i.name_publisher, styles['content_table'])
       ]
     )
 
@@ -498,8 +506,8 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
     data.append(
       [
         Paragraph(i.period, styles['TNR_normal']),
-        Paragraph(i.form_training, styles['TNR_normal_left']),
-        Paragraph(i.document, styles['TNR_normal_left'])
+        Paragraph(i.form_training, styles['content_table']),
+        Paragraph(i.document, styles['content_table'])
       ]
     )
 
@@ -520,7 +528,7 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
     data.append(
       [
         Paragraph(i.work_date, styles['TNR_normal']),
-        Paragraph(i.type_work, styles['TNR_normal_left'])
+        Paragraph(i.type_work, styles['content_table'])
       ]
     )
 

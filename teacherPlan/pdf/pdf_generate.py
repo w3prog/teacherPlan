@@ -11,7 +11,7 @@ from reportlab.lib.styles import ParagraphStyle
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.platypus import TableStyle
-from reportlab.platypus import Paragraph, SimpleDocTemplate, Table,Image
+from reportlab.platypus import Paragraph, SimpleDocTemplate, Table, Image
 from reportlab.platypus.flowables import PageBreak, Spacer
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import mm
@@ -49,7 +49,6 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
     ParagraphStyle(
       name='TNR_Big_Bold_H_Center16',
       fontName='TimesBold',
-
       fontSize=16,
       alignment=TA_CENTER,
       leading=20,
@@ -107,6 +106,35 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
     )
   )
   styles.add(
+      ParagraphStyle(
+          name='TNR_mini_left',
+          fontName='TimesItalic',
+          leading=12,
+          fontSize=9,
+          alignment=TA_LEFT,
+          leftIndent=4 * mm,
+      )
+  )
+  styles.add(
+    ParagraphStyle(
+      name='TNR_normal',
+      fontName='TimesNewRoman',
+      leading = 12,
+      fontSize=12,
+      alignment=TA_CENTER
+    )
+  )
+  styles.add(
+      ParagraphStyle(
+          name='TNR_normal_left',
+          fontName='TimesNewRoman',
+          leading=12,
+          fontSize=12,
+          alignment=TA_LEFT,
+
+      )
+  )
+  styles.add(
     ParagraphStyle(
       name='TNR_bold_text',
       fontName='TimesBold',
@@ -125,12 +153,27 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
       ]
   )
 
-  normal_table_style1 = TableStyle([
-          ('FONT', (0, 0), (-1, -1), 'TimesNewRoman', 12),
-          ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
-          ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+  TITLE_1_table_style1 = TableStyle([
+      ('LINEABOVE', (1, 1), (1, 1),0.5, colors.black),
+      ('LINEABOVE', (1, 2), (1, 3),0.5, colors.black),
+      ('LINEABOVE', (1, 3), (1, 3),0.5, colors.black),
+      ('FONT', (0, 0), (-1, -1), 'TimesNewRoman', 12),
+      ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+      ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+  ])
 
-      ])
+  TITLE_2_table_style = TableStyle([
+      ('LINEABOVE', (0, 1), (0, 1), 0.5, colors.black),
+      ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+      ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+  ])
+  TITLE_3_table_style = TableStyle([
+      ('LINEABOVE', (0, 1), (1, 1), 0.5, colors.black),
+      ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+
+      ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+  ])
+
   head_table_style = TableStyle([
           ('FONT', (0, 0), (-1, -1), 'TimesNewRoman', 12),
           ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
@@ -172,7 +215,7 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
 
     position = ""
     if not tplan.person_profile.position == None:
-      position = tplan.person_profile.position
+      position = unicode( tplan.person_profile.position)
 
     birth_date = ""
     if not tplan.person_profile.birth_date == None:
@@ -201,25 +244,88 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
     contract_date=""
     if not tplan.person_profile.contract_date == None:
       contract_date = dateformat.format(tplan.person_profile.contract_date, 'd E Y')
+    rate = u" (0.5 ставки)"
+    if not tplan.person_profile.rate == None:
+        rate = u" (%s)" % tplan.person_profile.rate
 
     personal_data = [
-        ['Факультет', 'компьютерных технологий и информатики'],
-        ['Кафедра', 'математического обеспечения и применения ЭВМ'],
-        ['ФИО', tplan.person_profile.FIO],
-        ['Должность', position],
-        ['Год рождения', birth_date],
-        [Paragraph('Дата текущего  избрания или зачисления на преподавательскую должность',header_table_paragraph_style),
-         election_date],
-        [Paragraph('Ученая степень и год присуждения',header_table_paragraph_style),
-         "%s %s" % (academic_degree,academic_degree_date)],
-        ['Ученое звание и год присвоения',
-         "%s %s" % (academic_status, academic_status_date)],
-        [Paragraph('Дата переизбрания (окончания трудового договора)',header_table_paragraph_style),
-         contract_date ],
-      ]
-    p_d = Table(personal_data,colWidths=(70*mm,105*mm))
-    p_d.setStyle(normal_table_style1)
+        ['Факультет', 'КТИ'],
+        ['Кафедра', 'МО ЭВМ'],
+        ['Должность', position + rate],
+    ]
+    p_d = Table(personal_data,colWidths=(40*mm, 85*mm))
+    p_d.setStyle(TITLE_1_table_style1)
     story.append(p_d)
+    story.append(Spacer(0, 0.3 *inch))
+
+    data = [
+        [Paragraph(tplan.person_profile.last_name,styles['TNR_normal'])],
+        [Paragraph(u"Фамилия",styles['TNR_mini'])]
+    ]
+    p_d = Table(data,colWidths=(145*mm))
+    p_d.setStyle(TITLE_2_table_style)
+    story.append(p_d)
+
+    data = [
+        [
+            Paragraph(tplan.person_profile.first_name, styles['TNR_normal_left']),
+            Paragraph(tplan.person_profile.patronymic, styles['TNR_normal_left']),
+        ],
+        [
+            Paragraph(u"Имя", styles['TNR_mini_left']),
+            Paragraph(u"Отчество", styles['TNR_mini_left'])
+        ]
+    ]
+    p_d = Table(data, colWidths=(100 * mm, 45 * mm))
+    p_d.setStyle(TITLE_3_table_style)
+    story.append(p_d)
+
+
+
+    data = [
+        [Paragraph(unicode(birth_date), styles['TNR_normal'])],
+        [Paragraph(u"Год рождения", styles['TNR_mini'])]
+    ]
+    p_d = Table(data, colWidths=(30 * mm))
+    p_d.setStyle(TITLE_2_table_style)
+    story.append(p_d)
+
+    data = [
+        [Paragraph(election_date, styles['TNR_normal'])],
+        [Paragraph(u"Дата текущего  избрания или зачисления на преподавательскую должность",
+                   styles['TNR_mini'])]
+    ]
+    p_d = Table(data, colWidths=(145 * mm))
+    p_d.setStyle(TITLE_2_table_style)
+    story.append(p_d)
+
+    data = [
+        [Paragraph(u"%s %s" % (academic_degree,academic_degree_date), styles['TNR_normal'])],
+        [Paragraph(u"Ученая степень и год присуждения",
+                   styles['TNR_mini'])]
+    ]
+    p_d = Table(data, colWidths=(145 * mm))
+    p_d.setStyle(TITLE_2_table_style)
+    story.append(p_d)
+
+    data = [
+        [Paragraph(u"%s %s" % (academic_status, academic_status_date), styles['TNR_normal'])],
+        [Paragraph(u"Ученое звание и год присвоения",
+                   styles['TNR_mini'])]
+    ]
+    p_d = Table(data, colWidths=(145 * mm))
+    p_d.setStyle(TITLE_2_table_style)
+    story.append(p_d)
+
+    data = [
+        [Paragraph(contract_date, styles['TNR_normal'])],
+        [Paragraph(u"Дата переизбрания (окончания трудового договора)",
+                   styles['TNR_mini'])]
+    ]
+    p_d = Table(data, colWidths=(145 * mm))
+    p_d.setStyle(TITLE_2_table_style)
+    story.append(p_d)
+
     story.append(PageBreak())
 
   story.append(Paragraph("2. Методическая работа", styles['TNR_Big_Bold_H_Center14']))

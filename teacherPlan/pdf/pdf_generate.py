@@ -146,6 +146,7 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
 
   normal_table_style = TableStyle([
           ('FONT', (0, 0), (-1, -1), 'TimesNewRoman', 9),
+          ('FONT', (0, 0), (-1, -1), 'TimesNewRoman', 9),
           ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
           ('GRID', (0, 0), (-1, -1), 0.25, colors.black),
           ('INNERGRID', (0, 0), (-1, -1), 0.25, colors.black),
@@ -170,9 +171,16 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
   TITLE_3_table_style = TableStyle([
       ('LINEABOVE', (0, 1), (1, 1), 0.5, colors.black),
       ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
-
       ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
   ])
+
+  BLACK_LINES_table_style = TableStyle([
+      ('LINEABOVE', (0, 1), (-1, -1), 0.5, colors.black),
+      ('FONT', (0, 0), (-1, -1), 'TimesNewRoman', 9),
+      ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+      ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+  ])
+
 
   head_table_style = TableStyle([
           ('FONT', (0, 0), (-1, -1), 'TimesNewRoman', 12),
@@ -280,8 +288,6 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
     p_d.setStyle(TITLE_3_table_style)
     story.append(p_d)
 
-
-
     data = [
         [Paragraph(unicode(birth_date), styles['TNR_normal'])],
         [Paragraph(u"Год рождения", styles['TNR_mini'])]
@@ -289,6 +295,7 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
     p_d = Table(data, colWidths=(30 * mm))
     p_d.setStyle(TITLE_2_table_style)
     story.append(p_d)
+    story.append(Spacer(0, 0.3 * inch))
 
     data = [
         [Paragraph(election_date, styles['TNR_normal'])],
@@ -298,6 +305,7 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
     p_d = Table(data, colWidths=(145 * mm))
     p_d.setStyle(TITLE_2_table_style)
     story.append(p_d)
+    story.append(Spacer(0, 0.3 * inch))
 
     data = [
         [Paragraph(u"%s %s" % (academic_degree,academic_degree_date), styles['TNR_normal'])],
@@ -307,6 +315,7 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
     p_d = Table(data, colWidths=(145 * mm))
     p_d.setStyle(TITLE_2_table_style)
     story.append(p_d)
+    story.append(Spacer(0, 0.3 * inch))
 
     data = [
         [Paragraph(u"%s %s" % (academic_status, academic_status_date), styles['TNR_normal'])],
@@ -316,6 +325,7 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
     p_d = Table(data, colWidths=(145 * mm))
     p_d.setStyle(TITLE_2_table_style)
     story.append(p_d)
+    story.append(Spacer(0, 0.3 * inch))
 
     data = [
         [Paragraph(contract_date, styles['TNR_normal'])],
@@ -347,12 +357,12 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
   for i in tplan.study_books:
     data.append(
       [
-        Paragraph(i.name,styles['TNR_mini']),
-        Paragraph(i.type,styles['TNR_mini']),
-        Paragraph(str(i.volume),styles['TNR_mini']),
-        Paragraph(i.vulture,styles['TNR_mini']),
-        Paragraph(i.finishDate,styles['TNR_mini']),
-        Paragraph('',styles['TNR_mini'])
+        Paragraph(i.name, styles['TNR_normal_left']),
+        Paragraph(i.type, styles['TNR_normal_left']),
+        Paragraph(str(i.volume), styles['TNR_normal']),
+        Paragraph(i.vulture, styles['TNR_normal_left']),
+        Paragraph(i.finishDate, styles['TNR_normal']),
+        Paragraph('', styles['TNR_normal_left'])
       ]
     )
 
@@ -379,10 +389,10 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
   for i in tplan.disciplines:
     data.append(
       [
-        Paragraph(i.name, styles['TNR_mini']),
-        Paragraph(i.type, styles['TNR_mini']),
-        Paragraph(i.characterUpdate, styles['TNR_mini']),
-        Paragraph('', styles['TNR_mini'])
+        Paragraph(i.name, styles['TNR_normal_left']),
+        Paragraph(i.type, styles['TNR_normal_left']),
+        Paragraph(i.characterUpdate, styles['TNR_normal_left']),
+        Paragraph('', styles['TNR_normal_left'])
       ]
     )
 
@@ -410,10 +420,10 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
   for i in tplan.NIRS:
     data.append(
       [
-        Paragraph(i.name, styles['TNR_mini']),
-        Paragraph(i.period, styles['TNR_mini']),
-        Paragraph(i.role, styles['TNR_mini']),
-        Paragraph(i.organisation, styles['TNR_mini']),
+        Paragraph(i.name, styles['TNR_normal_left']),
+        Paragraph(i.period, styles['TNR_normal']),
+        Paragraph(i.role, styles['TNR_normal_left']),
+        Paragraph(i.organisation, styles['TNR_normal_left']),
       ]
     )
 
@@ -435,10 +445,10 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
   for i in tplan.participations:
     data.append(
       [
-        Paragraph(i.name, styles['TNR_mini']),
-        Paragraph(i.date, styles['TNR_mini']),
-        Paragraph(i.level, styles['TNR_mini']),
-        Paragraph(i.report, styles['TNR_mini'])
+        Paragraph(i.name, styles['TNR_normal']),
+        Paragraph(i.date, styles['TNR_normal_left']),
+        Paragraph(i.level, styles['TNR_normal_left']),
+        Paragraph(i.report, styles['TNR_normal_left'])
       ]
     )
 
@@ -461,10 +471,10 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
   for i in tplan.publications:
     data.append(
       [
-        Paragraph(i.name_work, styles['TNR_mini']),
-        Paragraph(i.type, styles['TNR_mini']),
-        Paragraph(str(i.volume), styles['TNR_mini']),
-        Paragraph(i.name_publisher, styles['TNR_mini'])
+        Paragraph(i.name_work, styles['TNR_normal_left']),
+        Paragraph(i.type, styles['TNR_normal_left']),
+        Paragraph(str(i.volume), styles['TNR_normal']),
+        Paragraph(i.name_publisher, styles['TNR_normal_left'])
       ]
     )
 
@@ -487,9 +497,9 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
   for i in tplan.qualifications:
     data.append(
       [
-        Paragraph(i.period, styles['TNR_mini']),
-        Paragraph(i.form_training, styles['TNR_mini']),
-        Paragraph(i.document, styles['TNR_mini'])
+        Paragraph(i.period, styles['TNR_normal']),
+        Paragraph(i.form_training, styles['TNR_normal_left']),
+        Paragraph(i.document, styles['TNR_normal_left'])
       ]
     )
 
@@ -509,8 +519,8 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
   for i in tplan.anotherworks:
     data.append(
       [
-        Paragraph(i.work_date, styles['TNR_mini']),
-        Paragraph(i.type_work, styles['TNR_mini'])
+        Paragraph(i.work_date, styles['TNR_normal']),
+        Paragraph(i.type_work, styles['TNR_normal_left'])
       ]
     )
 
@@ -545,13 +555,23 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
   story.append(PageBreak())
 
   story.append(Paragraph("9. Заключение кафедры", styles['TNR_Big_Bold_H_Center14']))
-  story.append(Paragraph("______________________________________________________________________", styles['TNR_bold_text']))
-  story.append(Paragraph("______________________________________________________________________", styles['TNR_bold_text']))
-  story.append(Paragraph("______________________________________________________________________", styles['TNR_bold_text']))
-  story.append(Paragraph("______________________________________________________________________", styles['TNR_bold_text']))
-  story.append(Paragraph("______________________________________________________________________", styles['TNR_bold_text']))
-  story.append(Paragraph("______________________________________________________________________", styles['TNR_bold_text']))
-  story.append(Paragraph('<br/><br/>', styles['TNR_bold_text']))
+
+  data=[
+      [""],
+      [""],
+      [""],
+      [""],
+      [""],
+      [""],
+      [""],
+  ]
+
+  all_table=Table(data,colWidths=(175*mm))
+  all_table.setStyle(BLACK_LINES_table_style)
+  story.append(all_table)
+
+
+  story.append(Spacer(0, 0.3 * inch))
   table_data = [
     [Paragraph('Преподаватель', styles['TNR_bold_text']),'________________________________________','_________________'],
     [Paragraph('Зав. кафедрой', styles['TNR_bold_text']),'________________________________________','_________________'],
@@ -567,7 +587,7 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
                            "(Подготовка и защита диссертации, подготовка призеров конкурсов студенческих и аспиранских работ, " +
                            "победителей предметных олимпиад и т.д.).", header_table_paragraph_style))
 
-    story.append(Paragraph('<br/><br/>', styles['TNR_bold_text']))
+    story.append(Spacer(0, 0.3 * inch))
 
 
     table_data = [
@@ -580,13 +600,16 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
       ['',''],
       ['',''],
     ]
-    story.append(Paragraph('<br/><br/>', styles['TNR_bold_text']))
+    story.append(Spacer(0,0.3*inch))
 
     table = Table(table_data, colWidths=(120 * mm, 55 * mm))
     table.setStyle(normal_table_style)
     story.append(table)
 
     story.append(Paragraph("Заключение кафедры за 5-летний период работы", styles['TNR_Big_Bold_H_Center14']))
+
+
+
     story.append(Paragraph("______________________________________________________________________", styles['TNR_bold_text']))
     story.append(Paragraph("______________________________________________________________________", styles['TNR_bold_text']))
     story.append(Paragraph("______________________________________________________________________", styles['TNR_bold_text']))
@@ -594,7 +617,7 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
     story.append(Paragraph("______________________________________________________________________", styles['TNR_bold_text']))
     story.append(Paragraph("______________________________________________________________________", styles['TNR_bold_text']))
 
-    story.append(Paragraph('<br/><br/>', styles['TNR_bold_text']))
+    story.append(Spacer(0, 0.3 * inch))
 
     table_data = [
       [Paragraph('Преподаватель', styles['TNR_bold_text']), '________________________________________','_________________'],

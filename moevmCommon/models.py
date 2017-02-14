@@ -614,7 +614,7 @@ class AnotherWork(models.Model):
 @python_2_unicode_compatible
 class TeacherPlan(models.Model):
   person_profile = models.ForeignKey(UserProfile)
-  start_year = models.SmallIntegerField("Год начала")
+  start_date = models.SmallIntegerField("Год начала")
 
   first_name = models.CharField(verbose_name="Имя", max_length=30)
   last_name = models.CharField(verbose_name="Фамилия", max_length=30)

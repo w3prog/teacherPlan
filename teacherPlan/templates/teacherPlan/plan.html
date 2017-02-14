@@ -1,43 +1,43 @@
 {% extends 'teacherPlan/pages/template.html' %}
-{% block title %}Индивидуальный план за {{ plan.start_year }}-{{  plan.start_year|add:"1" }} год.{% endblock %}
-{% block pagename %}Индивидуальный план за {{ plan.start_year }}-{{  plan.start_year|add:"1" }} год.{% endblock %}
+{% block title %}Индивидуальный план за {{ plan.start_date }}-{{  plan.start_date|add:"1" }} год.{% endblock %}
+{% block pagename %}Индивидуальный план за {{ plan.start_date }}-{{  plan.start_date|add:"1" }} год.{% endblock %}
 {% block content %}
-    <h2>Факультет: компьютерных технологий и информатики</h2>
-    <p>Кафедра: математического обеспечения и применения ЭВМ</p>
-    {% if not user_profile.position == none %}
-        <p>Должность: {{ user_profile.position }}</p>
+    <h2>Факультет: {{   plan.organisation_name }}</h2>
+    <p>Кафедра: {{ plan.department_name }}</p>
+    {% if not plan.position == none %}
+        <p>Должность: {{ plan.position }}</p>
     {% endif %}
-    {% if not user_profile.last_name == none %}
-        <p>Фамилия: {{ user_profile.last_name }}</p>
-    {% endif %}
-
-    {% if not user_profile.first_name == none %}
-        <p>Имя: {{ user_profile.first_name }}</p>
+    {% if not plan.last_name == none %}
+        <p>Фамилия: {{ plan.last_name }}</p>
     {% endif %}
 
-    {% if not user_profile.patronymic == none %}
-        <p>Отчество: {{ user_profile.patronymic }}</p>
+    {% if not plan.first_name == none %}
+        <p>Имя: {{ plan.first_name }}</p>
     {% endif %}
 
-    {% if not user_profile.birth_date == none %}
-        <p>Год рождения: {{ user_profile.birth_date }}</p>
+    {% if not plan.patronymic == none %}
+        <p>Отчество: {{ plan.patronymic }}</p>
     {% endif %}
 
-    {% if not user_profile.election_date == none %}
-        <p>Дата текущего избрания или зачисления на преподавательскую должность: {{ user_profile.election_date  }}</p>
+    {% if not plan.birth_date == none %}
+        <p>Год рождения: {{ plan.birth_date }}</p>
     {% endif %}
 
-    {% if not user_profile.academic_degree == none %}
-        <p>Ученая степень и год присуждения: {{ user_profile.get_academic_degree_display }}
-            {{ user_profile.year_of_academic_degree }}</p>
-    {% endif %}
-    {% if not user_profile.academic_status == none %}
-        <p>Ученое звание и год присуждения: {{ user_profile.get_academic_status_display }}
-            {{ user_profile.year_of_academic_status }}</p>
+    {% if not plan.election_date == none %}
+        <p>Дата текущего избрания или зачисления на преподавательскую должность: {{ plan.election_date  }}</p>
     {% endif %}
 
-    {% if not user_profile.contract_date == none %}
-        <p>Дата переизбрания(окончание трудового договора) : {{ user_profile.contract_date }}</p>
+    {% if not plan.academic_degree == none %}
+        <p>Ученая степень и год присуждения: {{ plan.get_academic_degree_display }}
+            {{ plan.year_of_academic_degree }}</p>
+    {% endif %}
+    {% if not plan.academic_status == none %}
+        <p>Ученое звание и год присуждения: {{ plan.get_academic_status_display }}
+            {{ plan.year_of_academic_status }}</p>
+    {% endif %}
+
+    {% if not plan.contract_date == none %}
+        <p>Дата переизбрания(окончание трудового договора) : {{ plan.contract_date }}</p>
     {% endif %}
 
     <h3>Пункты плана:</h3>

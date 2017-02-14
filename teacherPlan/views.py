@@ -85,10 +85,28 @@ def makeNewPlan(request):
     user_profile = UserProfile.get_profile_by_user(request.user)
     form = MakeTeacherPlanFrom()
     if request.method == 'POST':
-        #make
-        pass
-
-
+        form = MakeTeacherPlanFrom(request.POST)
+        if form.is_valid():
+            plan = TeacherPlan.objects.create(
+                person_profile=user_profile,
+                start_date=int(request.POST["start_date"]),
+                first_name=request.POST["first_name"],
+                last_name=request.POST["last_name"],
+                patronymic=request.POST["patronymic"],
+                department_name=request.POST["department_name"],
+                organisation_name=request.POST["organisation_name"],
+                department_head=request.POST["department_head"],
+                organisation_head=request.POST["organisation_head"],
+                election_date=request.POST["election_date"],
+                position=request.POST["position"],
+                contract_date=request.POST["contract_date"],
+                academic_degree=request.POST["academic_degree"],
+                year_of_academic_degree=request.POST["year_of_academic_degree"],
+                academic_status=request.POST["academic_status"],
+                year_of_academic_status=request.POST["year_of_academic_status"],
+                rate=request.POST["rate"],
+            )[0]
+            return HttpResponseRedirect('/teacherPlan/plan/' + plan.id)
 
     form.fields["start_date"].initial = str(datetime.datetime.now().year)
     if user_profile.first_name == None :user_profile.first_name=""
@@ -125,7 +143,10 @@ def makeNewPlan(request):
         'user_profile':user_profile.id,
     })
 
-
+@login_required(login_url="/teacherPlan/login")
+def show_all_plan(request):
+    list = TeacherPlan.objects.all().filter()
+    return render(request, 'teacherPlan/plan_list.html', {'list': list})
 
 @login_teacher_required(login_url="/teacherPlan/login")
 def plan(request,id=1):
@@ -137,14 +158,14 @@ def plan(request,id=1):
 
 @login_teacher_required(login_url="/teacherPlan/login")
 def currentPlan(request):
-    year = datetime.datetime.now().year
-    month = datetime.datetime.now().month
+    year = int(datetime.datetime.now().year)
+    month = int(datetime.datetime.now().month)
     user_profile = UserProfile.get_profile_by_user(request.user)
     plan=None
     if month < 8:
-        plan = TeacherPlan.objects.get_or_create(person_profile = user_profile, start_year = (year - 1))[0]
+        plan = TeacherPlan.objects.get_or_create(person_profile = user_profile, start_date = (year - 1))[0]
     else :
-        plan = TeacherPlan.objects.get_or_create(person_profile = user_profile, start_year = year)[0]
+        plan = TeacherPlan.objects.get_or_create(person_profile = user_profile, start_date = year)[0]
     return render(request, 'teacherPlan/plan.html',{'plan':plan,'user_profile':user_profile})
 
 @login_teacher_required(login_url="/teacherPlan/login")

@@ -2,10 +2,9 @@
 {% block title %}Создать новый план{% endblock %}
 {% block pagename %}Создать новый план{% endblock %}
 {% block content %}
-    <form action="">
-        <label for="date">
-            <input type="date" name="date" id="date" value="2016">
-        </label>
-        <input type="submit">
+    <form action="#" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Добавить">
     </form>
 {% endblock %}

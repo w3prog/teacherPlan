@@ -12,6 +12,7 @@ from django.contrib import auth
 import datetime
 from moevmCommon.models import UserProfile
 from teacherPlan.forms import *
+from teacherPlan.models import TeacherSettings
 from .pdf.pdf_generate import conclusion_to_pdf
 from moevmCommon.decorators import login_teacher_required
 from bson.objectid import ObjectId
@@ -77,6 +78,52 @@ def registerTeacher(request):
 
     else:
         return render(request, 'teacherPlan/register_teacher.html', {'form':RegisterTeacherForm})
+
+
+@login_required(login_url="/teacherPlan/login")
+def makeNewPlan(request):
+    user_profile = UserProfile.get_profile_by_user(request.user)
+    form = MakeTeacherPlanFrom()
+    if request.method == 'POST':
+        #make
+        pass
+
+
+
+    form.fields["start_date"].initial = str(datetime.datetime.now().year)
+    if user_profile.first_name == None :user_profile.first_name=""
+    form.fields["first_name"].initial = str(user_profile.first_name)
+    if user_profile.last_name == None: user_profile.last_name = ""
+    form.fields["last_name"].initial = str(user_profile.last_name)
+    if user_profile.patronymic == None: user_profile.patronymic = ""
+    form.fields["patronymic"].initial = str(user_profile.patronymic)
+
+    if user_profile.position == None: user_profile.position = ""
+    form.fields["position"].initial = str(user_profile.position)
+    if user_profile.election_date == None: user_profile.election_date = ""
+    form.fields["election_date"].initial = str(user_profile.election_date)
+    if user_profile.academic_degree == None: user_profile.academic_degree = ""
+    form.fields["academic_degree"].initial = str(user_profile.academic_degree)
+
+    if user_profile.year_of_academic_degree == None: user_profile.year_of_academic_degree = ""
+    form.fields["year_of_academic_degree"].initial = str(user_profile.year_of_academic_degree)
+    if user_profile.academic_status == None: user_profile.academic_status = ""
+    form.fields["academic_status"].initial = str(user_profile.academic_status)
+    if user_profile.year_of_academic_status == None: user_profile.year_of_academic_status = ""
+    form.fields["year_of_academic_status"].initial = str(user_profile.year_of_academic_status)
+    if user_profile.rate == None: user_profile.rate = "1"
+    form.fields["rate"].initial = str(user_profile.rate)
+
+    departmentInfo = TeacherSettings.get()
+    form.fields["department_name"].initial = departmentInfo.department_name
+    form.fields["organisation_name"].initial = departmentInfo.organisation_name
+    form.fields["department_head"].initial = departmentInfo.department_head
+    form.fields["organisation_head"].initial = departmentInfo.organisation_head
+
+    return render(request, 'teacherPlan/make_plan.html',{
+        'form': form,
+        'user_profile':user_profile.id,
+    })
 
 
 

@@ -6,6 +6,7 @@ from django.forms import CharField,\
   IntegerField,\
   FloatField,\
   ModelForm, ChoiceField, EmailField
+import django.forms
 from moevmCommon.models import *
 from moevmCommon.models import ACADEMIC_DEGREE_CHOICES,\
   ACADEMIC_STATE_CHOICES,ACADEMIC_STATUS_CHOICES
@@ -75,6 +76,47 @@ class QualificationDeleteForm(forms.Form):
 
 #END SECTION
 
+
+class MakeTeacherPlanFrom(forms.Form):
+  start_date = CharField(label="Год начала действия учебного плана",max_length=4)
+  first_name = CharField(label="Имя", max_length=30)
+  last_name = CharField(label="Фамилия", max_length=30)
+  patronymic = CharField(label="Отчество", max_length=30)
+  election_date = DateField(
+    label="Дата текущего избрания или зачисления на преподавательскую должность",
+  )
+  position = CharField(
+    max_length=40,
+    label="Должность",
+  )
+
+  academic_degree = ChoiceField(
+    choices=ACADEMIC_DEGREE_CHOICES,
+    label="Ученая степень",
+  )
+
+  year_of_academic_degree = DateField(
+    label="Год присвоения ученой степени",
+  )
+
+  academic_status = ChoiceField(
+    choices=ACADEMIC_STATUS_CHOICES,
+    label="Учебное звание",
+  )
+
+  year_of_academic_status = DateField(
+    label="Год получения учебного звания"
+  )
+
+  rate = ChoiceField(
+    choices=RATE_CHOICES,
+    label="Ставка"
+  )
+
+  department_name = CharField(label="Название кафедры", max_length=10)
+  organisation_name = CharField(label="Название факультета", max_length=10)
+  department_head = CharField(label="Заведующий кафедры", max_length=100)
+  organisation_head = CharField(label="Декан", max_length=100)
 
 
 class RegisterTeacherForm(forms.Form):

@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+import datetime
 from django import forms
 from django.forms import CharField,\
   DateField,\
@@ -7,6 +8,8 @@ from django.forms import CharField,\
   FloatField,\
   ModelForm, ChoiceField, EmailField
 import django.forms
+from django.forms.extras import SelectDateWidget
+
 from moevmCommon.models import *
 from moevmCommon.models import ACADEMIC_DEGREE_CHOICES,\
   ACADEMIC_STATE_CHOICES,ACADEMIC_STATUS_CHOICES
@@ -75,15 +78,21 @@ class QualificationDeleteForm(forms.Form):
 
 
 #END SECTION
-
+YEAR_CHOICES = []
+for r in range(2000, (datetime.datetime.now().year+5)):
+    YEAR_CHOICES.append((r,r))
 
 class MakeTeacherPlanFrom(forms.Form):
-  start_date = CharField(label="Год начала действия учебного плана",max_length=4)
+  start_date = IntegerField(
+    label="Год начала действия учебного плана",
+    widget=forms.TextInput(attrs={'type': 'number', "min": "2000", "max": "2100", "step": "1"})
+  )
   first_name = CharField(label="Имя", max_length=30)
   last_name = CharField(label="Фамилия", max_length=30)
   patronymic = CharField(label="Отчество", max_length=30)
   election_date = DateField(
     label="Дата текущего избрания или зачисления на преподавательскую должность",
+    widget=SelectDateWidget(years=[y for y in range(2000, 2100)])
   )
   position = CharField(
     max_length=40,
@@ -95,8 +104,9 @@ class MakeTeacherPlanFrom(forms.Form):
     label="Ученая степень",
   )
 
-  year_of_academic_degree = DateField(
+  year_of_academic_degree = IntegerField(
     label="Год присвоения ученой степени",
+    widget=forms.TextInput(attrs={'type': 'number', "min": "1950","max":"2100", "step": "1"})
   )
 
   academic_status = ChoiceField(
@@ -104,8 +114,9 @@ class MakeTeacherPlanFrom(forms.Form):
     label="Учебное звание",
   )
 
-  year_of_academic_status = DateField(
-    label="Год получения учебного звания"
+  year_of_academic_status = IntegerField(
+    label="Год получения учебного звания",
+    widget=forms.TextInput(attrs={'type': 'number', "min": "1950", "max": "2100", "step": "1"})
   )
 
   rate = ChoiceField(

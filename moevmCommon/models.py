@@ -292,7 +292,7 @@ class UserProfile(models.Model):
         blank=True,
     )
 
-    year_of_academic_degree = models.DateField(
+    year_of_academic_degree = models.IntegerField(
         null=True,
         verbose_name="Год присвоения ученой степени",
         blank=True,
@@ -306,7 +306,7 @@ class UserProfile(models.Model):
         blank=True,
     )
 
-    year_of_academic_status = models.DateField(
+    year_of_academic_status = models.IntegerField(
         null=True,
         verbose_name="Год получения учебного звания",
         blank=True,

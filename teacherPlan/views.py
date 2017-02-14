@@ -105,11 +105,11 @@ def makeNewPlan(request):
     if user_profile.academic_degree == None: user_profile.academic_degree = ""
     form.fields["academic_degree"].initial = str(user_profile.academic_degree)
 
-    if user_profile.year_of_academic_degree == None: user_profile.year_of_academic_degree = ""
+    if user_profile.year_of_academic_degree == None: user_profile.year_of_academic_degree = 2000
     form.fields["year_of_academic_degree"].initial = str(user_profile.year_of_academic_degree)
     if user_profile.academic_status == None: user_profile.academic_status = ""
     form.fields["academic_status"].initial = str(user_profile.academic_status)
-    if user_profile.year_of_academic_status == None: user_profile.year_of_academic_status = ""
+    if user_profile.year_of_academic_status == None: user_profile.year_of_academic_status = 2000
     form.fields["year_of_academic_status"].initial = str(user_profile.year_of_academic_status)
     if user_profile.rate == None: user_profile.rate = "1"
     form.fields["rate"].initial = str(user_profile.rate)

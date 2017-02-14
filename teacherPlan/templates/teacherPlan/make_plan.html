@@ -5,6 +5,7 @@
     <form action="#" method="post">
         {% csrf_token %}
         {{ form.as_p }}
+        <input type="hidden" name="user_profile" value="{{ user_profile }}">
         <input type="submit" value="Добавить">
     </form>
 {% endblock %}

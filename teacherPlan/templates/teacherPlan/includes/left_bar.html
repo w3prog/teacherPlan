@@ -1,10 +1,15 @@
 {% url 'tpindex' as tpindex %}
 {% url 'currentPlan' as currentPlan %}
+{% url 'addPlan' as addPlan %}
 {% url 'tpplanlist' as plan_list_url %}
 {% url 'tpsimpleReport' as simple_report_url %}
 
 <li {% if request.get_full_path == tpindex %}class="active"{% endif %}>
     <a href="{% url 'tpindex' %}">Главная</a>
+</li>
+
+<li {% if request.get_full_path == addPlan %}class="active"{% endif %}>
+    <a href="{% url 'addPlan' %}">Создать новый план</a>
 </li>
 
 <li {% if request.get_full_path == currentPlan %}class="active"{% endif %}>

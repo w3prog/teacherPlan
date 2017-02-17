@@ -70,6 +70,7 @@ def registerTeacher(request):
                                             int(request.POST['contract_date_month']),
                                             int(request.POST['contract_date_day'])
                                          )
+            #todo добавить ставку в модель.
 
             UserProfile.objects.create_teacher(
                 username=request.POST['username'],
@@ -105,6 +106,16 @@ def makeNewPlan(request):
     if request.method == 'POST':
         form = MakeTeacherPlanFrom(request.POST)
         if form.is_valid():
+            print "working"
+            election_date = datetime.datetime(int(request.POST['election_date_year']),
+                                              int(request.POST['election_date_month']),
+                                              int(request.POST['election_date_day'])
+                                              )
+            contract_date = datetime.datetime(int(request.POST['contract_date_year']),
+                                              int(request.POST['contract_date_month']),
+                                              int(request.POST['contract_date_day'])
+                                              )
+            print request.POST["rate"]
             plan = TeacherPlan.objects.create(
                 person_profile=user_profile,
                 start_date=int(request.POST["start_date"]),
@@ -115,40 +126,40 @@ def makeNewPlan(request):
                 organisation_name=request.POST["organisation_name"],
                 department_head=request.POST["department_head"],
                 organisation_head=request.POST["organisation_head"],
-                election_date=request.POST["election_date"],
+                election_date=election_date,
                 position=request.POST["position"],
-                contract_date=request.POST["contract_date"],
+                contract_date=contract_date,
                 academic_degree=request.POST["academic_degree"],
                 year_of_academic_degree=request.POST["year_of_academic_degree"],
                 academic_status=request.POST["academic_status"],
                 year_of_academic_status=request.POST["year_of_academic_status"],
-                rate=request.POST["rate"],
-            )[0]
+                rate=str(request.POST["rate"]),
+            )
             return HttpResponseRedirect('/teacherPlan/plan/' + plan.id)
 
     form.fields["start_date"].initial = str(datetime.datetime.now().year)
-    if user_profile.first_name == None :user_profile.first_name=""
-    form.fields["first_name"].initial = str(user_profile.first_name)
+    if user_profile.first_name == None : user_profile.first_name=""
+    form.fields["first_name"].initial =unicode(user_profile.first_name)
     if user_profile.last_name == None: user_profile.last_name = ""
-    form.fields["last_name"].initial = str(user_profile.last_name)
+    form.fields["last_name"].initial = unicode(user_profile.last_name)
     if user_profile.patronymic == None: user_profile.patronymic = ""
-    form.fields["patronymic"].initial = str(user_profile.patronymic)
+    form.fields["patronymic"].initial = unicode(user_profile.patronymic)
 
     if user_profile.position == None: user_profile.position = ""
-    form.fields["position"].initial = str(user_profile.position)
+    form.fields["position"].initial = unicode(user_profile.position)
     if user_profile.election_date == None: user_profile.election_date = ""
-    form.fields["election_date"].initial = str(user_profile.election_date)
+    form.fields["election_date"].initial = unicode(user_profile.election_date)
     if user_profile.academic_degree == None: user_profile.academic_degree = ""
-    form.fields["academic_degree"].initial = str(user_profile.academic_degree)
+    form.fields["academic_degree"].initial = unicode(user_profile.academic_degree)
 
     if user_profile.year_of_academic_degree == None: user_profile.year_of_academic_degree = 2000
-    form.fields["year_of_academic_degree"].initial = str(user_profile.year_of_academic_degree)
+    form.fields["year_of_academic_degree"].initial = unicode(user_profile.year_of_academic_degree)
     if user_profile.academic_status == None: user_profile.academic_status = ""
-    form.fields["academic_status"].initial = str(user_profile.academic_status)
+    form.fields["academic_status"].initial = unicode(user_profile.academic_status)
     if user_profile.year_of_academic_status == None: user_profile.year_of_academic_status = 2000
-    form.fields["year_of_academic_status"].initial = str(user_profile.year_of_academic_status)
+    form.fields["year_of_academic_status"].initial = unicode(user_profile.year_of_academic_status)
     if user_profile.rate == None: user_profile.rate = "1"
-    form.fields["rate"].initial = str(user_profile.rate)
+    form.fields["rate"].initial = unicode(user_profile.rate)
 
     departmentInfo = TeacherSettings.get()
     form.fields["department_name"].initial = departmentInfo.department_name

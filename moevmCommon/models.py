@@ -209,16 +209,16 @@ ACADEMIC_DEGREE_CHOICES = (
   ('d','Доктор наук'),
 )
 ACADEMIC_STATE_CHOICES  = (
-  ('a','Аспирант'),
-  ('d','Докторант'),
-  ('s','Соискатель'),
-  ('st','Стажер'),
+  ('a', 'Аспирант'),
+  ('d', 'Докторант'),
+  ('s', 'Соискатель'),
+  ('st', 'Стажер'),
 )
 RATE_CHOICES = (
-    ('1','0,25 ставки'),
-    ('2','0,5 ставки'),
-    ('3','0,75 ставки'),
-    ('4','1 ставки'),
+    ('1', '0,25 ставки'),
+    ('2', '0,5 ставки'),
+    ('3', '0,75 ставки'),
+    ('4', '1 ставки'),
 )
 
 @python_2_unicode_compatible
@@ -652,7 +652,7 @@ class TeacherPlan(models.Model):
       blank=True,
   )
 
-  year_of_academic_degree = models.DateField(
+  year_of_academic_degree = models.IntegerField(
       null=True,
       verbose_name="Год присвоения ученой степени",
       blank=True,
@@ -666,7 +666,7 @@ class TeacherPlan(models.Model):
       blank=True,
   )
 
-  year_of_academic_status = models.DateField(
+  year_of_academic_status = models.IntegerField(
       null=True,
       verbose_name="Год получения учебного звания",
       blank=True,

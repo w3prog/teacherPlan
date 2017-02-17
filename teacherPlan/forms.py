@@ -98,6 +98,10 @@ class MakeTeacherPlanFrom(forms.Form):
     max_length=40,
     label="Должность",
   )
+  contract_date = DateField(
+    label="Срок окончания трудового договора",
+    widget=SelectDateWidget(years=[y for y in range(1940, 2100)]),
+  )
 
   academic_degree = ChoiceField(
     choices=ACADEMIC_DEGREE_CHOICES,
@@ -175,6 +179,11 @@ class RegisterTeacherForm(forms.Form):
     max_length=40,
     required=True,
   )
+  rate = ChoiceField(
+    choices=RATE_CHOICES,
+    label="Ставка"
+  )
+
   contract_date = DateField(
     label="Срок окончания трудового договора",
     widget=SelectDateWidget(years=[y for y in range(1940, 2100)]),

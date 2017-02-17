@@ -3,7 +3,7 @@
 {% block pagename %}Регистрация преподавателя{% endblock %}
 {% block content %}
     {{ message }}
-    <form action="/registerTeacher" method="post">
+    <form action="#" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Добавить">

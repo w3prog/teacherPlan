@@ -162,10 +162,13 @@ class RegisterTeacherForm(forms.Form):
   )
   birth_date = DateField(
     label="Дата рождения",
+    widget=SelectDateWidget(years=[y for y in range(1940, 2100)]),
     required=True,
+
   )
   election_date = DateField(
     label="Дата текущего избрания или зачисления на преподавательскую должность",
+    widget=SelectDateWidget(years=[y for y in range(1940, 2100)]),
   )
   position = CharField(
     label="Должность",
@@ -173,23 +176,26 @@ class RegisterTeacherForm(forms.Form):
     required=True,
   )
   contract_date = DateField(
-    label="Срок окончания трудового договора"
+    label="Срок окончания трудового договора",
+    widget=SelectDateWidget(years=[y for y in range(1940, 2100)]),
   )
   academic_degree = ChoiceField(
     label="Учебная степень",
     choices=ACADEMIC_DEGREE_CHOICES,
     required=True,
   )
-  year_of_academic_degree = CharField(
-    label="Год присвоения ученой степени"
+  year_of_academic_degree = IntegerField(
+    label="Год присвоения ученой степени",
+    widget=forms.TextInput(attrs={'type': 'number', "min": "1950", "max": "2100", "step": "1"})
   )
   academic_status = ChoiceField(
     label="Учебное звание",
     choices=ACADEMIC_STATUS_CHOICES,
     required=True,
   )
-  year_of_academic_status = DateField(
-    label="Год получения учебного звания"
+  year_of_academic_status = IntegerField(
+    label="Год получения учебного звания",
+    widget = forms.TextInput(attrs={'type': 'number', "min": "1950", "max": "2100", "step": "1"})
   )
   academic_state = ChoiceField(
     label="Академическое положение",

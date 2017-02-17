@@ -54,17 +54,34 @@ def registerTeacher(request):
     if request.method == 'POST':
         form = RegisterTeacherForm(request.POST)
         if form.is_valid():
+            print "working"
+            print str(request.POST['birth_date_year'])
+            print str(request.POST['birth_date_month'])
+            print str(request.POST['birth_date_day'])
+            birth_date =  datetime.datetime(int(request.POST['birth_date_year']),
+                                            int(request.POST['birth_date_month']),
+                                            int(request.POST['birth_date_day'])
+                                         )
+            election_date =  datetime.datetime(int(request.POST['election_date_year']),
+                                            int(request.POST['election_date_month']),
+                                            int(request.POST['election_date_day'])
+                                         )
+            contract_date =  datetime.datetime(int(request.POST['contract_date_year']),
+                                            int(request.POST['contract_date_month']),
+                                            int(request.POST['contract_date_day'])
+                                         )
+
             UserProfile.objects.create_teacher(
                 username=request.POST['username'],
                 email=request.POST['email'],
                 password=request.POST['password'],
                 first_name=request.POST['first_name'],
                 last_name=request.POST['last_name'],
-                birth_date=request.POST['birth_date'],
                 patronymic=request.POST['patronymic'],
-                election_date=request.POST['election_date'],
+                birth_date=birth_date,
+                election_date=election_date,
                 position=request.POST['position'],
-                contract_date=request.POST['contract_date'],
+                contract_date=contract_date,
                 academic_degree=request.POST['academic_degree'],
                 year_of_academic_degree=request.POST['year_of_academic_degree'],
                 academic_status=request.POST['academic_status'],
@@ -73,8 +90,9 @@ def registerTeacher(request):
                 github_id=request.POST['github_id'],
                 stepic_id=request.POST['stepic_id'],
             )
-            return HttpResponseRedirect('/registerTeacher')
-        return HttpResponseRedirect('/registerTeacher')
+
+            return HttpResponseRedirect('/teacherPlan/registerTeacher')
+        return HttpResponseRedirect('/teacherPlan/registerTeacher')
 
     else:
         return render(request, 'teacherPlan/register_teacher.html', {'form':RegisterTeacherForm})
@@ -197,7 +215,7 @@ def makePDF(request,id=1):
 
     return conclusion_to_pdf(response,id,has_cover_page,has_finish_page)
 
-##SECTION TP FROM
+##SECTION TP FORMS
 @login_teacher_required(login_url="/teacherPlan/login")
 def studybook_list(request, id=1):
     try:

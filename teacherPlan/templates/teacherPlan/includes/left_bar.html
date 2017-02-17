@@ -4,6 +4,7 @@
 {% url 'tpplanlist' as plan_list_url %}
 {% url 'tpsimpleReport' as simple_report_url %}
 {% url 'showAllPlans' as show_all_plans %}
+{% url 'registerTeacher' as register_teacher %}
 
 <li {% if request.get_full_path == tpindex %}class="active"{% endif %}>
     <a href="{% url 'tpindex' %}">Главная</a>
@@ -24,5 +25,11 @@
 {% if request.user.is_superuser %}
 <li {% if request.get_full_path == show_all_plans %}class="active"{% endif %}>
     <a href="{% url 'showAllPlans' %}">Полный список планов</a>
+</li>
+{% endif %}
+
+{% if request.user.is_superuser %}
+<li {% if request.get_full_path == register_teacher %}class="active"{% endif %}>
+    <a href="{% url 'registerTeacher' %}">Регистрировать нового преподавателя</a>
 </li>
 {% endif %}

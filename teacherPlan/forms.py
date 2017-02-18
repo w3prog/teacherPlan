@@ -16,6 +16,9 @@ from moevmCommon.models import ACADEMIC_DEGREE_CHOICES,\
 from moevmCommon.models import AnotherWork, Qualification
 
 #SECTION form for teacherPlan
+from teacherPlan.models import TeacherSettings
+
+
 class StudyBookForm(forms.Form):
   name = CharField(max_length=200, label="Наименование")
   type = ChoiceField(label="Вид издания",
@@ -63,6 +66,7 @@ class QualificationForm(ModelForm):
   class Meta:
     model = Qualification
     fields = ("period", "form_training", "document")
+
 
 class AnotherWorkForm(ModelForm):
   class Meta:
@@ -132,7 +136,6 @@ class MakeTeacherPlanFrom(forms.Form):
   organisation_name = CharField(label="Название факультета", max_length=10)
   department_head = CharField(label="Заведующий кафедры", max_length=100)
   organisation_head = CharField(label="Декан", max_length=100)
-
 
 class RegisterTeacherForm(forms.Form):
   username = CharField(
@@ -216,5 +219,23 @@ class RegisterTeacherForm(forms.Form):
   )
   stepic_id = CharField(
     label="Профиль stepic",
+    max_length=100,
+  )
+
+class TeacherSettingsForm(forms.Form):
+  department_name = CharField(
+    label="Название кафедры",
+    max_length=10
+  )
+  organisation_name = CharField(
+    label="Название факультета",
+    max_length=10,
+  )
+  department_head = CharField(
+    label="Заведующий кафедры",
+    max_length=100,
+  )
+  organisation_head = CharField(
+    label="Декан",
     max_length=100,
   )

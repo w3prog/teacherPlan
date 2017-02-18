@@ -310,6 +310,30 @@ def makePDF(request,id=1):
 
     return conclusion_to_pdf(response,id,has_cover_page,has_finish_page)
 
+
+def editProperty(request):
+    settings = TeacherSettings.get()
+    form = TeacherSettingsForm()
+    if request.method == "POST" :
+        form = TeacherSettingsForm(request.POST)
+        if form.is_valid():
+            settings.department_name = request.POST["department_name"]
+            settings.organisation_name = request.POST["organisation_name"]
+            settings.department_head = request.POST["department_head"]
+            settings.organisation_head = request.POST["organisation_head"]
+            settings.save()
+            return HttpResponseRedirect("/teacherPlan/")
+
+    form.fields["department_name"].initial = settings.department_name
+    form.fields["organisation_name"].initial = settings.organisation_name
+    form.fields["department_head"].initial = settings.department_head
+    form.fields["organisation_head"].initial = settings.organisation_head
+
+    return render(request, 'teacherPlan/forms/edit_settings.html', {
+                           'form': form,
+    })
+
+
 ##SECTION TP FORMS
 @login_teacher_required(login_url="/teacherPlan/login")
 def studybook_list(request, id=1):

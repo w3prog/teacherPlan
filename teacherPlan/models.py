@@ -32,7 +32,15 @@ class TeacherSettings(models.Model):
     )
     @staticmethod
     def get():
-        return TeacherSettings.objects.first()
+        try:
+            return TeacherSettings.objects.first()
+        except:
+            return TeacherSettings.objects.create(
+                department_name=u"Кафедра",
+                organisation_name=u"Факультет",
+                department_head=u"Зав. Кафедры",
+                organisation_head=u"Декан",
+            )
 
     def __str__(self):
         return u"Основные настройки"

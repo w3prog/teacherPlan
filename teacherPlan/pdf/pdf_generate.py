@@ -581,8 +581,14 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
 
   story.append(Spacer(0, 0.3 * inch))
   table_data = [
-    [Paragraph('Преподаватель', styles['TNR_bold_text']),'________________________________________','_________________'],
-    [Paragraph('Зав. кафедрой', styles['TNR_bold_text']),'________________________________________','_________________'],
+    [
+        Paragraph(u'Преподаватель', styles['TNR_bold_text']),
+        u'________________________________________',
+        Paragraph(tplan.short_fio,styles['TNR_bold_text'])],
+    [
+        Paragraph(u'Зав. кафедрой', styles['TNR_bold_text']),
+        u'________________________________________',
+        Paragraph(tplan.department_head, styles['TNR_bold_text'])],
     [],
   ]
   table = Table(table_data,colWidths=(40*mm,90*mm,45*mm))
@@ -628,9 +634,18 @@ def conclusion_to_pdf(responce=None, id=1, has_cover_page=False,with_finish_page
     story.append(Spacer(0, 0.3 * inch))
 
     table_data = [
-      [Paragraph('Преподаватель', styles['TNR_bold_text']), '________________________________________','_________________'],
-      [Paragraph('Зав. кафедрой', styles['TNR_bold_text']), '________________________________________','_________________'],
-      [Paragraph('Декан', styles['TNR_bold_text']), '________________________________________','_________________'],
+      [
+          Paragraph(u'Преподаватель', styles['TNR_bold_text']),
+          '________________________________________',
+          Paragraph(tplan.short_fio,styles['TNR_bold_text'])],
+      [
+          Paragraph(u'Зав. кафедрой', styles['TNR_bold_text']),
+          '________________________________________',
+          Paragraph(tplan.department_head,styles['TNR_bold_text'])],
+      [
+          Paragraph(u'Декан', styles['TNR_bold_text']),
+          '________________________________________',
+          Paragraph(tplan.organisation_head, styles['TNR_bold_text'])],
       [],
     ]
     table = Table(table_data, colWidths=(40 * mm, 90 * mm, 45 * mm))

@@ -311,7 +311,7 @@ def makePDF(request,id=1):
     return conclusion_to_pdf(response,id,has_cover_page,has_finish_page)
 
 
-def editProperty(request):
+def editPropertySite(request):
     settings = TeacherSettings.get()
     form = TeacherSettingsForm()
     if request.method == "POST" :

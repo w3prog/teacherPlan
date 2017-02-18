@@ -15,8 +15,8 @@ urlpatterns = patterns(
    url(r'^logout$', logoutTeacher, name='tplogout', ),
    url(r'^registerTeacher/', registerTeacher, name='registerTeacher' ),
 
-   #Property()
-   url('^/',editProperty,name='editProperty'),
+   #Property
+   url('^/', editPropertySite, name='editProperty'),
 
 
    #plans

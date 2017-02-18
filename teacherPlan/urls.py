@@ -19,6 +19,7 @@ urlpatterns = patterns(
    url(r'^plan/(?P<id>[0-9a-z]+)$', plan, name='tpplan', ),
    url(r'^currentPlan/', currentPlan, name='currentPlan', ),
    url(r'^plan/add/',makeNewPlan , name='addPlan'),
+   url(r'^plan/edit/(?P<id>[0-9a-z]+)$',editPlan , name='editPlan'),
    url(r'^allplans/',show_all_plan,name='showAllPlans'),
 
    url(r'^registerTeacher/', registerTeacher, name='registerTeacher' ),

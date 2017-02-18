@@ -1,0 +1,15 @@
+{% extends 'teacherPlan/pages/template.html' %}
+{% block title %}Список индивидуальных планов преподавателей{% endblock %}
+{% block pagename %}Список индивидуальных планов преподавателей{% endblock %}
+{% block content %}
+    {% if list  %}
+        <ul>
+        {% for item in list %}
+                    <li><a href="{% url 'tpplan' item.id %}">
+                        {{ item.person_profile }} ИПП на {{  item.start_date }}-{{  item.start_date|add:"1" }} учебный год </a></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+        <p>Список пуст</p>
+    {% endif %}
+{% endblock %}

@@ -6,7 +6,7 @@
         <ul>
         {% for item in list %}
                     <li><a href="{% url 'tpplan' item.id %}">
-                        План на {{  item.start_date }}-{{  item.start_date|add:"1" }} учебный год</a></li>
+                        План на {{  item.start_date }}-{{  item.start_date|add:"1" }} учебный год </a></li>
         {% endfor %}
     </ul>
     {% else %}

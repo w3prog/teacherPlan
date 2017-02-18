@@ -278,7 +278,7 @@ def currentPlan(request):
         else :
             plan = TeacherPlan.objects.get(person_profile = user_profile, start_date = year)[0]
     except :
-        return HttpResponseRedirect('/teacherPlan/plan/add')
+        return HttpResponseRedirect('/teacherPlan/plan/add/')
     return render(request, 'teacherPlan/plan.html',{'plan':plan,'user_profile':user_profile})
 
 @login_teacher_required(login_url="/teacherPlan/login")

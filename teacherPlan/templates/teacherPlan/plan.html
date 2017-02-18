@@ -1,6 +1,15 @@
 {% extends 'teacherPlan/pages/template.html' %}
-{% block title %}Индивидуальный план за {{ plan.start_date }}-{{  plan.start_date|add:"1" }} год.{% endblock %}
-{% block pagename %}Индивидуальный план за {{ plan.start_date }}-{{  plan.start_date|add:"1" }} год.{% endblock %}
+{% block title %}Индивидуальный план
+    {% if not plan.start_date == none  %}
+     за {{ plan.start_date }}-{{  plan.start_date|add:"1" }} год.
+    {% endif %}
+{% endblock %}
+{% block pagename %}Индивидуальный план
+
+    {% if not plan.start_date == none %}
+     за    {{ plan.start_date }}-{{  plan.start_date|add:"1" }} год.
+    {% endif %}
+{% endblock %}
 {% block content %}
     <h2>Факультет: {{   plan.organisation_name }}</h2>
     <p>Кафедра: {{ plan.department_name }}</p>

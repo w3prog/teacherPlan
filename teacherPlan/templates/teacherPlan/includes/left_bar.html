@@ -15,10 +15,6 @@
     <a href="{% url 'addPlan' %}">Создать новый план</a>
 </li>
 
-<li {% if request.get_full_path == currentPlan %}class="active"{% endif %}>
-    <a href="{% url 'currentPlan' %}">Текущий план</a>
-</li>
-
 <li {% if request.get_full_path == plan_list_url %}class="active"{% endif %}>
     <a href="{% url 'tpplanlist' %}">Список планов</a>
 </li>

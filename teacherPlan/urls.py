@@ -16,7 +16,7 @@ urlpatterns = patterns(
    url(r'^registerTeacher/', registerTeacher, name='registerTeacher' ),
 
    #Property
-   url('^/', editPropertySite, name='editProperty'),
+   url('^editProperty/', editPropertySite, name='editProperty'),
 
 
    #plans

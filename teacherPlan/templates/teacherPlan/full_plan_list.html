@@ -6,7 +6,11 @@
         <ul>
         {% for item in list %}
                     <li><a href="{% url 'tpplan' item.id %}">
-                        {{ item.person_profile }} ИПП на {{  item.start_date }}-{{  item.start_date|add:"1" }} учебный год </a></li>
+                        {{ item.person_profile }} ИПП
+                        {% if not item.start_date == none  %}
+                            на {{  item.start_date }}-{{  item.start_date|add:"1" }} учебный год
+                        {% endif %}
+                    </a></li>
         {% endfor %}
     </ul>
     {% else %}

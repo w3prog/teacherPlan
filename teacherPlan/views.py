@@ -244,6 +244,14 @@ def editPlan(request,id=1):
                            'form': form,
     })
 
+@login_required(login_url="/teacherPlan/login")
+def deletePlan(request,id=1):
+    try:
+        tp = TeacherPlan.objects.get(id=id)
+    except:
+        raise Http404
+    tp.delete()
+    return HttpResponseRedirect('/teacherPlan/')
 
 @login_required(login_url="/teacherPlan/login")
 def show_all_plan(request):

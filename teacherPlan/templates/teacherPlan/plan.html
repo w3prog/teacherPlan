@@ -68,5 +68,7 @@
         {% csrf_token %}
         <input type="submit" class="btn btn-info" value="Загрузить в PDF"></input>
     </form>
+
     </p>
+    <a href="{% url 'editPlan' plan.id %}" class="btn btn-link">Редактировать ИПП</a>
 {% endblock %}

@@ -141,6 +141,7 @@ class UserProfileManager(models.Manager):
                        academic_status=None,
                        year_of_academic_status=None,
                        academic_state=None,
+                       rate=None,
                        github_id=None,
                        stepic_id=None,
                        **kwargs):
@@ -158,6 +159,7 @@ class UserProfileManager(models.Manager):
         github_id=github_id,
         stepic_id=stepic_id,
         position=position,
+        rate=rate,
         contract_date=contract_date,
         academic_degree=academic_degree,
         year_of_academic_degree=year_of_academic_degree,

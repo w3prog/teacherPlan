@@ -272,10 +272,13 @@ def currentPlan(request):
     month = int(datetime.datetime.now().month)
     user_profile = UserProfile.get_profile_by_user(request.user)
     plan=None
-    if month < 8:
-        plan = TeacherPlan.objects.get_or_create(person_profile = user_profile, start_date = (year - 1))[0]
-    else :
-        plan = TeacherPlan.objects.get_or_create(person_profile = user_profile, start_date = year)[0]
+    try:
+        if month < 8:
+            plan = TeacherPlan.objects.get(person_profile = user_profile, start_date = (year - 1))[0]
+        else :
+            plan = TeacherPlan.objects.get(person_profile = user_profile, start_date = year)[0]
+    except :
+        return HttpResponseRedirect('/teacherPlan/plan/add')
     return render(request, 'teacherPlan/plan.html',{'plan':plan,'user_profile':user_profile})
 
 @login_teacher_required(login_url="/teacherPlan/login")
